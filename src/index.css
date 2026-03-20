@@ -20,4 +20,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  .safe-area-pb {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
 }
