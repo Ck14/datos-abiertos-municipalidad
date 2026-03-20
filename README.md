@@ -53,15 +53,9 @@ src/
 npm install
 ```
 
-### 2. Configurar el token de MINFIN (opcional)
+### 2. Variables de entorno
 
-Si tenés acceso al API de MINFIN, creá un archivo `.env.local` en la raíz:
-
-```env
-VITE_MINFIN_TOKEN=tu_token_aqui
-```
-
-> Sin el token, el sistema carga automáticamente los datos locales de fallback (`src/data/chimaltenango_presupuesto_2026.json`).
+No se requiere token para la API de MINFIN. No es necesario crear ningún archivo `.env`.
 
 ### 3. Iniciar en desarrollo
 

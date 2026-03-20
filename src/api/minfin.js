@@ -1,6 +1,8 @@
 import appConfig from '../data/config.json'
 
-const CKAN_BASE   = 'https://datos.minfin.gob.gt/api/action'
+const CKAN_BASE = import.meta.env.DEV
+  ? '/api/minfin'
+  : 'https://datos.minfin.gob.gt/api/action'
 const CACHE_KEY   = 'minfin_resource_id_cache'
 
 /**
@@ -79,21 +81,12 @@ async function discoverResourceId() {
  * Descubre el resource_id automáticamente según el año en curso.
  */
 export async function fetchFromAPI() {
-  const token = import.meta.env.VITE_MINFIN_TOKEN
-  if (!token) {
-    console.warn('[minfin] VITE_MINFIN_TOKEN no definido, usando datos locales.')
-    return null
-  }
-
   try {
     const { resourceId } = await discoverResourceId()
 
     const response = await fetch(`${CKAN_BASE}/datastore_search`, {
       method: 'POST',
-      headers: {
-        'Content-Type':  'application/json',
-        'Authorization': token,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         resource_id: resourceId,
         filters: { codigoEntidad: appConfig.codigoEntidad },

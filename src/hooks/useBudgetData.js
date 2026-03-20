@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { loadBudgetData } from '../api/minfin'
+import appConfig from '../data/config.json'
 
 export function useBudgetData() {
   const [records, setRecords]         = useState([])
@@ -20,7 +21,7 @@ export function useBudgetData() {
       setLastUpdated(
         src === 'api'
           ? new Date().toISOString().split('T')[0]
-          : `${yr}-01-01 (local)`
+          : appConfig.localDataDate
       )
     } catch (err) {
       setError(err.message)
