@@ -10,7 +10,7 @@ function PctCell({ pct }) {
   const { text, light, border } = getExecutionTailwind(pct)
   return (
     <div className="flex items-center gap-1.5">
-      <div className="w-12 h-1 bg-slate-100 rounded-full overflow-hidden">
+      <div className="w-12 h-1 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
         <div
           className="h-full rounded-full"
           style={{ width: `${Math.min(pct, 100)}%`, backgroundColor: getExecutionColor(pct) }}
@@ -89,12 +89,12 @@ export default function BudgetTable({ records }) {
     <div className="space-y-4">
       <TableFilters records={records} filters={filters} onFilterChange={handleFilter} onClear={clearFilters} />
 
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
-          <p className="text-xs font-body text-slate-500">
-            <span className="font-medium text-slate-800">{filtered.length}</span> registros
+      <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden transition-colors duration-200">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-700">
+          <p className="text-xs font-body text-slate-500 dark:text-slate-400">
+            <span className="font-medium text-slate-800 dark:text-slate-200">{filtered.length}</span> registros
           </p>
-          <p className="text-xs font-body text-slate-500">
+          <p className="text-xs font-body text-slate-500 dark:text-slate-400">
             Página {page} de {totalPages || 1}
           </p>
         </div>
@@ -102,16 +102,16 @@ export default function BudgetTable({ records }) {
         <div className="overflow-x-auto">
           <table className="w-full text-xs font-body">
             <thead>
-              <tr className="border-b border-slate-100 bg-slate-50">
+              <tr className="border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50">
                 {cols.map(col => (
                   <th
                     key={col.key}
-                    className={`text-left px-3 py-2.5 font-medium text-slate-600 whitespace-nowrap ${col.width} ${col.sortable ? 'cursor-pointer hover:text-slate-900 select-none' : ''}`}
+                    className={`text-left px-3 py-2.5 font-medium text-slate-600 dark:text-slate-400 whitespace-nowrap ${col.width} ${col.sortable ? 'cursor-pointer hover:text-slate-900 dark:hover:text-slate-200 select-none' : ''}`}
                     onClick={col.sortable ? () => handleSort(col.key) : undefined}
                   >
                     <div className="flex items-center gap-1">
                       {col.label}
-                      {col.sortable && <ArrowUpDown size={10} className={sortKey === col.key ? 'text-brand-600' : 'text-slate-400'} />}
+                      {col.sortable && <ArrowUpDown size={10} className={sortKey === col.key ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400 dark:text-slate-600'} />}
                     </div>
                   </th>
                 ))}
@@ -119,22 +119,22 @@ export default function BudgetTable({ records }) {
             </thead>
             <tbody>
               {paginated.map((row, i) => (
-                <tr key={row._id || i} className="border-b border-slate-50 hover:bg-slate-50 transition-colors">
-                  <td className="px-3 py-2 text-slate-800 font-medium max-w-[160px] truncate" title={row.programa}>{row.programa}</td>
-                  <td className="px-3 py-2 text-slate-700 max-w-[140px] truncate" title={row.actividad}>{row.actividad}</td>
-                  <td className="px-3 py-2 text-slate-600 max-w-[140px] truncate" title={row.renglon}>{row.renglon}</td>
-                  <td className="px-3 py-2 text-slate-600 max-w-[130px] truncate" title={row.fuente}>{row.fuente}</td>
-                  <td className="px-3 py-2 text-slate-600 max-w-[110px] truncate">{row.tipoPresupuesto}</td>
-                  <td className="px-3 py-2 font-mono text-slate-700 text-right">{formatGTQ(row.asignado)}</td>
-                  <td className="px-3 py-2 font-mono text-slate-700 text-right">{formatGTQ(row.vigente)}</td>
-                  <td className="px-3 py-2 font-mono text-slate-700 text-right">{formatGTQ(row.devengado)}</td>
-                  <td className="px-3 py-2 font-mono text-slate-700 text-right">{formatGTQ(row.pagado)}</td>
+                <tr key={row._id || i} className="border-b border-slate-50 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+                  <td className="px-3 py-2 text-slate-800 dark:text-slate-200 font-medium max-w-[160px] truncate" title={row.programa}>{row.programa}</td>
+                  <td className="px-3 py-2 text-slate-700 dark:text-slate-300 max-w-[140px] truncate" title={row.actividad}>{row.actividad}</td>
+                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 max-w-[140px] truncate" title={row.renglon}>{row.renglon}</td>
+                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 max-w-[130px] truncate" title={row.fuente}>{row.fuente}</td>
+                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 max-w-[110px] truncate">{row.tipoPresupuesto}</td>
+                  <td className="px-3 py-2 font-mono text-slate-700 dark:text-slate-300 text-right">{formatGTQ(row.asignado)}</td>
+                  <td className="px-3 py-2 font-mono text-slate-700 dark:text-slate-300 text-right">{formatGTQ(row.vigente)}</td>
+                  <td className="px-3 py-2 font-mono text-slate-700 dark:text-slate-300 text-right">{formatGTQ(row.devengado)}</td>
+                  <td className="px-3 py-2 font-mono text-slate-700 dark:text-slate-300 text-right">{formatGTQ(row.pagado)}</td>
                   <td className="px-3 py-2"><PctCell pct={row.pctEjecucion} /></td>
                 </tr>
               ))}
               {paginated.length === 0 && (
                 <tr>
-                  <td colSpan={10} className="text-center py-10 text-slate-400">
+                  <td colSpan={10} className="text-center py-10 text-slate-400 dark:text-slate-500">
                     No se encontraron registros con estos filtros.
                   </td>
                 </tr>
@@ -144,11 +144,11 @@ export default function BudgetTable({ records }) {
         </div>
 
         {/* Paginación */}
-        <div className="flex items-center justify-between px-4 py-3 border-t border-slate-100">
+        <div className="flex items-center justify-between px-4 py-3 border-t border-slate-100 dark:border-slate-700">
           <button
             onClick={() => setPage(p => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="flex items-center gap-1 text-xs font-body text-slate-600 hover:text-brand-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            className="flex items-center gap-1 text-xs font-body text-slate-600 dark:text-slate-400 hover:text-brand-700 dark:hover:text-brand-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
             <ChevronLeft size={14} /> Anterior
           </button>
@@ -160,7 +160,9 @@ export default function BudgetTable({ records }) {
                   key={p}
                   onClick={() => setPage(p)}
                   className={`w-7 h-7 rounded text-xs font-body font-medium transition-colors ${
-                    page === p ? 'bg-brand-700 text-white' : 'text-slate-600 hover:bg-slate-100'
+                    page === p
+                      ? 'bg-brand-700 text-white'
+                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700'
                   }`}
                 >
                   {p}
@@ -171,7 +173,7 @@ export default function BudgetTable({ records }) {
           <button
             onClick={() => setPage(p => Math.min(totalPages, p + 1))}
             disabled={page === totalPages || totalPages === 0}
-            className="flex items-center gap-1 text-xs font-body text-slate-600 hover:text-brand-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            className="flex items-center gap-1 text-xs font-body text-slate-600 dark:text-slate-400 hover:text-brand-700 dark:hover:text-brand-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
             Siguiente <ChevronRight size={14} />
           </button>

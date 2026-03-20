@@ -6,23 +6,23 @@ function KPICard({ icon: Icon, label, amount, pct, color, showBar = false }) {
   const barColor = showBar ? getExecutionColor(pct) : null
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-5 flex flex-col gap-3 animate-slide-up shadow-sm hover:shadow-md transition-shadow duration-200">
+    <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 flex flex-col gap-3 animate-slide-up shadow-sm hover:shadow-md transition-shadow duration-200">
       <div className="flex items-center justify-between">
-        <div className={`w-9 h-9 rounded-lg flex items-center justify-center`} style={{ backgroundColor: color + '18' }}>
+        <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: color + '18' }}>
           <Icon size={18} style={{ color }} />
         </div>
         {pct !== undefined && (
-          <span className="text-xs font-mono font-medium px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
+          <span className="text-xs font-mono font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
             {formatPct(pct)}
           </span>
         )}
       </div>
       <div>
-        <p className="text-xs font-body text-slate-500 mb-0.5">{label}</p>
-        <p className="text-2xl font-display font-bold text-slate-900 tracking-tight">{formatMillions(amount)}</p>
+        <p className="text-xs font-body text-slate-500 dark:text-slate-400 mb-0.5">{label}</p>
+        <p className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100 tracking-tight">{formatMillions(amount)}</p>
       </div>
       {showBar && (
-        <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+        <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-700"
             style={{ width: `${Math.min(pct || 0, 100)}%`, backgroundColor: barColor }}

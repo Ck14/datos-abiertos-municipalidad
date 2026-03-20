@@ -14,15 +14,15 @@ export default function Sidebar({ activeTab, onTabChange }) {
     <>
       {/* Desktop sidebar */}
       <aside
-        className={`hidden lg:flex flex-col bg-white border-r border-slate-200 min-h-[calc(100vh-4rem)] transition-all duration-200 flex-shrink-0 ${
+        className={`hidden lg:flex flex-col bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700 min-h-[calc(100vh-4rem)] transition-all duration-200 flex-shrink-0 ${
           collapsed ? 'w-14' : 'w-56'
         }`}
       >
         {/* Toggle button */}
-        <div className="flex justify-end p-2 border-b border-slate-100">
+        <div className="flex justify-end p-2 border-b border-slate-100 dark:border-slate-800">
           <button
             onClick={() => setCollapsed(c => !c)}
-            className="p-1.5 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+            className="p-1.5 rounded-md text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             title={collapsed ? 'Expandir menú' : 'Colapsar menú'}
           >
             {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
@@ -39,8 +39,8 @@ export default function Sidebar({ activeTab, onTabChange }) {
                 collapsed ? 'justify-center' : ''
               } ${
                 activeTab === id
-                  ? 'bg-brand-50 text-brand-700 border border-brand-200'
-                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                  ? 'bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400 border border-brand-200 dark:border-brand-800'
+                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
               <Icon size={16} className="flex-shrink-0" />
@@ -51,13 +51,15 @@ export default function Sidebar({ activeTab, onTabChange }) {
       </aside>
 
       {/* Mobile bottom nav */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 flex safe-area-pb">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 flex safe-area-pb transition-colors duration-200">
         {NAV.map(({ id, label, icon: Icon }) => (
           <button
             key={id}
             onClick={() => onTabChange(id)}
             className={`flex-1 flex flex-col items-center gap-0.5 py-3 text-xs font-body font-medium transition-colors ${
-              activeTab === id ? 'text-brand-700' : 'text-slate-500'
+              activeTab === id
+                ? 'text-brand-700 dark:text-brand-400'
+                : 'text-slate-500 dark:text-slate-400'
             }`}
           >
             <Icon size={20} />

@@ -1,6 +1,7 @@
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts'
 import { aggregateByFuente } from '../../utils/budgetAggregator'
 import { formatMillions, formatPct } from '../../utils/formatters'
+import { useIsDark } from '../../contexts/ThemeContext'
 
 const FUENTE_META = {
   'INGRESOS PROPIOS':                                      { icon: '🏦', short: 'Ingresos Propios',        color: '#1d4ed8' },
@@ -13,15 +14,16 @@ function CustomTooltip({ active, payload }) {
   if (!active || !payload?.length) return null
   const d = payload[0]
   return (
-    <div className="bg-white border border-slate-200 rounded-lg px-3 py-2 shadow-lg text-xs font-body">
-      <p className="font-semibold text-slate-800 mb-0.5">{d.payload.meta.short}</p>
-      <p className="text-slate-600">{formatMillions(d.value)}</p>
-      <p className="text-slate-500">{formatPct(d.payload.pct)} del total</p>
+    <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 shadow-lg text-xs font-body">
+      <p className="font-semibold text-slate-800 dark:text-slate-200 mb-0.5">{d.payload.meta.short}</p>
+      <p className="text-slate-600 dark:text-slate-400">{formatMillions(d.value)}</p>
+      <p className="text-slate-500 dark:text-slate-500">{formatPct(d.payload.pct)} del total</p>
     </div>
   )
 }
 
 export default function FuenteDonut({ records }) {
+  const isDark = useIsDark()
   const raw   = aggregateByFuente(records)
   const total = raw.reduce((s, d) => s + d.value, 0)
 
@@ -29,20 +31,18 @@ export default function FuenteDonut({ records }) {
     const meta = Object.entries(FUENTE_META).find(([k]) =>
       d.name.toUpperCase().includes(k)
     )?.[1] ?? { icon: '💰', short: d.name, color: '#94a3b8' }
-    return {
-      ...d,
-      meta,
-      pct: total > 0 ? (d.value / total) * 100 : 0,
-    }
+    return { ...d, meta, pct: total > 0 ? (d.value / total) * 100 : 0 }
   })
 
+  const strokeColor = isDark ? '#1e293b' : '#ffffff'
+
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col">
-      <h3 className="text-sm font-display font-semibold text-slate-800 mb-1">
+    <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm flex flex-col transition-colors duration-200">
+      <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200 mb-1">
         Fuentes de Financiamiento
       </h3>
-      <p className="text-xs font-body text-slate-500 mb-4">
-        Total vigente: <span className="font-semibold text-slate-700">{formatMillions(total)}</span>
+      <p className="text-xs font-body text-slate-500 dark:text-slate-400 mb-4">
+        Total vigente: <span className="font-semibold text-slate-700 dark:text-slate-300">{formatMillions(total)}</span>
       </p>
 
       {/* Donut */}
@@ -61,7 +61,7 @@ export default function FuenteDonut({ records }) {
               endAngle={-270}
             >
               {data.map((d, i) => (
-                <Cell key={i} fill={d.meta.color} stroke="white" strokeWidth={2} />
+                <Cell key={i} fill={d.meta.color} stroke={strokeColor} strokeWidth={2} />
               ))}
             </Pie>
             <Tooltip content={<CustomTooltip />} />
@@ -72,8 +72,7 @@ export default function FuenteDonut({ records }) {
       {/* Tarjetas de fuente */}
       <div className="grid grid-cols-1 gap-2 mt-2">
         {data.map((d, i) => (
-          <div key={i} className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 border border-slate-100">
-            {/* Ícono con color */}
+          <div key={i} className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-100 dark:border-slate-600">
             <div
               className="w-9 h-9 rounded-lg flex items-center justify-center text-lg flex-shrink-0"
               style={{ backgroundColor: d.meta.color + '18' }}
@@ -81,11 +80,10 @@ export default function FuenteDonut({ records }) {
               {d.meta.icon}
             </div>
 
-            {/* Texto */}
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-display font-semibold text-slate-800 truncate">{d.meta.short}</p>
+              <p className="text-xs font-display font-semibold text-slate-800 dark:text-slate-200 truncate">{d.meta.short}</p>
               <div className="flex items-center gap-2 mt-1">
-                <div className="flex-1 h-1 bg-slate-200 rounded-full overflow-hidden">
+                <div className="flex-1 h-1 bg-slate-200 dark:bg-slate-600 rounded-full overflow-hidden">
                   <div
                     className="h-full rounded-full transition-all duration-700"
                     style={{ width: `${d.pct}%`, backgroundColor: d.meta.color }}
@@ -97,9 +95,8 @@ export default function FuenteDonut({ records }) {
               </div>
             </div>
 
-            {/* Monto */}
             <div className="text-right flex-shrink-0">
-              <p className="text-sm font-mono font-bold text-slate-800">{formatMillions(d.value)}</p>
+              <p className="text-sm font-mono font-bold text-slate-800 dark:text-slate-200">{formatMillions(d.value)}</p>
             </div>
           </div>
         ))}

@@ -8,7 +8,7 @@ import { getItemMeta } from '../../utils/levelIcons'
 
 function EmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center py-16 text-slate-400">
+    <div className="flex flex-col items-center justify-center py-16 text-slate-400 dark:text-slate-500">
       <span className="text-5xl mb-3">📭</span>
       <p className="text-sm font-body">No hay datos para este nivel.</p>
     </div>
@@ -42,10 +42,10 @@ export default function DrilldownNavigator({ records, drilldown }) {
 
       {/* Contador */}
       {items.length > 0 && (
-        <p className="text-xs text-slate-500 font-body">
-          <span className="font-semibold text-slate-700">{items.length}</span> {currentLevelLabel}{items.length !== 1 ? 's' : ''} encontrados
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-body">
+          <span className="font-semibold text-slate-700 dark:text-slate-300">{items.length}</span> {currentLevelLabel}{items.length !== 1 ? 's' : ''} encontrados
           {items[0]?.hasChildren &&
-            <span className="ml-1 text-brand-600">· Haz clic para explorar</span>
+            <span className="ml-1 text-brand-600 dark:text-brand-400">· Haz clic para explorar</span>
           }
         </p>
       )}
@@ -66,7 +66,7 @@ export default function DrilldownNavigator({ records, drilldown }) {
         </div>
       )}
 
-      {/* Gráfica de barras comparativa */}
+      {/* Gráfica */}
       {items.length > 0 && (
         <ExecutionBarChart
           items={items}
@@ -77,9 +77,9 @@ export default function DrilldownNavigator({ records, drilldown }) {
       {/* Leyenda semáforo */}
       {items.length > 0 && (
         <div className="flex items-center gap-4 pt-1">
-          <span className="text-[10px] font-body text-slate-400 uppercase tracking-wide">Ejecución:</span>
+          <span className="text-[10px] font-body text-slate-400 dark:text-slate-500 uppercase tracking-wide">Ejecución:</span>
           {[['#ef4444','Bajo (<30%)'],['#eab308','Medio (30–70%)'],['#22c55e','Alto (>70%)']].map(([c,l]) => (
-            <span key={l} className="flex items-center gap-1 text-xs font-body text-slate-500">
+            <span key={l} className="flex items-center gap-1 text-xs font-body text-slate-500 dark:text-slate-400">
               <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: c }} />
               {l}
             </span>
