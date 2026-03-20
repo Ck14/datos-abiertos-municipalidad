@@ -1,10 +1,16 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback, useRef } from 'react'
 import { ChevronLeft, ChevronRight, ArrowUpDown } from 'lucide-react'
 import TableFilters from './TableFilters'
 import { fixEncoding, formatGTQ, formatPct } from '../../utils/formatters'
 import { getExecutionColor, getExecutionTailwind } from '../../utils/colorScale'
 
 const PAGE_SIZE = 25
+
+const DEFAULT_WIDTHS = {
+  programa: 160, actividad: 140, obra: 120, renglon: 140,
+  fuente: 130, tipoPresupuesto: 110,
+  asignado: 112, vigente: 112, devengado: 112, pagado: 112, pctEjecucion: 120,
+}
 
 function PctCell({ pct }) {
   const { text, light, border } = getExecutionTailwind(pct)
@@ -28,6 +34,7 @@ export default function BudgetTable({ records }) {
   const [page, setPage]       = useState(1)
   const [sortKey, setSortKey] = useState('totalVigente')
   const [sortDir, setSortDir] = useState('desc')
+  const [colWidths, setColWidths] = useState(DEFAULT_WIDTHS)
 
   const handleFilter = (key, val) => { setFilters(f => ({ ...f, [key]: val })); setPage(1) }
   const clearFilters = () => { setFilters({ search: '', programa: '', subPrograma: '', proyecto: '', actividad: '', obra: '', fuente: '', tipo: '' }); setPage(1) }
@@ -36,6 +43,30 @@ export default function BudgetTable({ records }) {
     if (sortKey === key) setSortDir(d => d === 'asc' ? 'desc' : 'asc')
     else { setSortKey(key); setSortDir('desc') }
   }
+
+  // Resize handler
+  const startResize = useCallback((e, key) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const startX = e.clientX
+    const startWidth = colWidths[key]
+
+    const onMouseMove = (e) => {
+      const newWidth = Math.max(60, startWidth + e.clientX - startX)
+      setColWidths(w => ({ ...w, [key]: newWidth }))
+    }
+    const onMouseUp = () => {
+      document.removeEventListener('mousemove', onMouseMove)
+      document.removeEventListener('mouseup', onMouseUp)
+      document.body.style.cursor = ''
+      document.body.style.userSelect = ''
+    }
+
+    document.body.style.cursor = 'col-resize'
+    document.body.style.userSelect = 'none'
+    document.addEventListener('mousemove', onMouseMove)
+    document.addEventListener('mouseup', onMouseUp)
+  }, [colWidths])
 
   const filtered = useMemo(() => {
     let rows = records.map(r => ({
@@ -83,17 +114,17 @@ export default function BudgetTable({ records }) {
   const paginated  = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   const cols = [
-    { key: 'programa',        label: 'Programa',   sortable: false, width: 'w-40' },
-    { key: 'actividad',       label: 'Actividad',  sortable: false, width: 'w-36' },
-    { key: 'obra',            label: 'Obra',       sortable: false, width: 'w-36' },
-    { key: 'renglon',         label: 'Renglón',    sortable: false, width: 'w-36' },
-    { key: 'fuente',          label: 'Fuente',     sortable: false, width: 'w-32' },
-    { key: 'tipoPresupuesto', label: 'Tipo',       sortable: false, width: 'w-28' },
-    { key: 'asignado',        label: 'Asignado',   sortable: true,  width: 'w-28' },
-    { key: 'vigente',         label: 'Vigente',    sortable: true,  width: 'w-28' },
-    { key: 'devengado',       label: 'Devengado',  sortable: true,  width: 'w-28' },
-    { key: 'pagado',          label: 'Pagado',     sortable: true,  width: 'w-28' },
-    { key: 'pctEjecucion',    label: '% Ejec.',    sortable: true,  width: 'w-28' },
+    { key: 'programa',        label: 'Programa',   sortable: false },
+    { key: 'actividad',       label: 'Actividad',  sortable: false },
+    { key: 'obra',            label: 'Obra',       sortable: false },
+    { key: 'renglon',         label: 'Renglón',    sortable: false },
+    { key: 'fuente',          label: 'Fuente',     sortable: false },
+    { key: 'tipoPresupuesto', label: 'Tipo',       sortable: false },
+    { key: 'asignado',        label: 'Asignado',   sortable: true  },
+    { key: 'vigente',         label: 'Vigente',    sortable: true  },
+    { key: 'devengado',       label: 'Devengado',  sortable: true  },
+    { key: 'pagado',          label: 'Pagado',     sortable: true  },
+    { key: 'pctEjecucion',    label: '% Ejec.',    sortable: true  },
   ]
 
   return (
@@ -111,18 +142,29 @@ export default function BudgetTable({ records }) {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-xs font-body">
+          <table className="text-xs font-body table-fixed" style={{ width: Object.values(colWidths).reduce((a, b) => a + b, 0) }}>
             <thead>
               <tr className="border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50">
                 {cols.map(col => (
                   <th
                     key={col.key}
-                    className={`text-left px-3 py-2.5 font-medium text-slate-600 dark:text-slate-400 whitespace-nowrap ${col.width} ${col.sortable ? 'cursor-pointer hover:text-slate-900 dark:hover:text-slate-200 select-none' : ''}`}
+                    style={{ width: colWidths[col.key] }}
+                    className={`relative text-left px-3 py-2.5 font-medium text-slate-600 dark:text-slate-400 whitespace-nowrap select-none ${
+                      col.sortable ? 'cursor-pointer hover:text-slate-900 dark:hover:text-slate-200' : ''
+                    }`}
                     onClick={col.sortable ? () => handleSort(col.key) : undefined}
                   >
-                    <div className="flex items-center gap-1">
-                      {col.label}
-                      {col.sortable && <ArrowUpDown size={10} className={sortKey === col.key ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400 dark:text-slate-600'} />}
+                    <div className="flex items-center gap-1 overflow-hidden">
+                      <span className="truncate">{col.label}</span>
+                      {col.sortable && <ArrowUpDown size={10} className={`flex-shrink-0 ${sortKey === col.key ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400 dark:text-slate-600'}`} />}
+                    </div>
+                    {/* Resize handle */}
+                    <div
+                      className="absolute right-0 top-0 h-full w-1.5 cursor-col-resize group flex items-center justify-center"
+                      onMouseDown={(e) => startResize(e, col.key)}
+                      onClick={e => e.stopPropagation()}
+                    >
+                      <div className="w-px h-4 bg-slate-300 dark:bg-slate-600 group-hover:bg-brand-500 group-hover:w-0.5 transition-all" />
                     </div>
                   </th>
                 ))}
@@ -131,12 +173,12 @@ export default function BudgetTable({ records }) {
             <tbody>
               {paginated.map((row, i) => (
                 <tr key={row._id || i} className="border-b border-slate-50 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
-                  <td className="px-3 py-2 text-slate-800 dark:text-slate-200 font-medium max-w-[160px] truncate" title={row.programa}>{row.programa}</td>
-                  <td className="px-3 py-2 text-slate-700 dark:text-slate-300 max-w-[140px] truncate" title={row.actividad}>{row.actividad}</td>
-                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 max-w-[140px] truncate" title={row.obra}>{row.obra}</td>
-                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 max-w-[140px] truncate" title={row.renglon}>{row.renglon}</td>
-                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 max-w-[130px] truncate" title={row.fuente}>{row.fuente}</td>
-                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 max-w-[110px] truncate">{row.tipoPresupuesto}</td>
+                  <td className="px-3 py-2 text-slate-800 dark:text-slate-200 font-medium truncate" title={row.programa}>{row.programa}</td>
+                  <td className="px-3 py-2 text-slate-700 dark:text-slate-300 truncate" title={row.actividad}>{row.actividad}</td>
+                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 truncate" title={row.obra}>{row.obra}</td>
+                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 truncate" title={row.renglon}>{row.renglon}</td>
+                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 truncate" title={row.fuente}>{row.fuente}</td>
+                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 truncate">{row.tipoPresupuesto}</td>
                   <td className="px-3 py-2 font-mono text-slate-700 dark:text-slate-300 text-right">{formatGTQ(row.asignado)}</td>
                   <td className="px-3 py-2 font-mono text-slate-700 dark:text-slate-300 text-right">{formatGTQ(row.vigente)}</td>
                   <td className="px-3 py-2 font-mono text-slate-700 dark:text-slate-300 text-right">{formatGTQ(row.devengado)}</td>
