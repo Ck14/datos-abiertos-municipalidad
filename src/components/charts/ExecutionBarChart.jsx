@@ -20,7 +20,48 @@ function CustomTooltip({ active, payload, label }) {
   )
 }
 
+function SingleItemChart({ item, title }) {
+  const execColor = getExecutionColor(item.pctEjecucion)
+  const pctWidth  = Math.min(item.pctEjecucion, 100)
+
+  return (
+    <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+      <h3 className="text-sm font-display font-semibold text-slate-800 mb-4">{title}</h3>
+      <div className="space-y-4">
+        {[
+          { label: 'Vigente',   val: item.totalVigente,   color: '#bfdbfe', width: 100 },
+          { label: 'Devengado', val: item.totalDevengado, color: execColor,  width: pctWidth },
+          { label: 'Pagado',    val: item.totalPagado,    color: '#6ee7b7',  width: item.totalVigente > 0 ? (item.totalPagado / item.totalVigente) * 100 : 0 },
+        ].map(({ label, val, color, width }) => (
+          <div key={label}>
+            <div className="flex justify-between text-xs font-body mb-1.5">
+              <span className="text-slate-600 font-medium">{label}</span>
+              <span className="font-mono font-bold text-slate-800">{formatMillions(val)}</span>
+            </div>
+            <div className="h-4 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div
+                className="h-full rounded-full transition-all duration-700"
+                style={{ width: `${width}%`, backgroundColor: color }}
+              />
+            </div>
+          </div>
+        ))}
+        <div className="flex justify-between items-center pt-1 border-t border-slate-100">
+          <span className="text-xs font-body text-slate-500">% de ejecución</span>
+          <span className="text-sm font-mono font-bold" style={{ color: execColor }}>
+            {item.pctEjecucion < 1 ? '<1%' : `${item.pctEjecucion.toFixed(1)}%`}
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function ExecutionBarChart({ items, title = 'Ejecución Presupuestaria' }) {
+  if (items.length === 1) {
+    return <SingleItemChart item={items[0]} title={title} />
+  }
+
   const data = items.slice(0, 12).map(item => ({
     name: item.label.length > 22 ? item.label.slice(0, 22) + '…' : item.label,
     Vigente: item.totalVigente,
@@ -28,10 +69,12 @@ export default function ExecutionBarChart({ items, title = 'Ejecución Presupues
     pct: item.pctEjecucion,
   }))
 
+  const height = Math.max(120, data.length * 52)
+
   return (
     <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
       <h3 className="text-sm font-display font-semibold text-slate-800 mb-4">{title}</h3>
-      <ResponsiveContainer width="100%" height={320}>
+      <ResponsiveContainer width="100%" height={height}>
         <BarChart data={data} layout="vertical" margin={{ left: 0, right: 20, top: 0, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#f1f5f9" />
           <XAxis type="number" tickFormatter={formatMillions} tick={{ fontSize: 10, fontFamily: 'DM Sans' }} />

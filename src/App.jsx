@@ -3,7 +3,7 @@ import Header from './components/layout/Header'
 import Sidebar from './components/layout/Sidebar'
 import KPICards from './components/dashboard/KPICards'
 import FuenteDonut from './components/charts/FuenteDonut'
-import TreemapChart from './components/charts/TreemapChart'
+import ProgramasGrid from './components/charts/ProgramasGrid'
 import DrilldownNavigator from './components/drilldown/DrilldownNavigator'
 import BudgetTable from './components/table/BudgetTable'
 import { useBudgetData } from './hooks/useBudgetData'
@@ -56,7 +56,7 @@ export default function App() {
               <KPICards totals={totals} />
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
                 <FuenteDonut records={records} />
-                <TreemapChart records={records} />
+                <ProgramasGrid records={records} />
               </div>
             </div>
           )}
