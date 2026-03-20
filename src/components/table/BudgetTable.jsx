@@ -24,13 +24,13 @@ function PctCell({ pct }) {
 }
 
 export default function BudgetTable({ records }) {
-  const [filters, setFilters] = useState({ search: '', programa: '', fuente: '', tipo: '' })
+  const [filters, setFilters] = useState({ search: '', programa: '', subPrograma: '', proyecto: '', actividad: '', obra: '', fuente: '', tipo: '' })
   const [page, setPage]       = useState(1)
   const [sortKey, setSortKey] = useState('totalVigente')
   const [sortDir, setSortDir] = useState('desc')
 
   const handleFilter = (key, val) => { setFilters(f => ({ ...f, [key]: val })); setPage(1) }
-  const clearFilters = () => { setFilters({ search: '', programa: '', fuente: '', tipo: '' }); setPage(1) }
+  const clearFilters = () => { setFilters({ search: '', programa: '', subPrograma: '', proyecto: '', actividad: '', obra: '', fuente: '', tipo: '' }); setPage(1) }
 
   const handleSort = (key) => {
     if (sortKey === key) setSortDir(d => d === 'asc' ? 'desc' : 'asc')
@@ -41,6 +41,8 @@ export default function BudgetTable({ records }) {
     let rows = records.map(r => ({
       ...r,
       programa:        fixEncoding(r.programa),
+      subPrograma:     fixEncoding(r.subPrograma),
+      proyecto:        fixEncoding(r.proyecto),
       actividad:       fixEncoding(r.actividad),
       obra:            fixEncoding(r.obra),
       renglon:         fixEncoding(r.renglon),
@@ -53,14 +55,20 @@ export default function BudgetTable({ records }) {
       const q = filters.search.toLowerCase()
       rows = rows.filter(r =>
         r.programa?.toLowerCase().includes(q) ||
+        r.subPrograma?.toLowerCase().includes(q) ||
+        r.proyecto?.toLowerCase().includes(q) ||
         r.actividad?.toLowerCase().includes(q) ||
         r.obra?.toLowerCase().includes(q) ||
         r.renglon?.toLowerCase().includes(q)
       )
     }
-    if (filters.programa)  rows = rows.filter(r => r.programa === filters.programa)
-    if (filters.fuente)    rows = rows.filter(r => r.fuente === filters.fuente)
-    if (filters.tipo)      rows = rows.filter(r => r.tipoPresupuesto === filters.tipo)
+    if (filters.programa)    rows = rows.filter(r => r.programa    === filters.programa)
+    if (filters.subPrograma) rows = rows.filter(r => r.subPrograma === filters.subPrograma)
+    if (filters.proyecto)    rows = rows.filter(r => r.proyecto    === filters.proyecto)
+    if (filters.actividad)   rows = rows.filter(r => r.actividad   === filters.actividad)
+    if (filters.obra)        rows = rows.filter(r => r.obra        === filters.obra)
+    if (filters.fuente)      rows = rows.filter(r => r.fuente      === filters.fuente)
+    if (filters.tipo)        rows = rows.filter(r => r.tipoPresupuesto === filters.tipo)
 
     rows.sort((a, b) => {
       const av = a[sortKey] ?? 0
