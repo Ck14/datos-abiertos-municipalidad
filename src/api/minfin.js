@@ -1,8 +1,8 @@
 import appConfig from '../data/config.json'
 
-const CKAN_BASE = import.meta.env.DEV
-  ? '/api/minfin'
-  : 'https://datos.minfin.gob.gt/api/action'
+// En dev: Vite proxea /api/minfin → datos.minfin.gob.gt/api/action
+// En prod: Vercel rewrites /api/minfin → datos.minfin.gob.gt/api/action (vercel.json)
+const CKAN_BASE = '/api/minfin'
 const CACHE_KEY   = 'minfin_resource_id_cache'
 
 /**
