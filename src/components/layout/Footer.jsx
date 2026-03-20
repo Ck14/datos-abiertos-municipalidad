@@ -1,4 +1,4 @@
-import { Database, Github, ExternalLink } from 'lucide-react'
+import { Database, ExternalLink } from 'lucide-react'
 import appConfig from '../../data/config.json'
 
 export default function Footer() {
@@ -57,16 +57,6 @@ export default function Footer() {
                 Construido con React, Vite, Tailwind CSS y Recharts.
               </p>
             </div>
-            <a
-              href="https://github.com/Ck14/datos-abiertos-municipalidad"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs font-body text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors w-fit mt-1"
-            >
-              <Github size={13} />
-              <span>Código fuente en GitHub</span>
-              <ExternalLink size={10} />
-            </a>
           </div>
         </div>
 
