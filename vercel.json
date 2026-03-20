@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/minfin/:path*",
+      "destination": "https://datos.minfin.gob.gt/api/action/:path*"
+    }
+  ]
+}
