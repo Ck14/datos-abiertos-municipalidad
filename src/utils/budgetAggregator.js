@@ -9,6 +9,7 @@ export const HIERARCHY_CONFIG = {
       { key: 'subPrograma',  label: 'SubPrograma' },
       { key: 'proyecto',     label: 'Proyecto' },
       { key: 'actividad',    label: 'Actividad' },
+      { key: 'obra',         label: 'Obra' },
     ]
   },
   funcional: {

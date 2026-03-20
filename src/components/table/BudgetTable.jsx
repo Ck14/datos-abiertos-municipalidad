@@ -42,6 +42,7 @@ export default function BudgetTable({ records }) {
       ...r,
       programa:        fixEncoding(r.programa),
       actividad:       fixEncoding(r.actividad),
+      obra:            fixEncoding(r.obra),
       renglon:         fixEncoding(r.renglon),
       fuente:          fixEncoding(r.fuente),
       tipoPresupuesto: fixEncoding(r.tipoPresupuesto),
@@ -53,6 +54,7 @@ export default function BudgetTable({ records }) {
       rows = rows.filter(r =>
         r.programa?.toLowerCase().includes(q) ||
         r.actividad?.toLowerCase().includes(q) ||
+        r.obra?.toLowerCase().includes(q) ||
         r.renglon?.toLowerCase().includes(q)
       )
     }
@@ -75,6 +77,7 @@ export default function BudgetTable({ records }) {
   const cols = [
     { key: 'programa',        label: 'Programa',   sortable: false, width: 'w-40' },
     { key: 'actividad',       label: 'Actividad',  sortable: false, width: 'w-36' },
+    { key: 'obra',            label: 'Obra',       sortable: false, width: 'w-36' },
     { key: 'renglon',         label: 'Renglón',    sortable: false, width: 'w-36' },
     { key: 'fuente',          label: 'Fuente',     sortable: false, width: 'w-32' },
     { key: 'tipoPresupuesto', label: 'Tipo',       sortable: false, width: 'w-28' },
@@ -122,6 +125,7 @@ export default function BudgetTable({ records }) {
                 <tr key={row._id || i} className="border-b border-slate-50 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
                   <td className="px-3 py-2 text-slate-800 dark:text-slate-200 font-medium max-w-[160px] truncate" title={row.programa}>{row.programa}</td>
                   <td className="px-3 py-2 text-slate-700 dark:text-slate-300 max-w-[140px] truncate" title={row.actividad}>{row.actividad}</td>
+                  <td className="px-3 py-2 text-slate-600 dark:text-slate-400 max-w-[140px] truncate" title={row.obra}>{row.obra}</td>
                   <td className="px-3 py-2 text-slate-600 dark:text-slate-400 max-w-[140px] truncate" title={row.renglon}>{row.renglon}</td>
                   <td className="px-3 py-2 text-slate-600 dark:text-slate-400 max-w-[130px] truncate" title={row.fuente}>{row.fuente}</td>
                   <td className="px-3 py-2 text-slate-600 dark:text-slate-400 max-w-[110px] truncate">{row.tipoPresupuesto}</td>
@@ -134,7 +138,7 @@ export default function BudgetTable({ records }) {
               ))}
               {paginated.length === 0 && (
                 <tr>
-                  <td colSpan={10} className="text-center py-10 text-slate-400 dark:text-slate-500">
+                  <td colSpan={11} className="text-center py-10 text-slate-400 dark:text-slate-500">
                     No se encontraron registros con estos filtros.
                   </td>
                 </tr>

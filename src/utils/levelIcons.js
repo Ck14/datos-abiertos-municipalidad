@@ -68,9 +68,9 @@ export function getItemMeta(label, view, levelIndex, itemIndex = 0) {
 
   // Ícono genérico por nivel
   const levelDefaults = [
-    ['🗂️','📁','📂','📄'],  // programatica
-    ['🎯','⚙️','🔹'],        // funcional
-    ['💼','🔸','📌'],        // gasto
+    ['🗂️','📁','📂','📄','🔨'],  // programatica
+    ['🎯','⚙️','🔹'],              // funcional
+    ['💼','🔸','📌'],              // gasto
   ]
   const viewIdx = { programatica: 0, funcional: 1, gasto: 2 }[view] ?? 0
   const icons   = levelDefaults[viewIdx]
