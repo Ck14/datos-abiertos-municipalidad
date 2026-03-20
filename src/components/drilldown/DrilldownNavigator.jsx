@@ -5,7 +5,6 @@ import LevelCard from './LevelCard'
 import ExecutionBarChart from '../charts/ExecutionBarChart'
 import { aggregateByLevel, HIERARCHY_CONFIG } from '../../utils/budgetAggregator'
 import { getItemMeta } from '../../utils/levelIcons'
-import { useDrilldown } from '../../hooks/useDrilldown'
 
 function EmptyState() {
   return (
@@ -16,8 +15,8 @@ function EmptyState() {
   )
 }
 
-export default function DrilldownNavigator({ records }) {
-  const { view, path, drillDown, drillUp, resetPath, setView } = useDrilldown()
+export default function DrilldownNavigator({ records, drilldown }) {
+  const { view, path, drillDown, drillUp, resetPath, setView } = drilldown
 
   const items = useMemo(
     () => aggregateByLevel(records, view, path),

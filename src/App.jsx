@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import Header from './components/layout/Header'
 import Sidebar from './components/layout/Sidebar'
 import KPICards from './components/dashboard/KPICards'
@@ -7,6 +7,7 @@ import ProgramasGrid from './components/charts/ProgramasGrid'
 import DrilldownNavigator from './components/drilldown/DrilldownNavigator'
 import BudgetTable from './components/table/BudgetTable'
 import { useBudgetData } from './hooks/useBudgetData'
+import { useDrilldown } from './hooks/useDrilldown'
 import { calcGlobalTotals } from './utils/budgetAggregator'
 
 function LoadingScreen() {
@@ -31,8 +32,15 @@ function ErrorBanner({ message }) {
 export default function App() {
   const { records, loading, error, source, year, lastUpdated, refetch } = useBudgetData()
   const [activeTab, setActiveTab] = useState('dashboard')
+  const drilldown = useDrilldown()
 
   const totals = useMemo(() => calcGlobalTotals(records), [records])
+
+  const handleProgramClick = useCallback((programLabel) => {
+    drilldown.setView('programatica')
+    drilldown.drillDown({ key: 'programa', label: programLabel, levelLabel: 'Programa', hasChildren: true })
+    setActiveTab('explorar')
+  }, [drilldown])
 
   if (loading) return <LoadingScreen />
 
@@ -54,9 +62,9 @@ export default function App() {
                 <p className="text-xs font-body text-slate-500">Ejercicio Fiscal {year} · {records.length} renglones presupuestarios</p>
               </div>
               <KPICards totals={totals} />
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start">
                 <FuenteDonut records={records} />
-                <ProgramasGrid records={records} />
+                <ProgramasGrid records={records} onProgramClick={handleProgramClick} />
               </div>
             </div>
           )}
@@ -68,7 +76,7 @@ export default function App() {
                 <h2 className="text-lg font-display font-bold text-slate-900 mb-1">Explorar Presupuesto</h2>
                 <p className="text-xs font-body text-slate-500">Navega por las jerarquías presupuestarias haciendo click en cada tarjeta.</p>
               </div>
-              <DrilldownNavigator records={records} />
+              <DrilldownNavigator records={records} drilldown={drilldown} />
             </div>
           )}
 

@@ -46,15 +46,15 @@ export default function FuenteDonut({ records }) {
       </p>
 
       {/* Donut */}
-      <div className="flex-1 min-h-0">
-        <ResponsiveContainer width="100%" height={200}>
-          <PieChart>
+      <div>
+        <ResponsiveContainer width="100%" height={160}>
+          <PieChart margin={{ top: 0, bottom: 0, left: 0, right: 0 }}>
             <Pie
               data={data}
               cx="50%"
               cy="50%"
-              innerRadius={60}
-              outerRadius={90}
+              innerRadius={50}
+              outerRadius={75}
               paddingAngle={3}
               dataKey="value"
               startAngle={90}

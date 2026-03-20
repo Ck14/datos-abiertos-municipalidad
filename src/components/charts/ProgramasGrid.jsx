@@ -63,13 +63,14 @@ function Ring({ pct, color, size = 52 }) {
 }
 
 // Tarjeta grande (primer programa)
-function HeroCard({ item, meta, totalVigente }) {
+function HeroCard({ item, meta, totalVigente, onClick }) {
   const pctOfTotal = totalVigente > 0 ? (item.vigente / totalVigente) * 100 : 0
   const execColor  = getExecutionColor(item.pctEjecucion)
 
   return (
-    <div
-      className="col-span-full rounded-2xl p-5 text-white relative overflow-hidden"
+    <button
+      onClick={() => onClick(item.name)}
+      className="col-span-full w-full text-left rounded-2xl p-5 text-white relative overflow-hidden hover:brightness-110 hover:shadow-lg transition-all duration-200 active:scale-[0.99]"
       style={{ background: `linear-gradient(135deg, ${meta.color}ee, ${meta.color}99)` }}
     >
       {/* Fondo decorativo */}
@@ -119,16 +120,19 @@ function HeroCard({ item, meta, totalVigente }) {
           style={{ width: `${Math.min(item.pctEjecucion, 100)}%` }}
         />
       </div>
-    </div>
+    </button>
   )
 }
 
 // Tarjeta pequeña
-function MiniCard({ item, meta }) {
+function MiniCard({ item, meta, onClick }) {
   const execColor = getExecutionColor(item.pctEjecucion)
 
   return (
-    <div className="bg-white border border-slate-100 rounded-xl p-3.5 flex items-center gap-3 hover:border-slate-300 hover:shadow-sm transition-all duration-150">
+    <button
+      onClick={() => onClick(item.name)}
+      className="w-full text-left bg-white border border-slate-100 rounded-xl p-3.5 flex items-center gap-3 hover:border-slate-300 hover:shadow-md hover:-translate-y-0.5 transition-all duration-150"
+    >
       {/* Ícono */}
       <div
         className="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
@@ -154,11 +158,11 @@ function MiniCard({ item, meta }) {
 
       {/* Anillo */}
       <Ring pct={item.pctEjecucion} color={execColor} size={44} />
-    </div>
+    </button>
   )
 }
 
-export default function ProgramasGrid({ records }) {
+export default function ProgramasGrid({ records, onProgramClick }) {
   const data = aggregateByPrograma(records)
   if (!data.length) return null
 
@@ -176,9 +180,9 @@ export default function ProgramasGrid({ records }) {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <HeroCard item={hero} meta={heroMeta} totalVigente={totalVigente} />
+        <HeroCard item={hero} meta={heroMeta} totalVigente={totalVigente} onClick={onProgramClick} />
         {rest.map(item => (
-          <MiniCard key={item.name} item={item} meta={getMeta(item.name)} />
+          <MiniCard key={item.name} item={item} meta={getMeta(item.name)} onClick={onProgramClick} />
         ))}
       </div>
 
