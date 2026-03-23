@@ -13,6 +13,7 @@ import { useTheme } from './hooks/useTheme'
 import { ThemeContext } from './contexts/ThemeContext'
 import { calcGlobalTotals } from './utils/budgetAggregator'
 import MascotGuide from './components/MascotGuide'
+import WelcomeModal from './components/WelcomeModal'
 
 function LoadingScreen() {
   return (
@@ -106,6 +107,7 @@ export default function App() {
       </div>
 
       <MascotGuide activeTab={activeTab} />
+      <WelcomeModal year={year} />
     </ThemeContext.Provider>
   )
 }
