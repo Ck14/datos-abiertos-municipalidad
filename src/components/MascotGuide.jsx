@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import { MessageCircle } from 'lucide-react'
 import { ThemeContext } from '../contexts/ThemeContext'
 import avatarPng from '../assets/avatar1.png'
 
@@ -30,6 +31,7 @@ const SECTIONS = {
 export default function MascotGuide({ activeTab }) {
   const isDark = useContext(ThemeContext)
   const [minimized, setMinimized] = useState(false)
+  const [bubbleOpen, setBubbleOpen] = useState(true)
   const section = SECTIONS[activeTab] || SECTIONS.dashboard
 
   return (
@@ -43,70 +45,88 @@ export default function MascotGuide({ activeTab }) {
           from { opacity: 0; transform: scale(0.88) translateY(6px); }
           to   { opacity: 1; transform: scale(1)    translateY(0);   }
         }
+        @keyframes mascot-in {
+          from { opacity: 0; transform: scale(0.7) translateY(12px); }
+          to   { opacity: 1; transform: scale(1)   translateY(0);    }
+        }
+        @keyframes fab-in {
+          from { opacity: 0; transform: scale(0.5); }
+          to   { opacity: 1; transform: scale(1);   }
+        }
         .mascot-bounce { animation: mascot-bounce 2.8s ease-in-out infinite; }
         .bubble-pop    { animation: bubble-pop 0.28s cubic-bezier(0.34,1.56,0.64,1) both; }
+        .mascot-in     { animation: mascot-in 0.35s cubic-bezier(0.34,1.4,0.64,1) both; }
+        .fab-in        { animation: fab-in 0.3s cubic-bezier(0.34,1.5,0.64,1) both; }
       `}</style>
 
-      <div className="fixed bottom-6 lg:bottom-40 right-4 z-50 flex flex-col items-end gap-2 select-none">
+      <div className="fixed bottom-20 lg:bottom-40 right-4 z-50 flex flex-col items-end gap-2 select-none">
 
-        {/* ── Speech bubble ──────────────────────────────────────────────── */}
-        {!minimized && (
-          <div key={activeTab} className="bubble-pop relative max-w-[210px]">
-            <div className={`
-              px-4 py-3 rounded-2xl rounded-br-none text-xs leading-snug
-              ${isDark
-                ? 'bg-slate-800 border border-slate-700 text-slate-200 shadow-2xl shadow-black/50'
-                : 'bg-white border border-slate-200 text-slate-600 shadow-xl shadow-slate-200/60'}
-            `}>
-              <span
-                className="block text-[10px] font-bold uppercase tracking-widest mb-1"
-                style={{ color: section.accent }}
-              >
-                {section.label}
-              </span>
-              <span className="font-body">{section.message}</span>
-            </div>
-            {/* Tail */}
-            <div
-              className="absolute -bottom-[9px] right-8"
-              style={{
-                width: 0, height: 0,
-                borderLeft: '9px solid transparent',
-                borderRight: '9px solid transparent',
-                borderTop: `9px solid ${isDark ? '#1e293b' : 'white'}`,
-              }}
-            />
-            {/* Tail border shadow */}
-            <div
-              className="absolute -bottom-[11px] right-[30px]"
-              style={{
-                width: 0, height: 0,
-                borderLeft: '11px solid transparent',
-                borderRight: '11px solid transparent',
-                borderTop: `11px solid ${isDark ? '#334155' : '#e2e8f0'}`,
-                zIndex: -1,
-              }}
-            />
+        {minimized ? (
+          /* ── FAB cuando está minimizado ───────────────────────────────── */
+          <button
+            key="fab"
+            onClick={() => { setMinimized(false); setBubbleOpen(true) }}
+            title="Mostrar guía"
+            aria-label="Mostrar guía"
+            className="fab-in w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-transform duration-150 focus:outline-none"
+            style={{
+              background: `linear-gradient(135deg, ${section.accent}, ${section.accent}cc)`,
+              boxShadow: `0 4px 16px ${section.accent}55`,
+            }}
+          >
+            <MessageCircle size={22} className="text-white" />
+          </button>
+        ) : (
+          /* ── Avatar visible ───────────────────────────────────────────── */
+          <div key="expanded" className="mascot-in flex flex-col items-end gap-2">
+
+            {/* Speech bubble — toggle con click en avatar */}
+            {bubbleOpen && (
+              <div key={activeTab} className="bubble-pop relative max-w-[210px]">
+                <div className={`
+                  px-4 py-3 rounded-2xl rounded-br-none text-xs leading-snug
+                  ${isDark
+                    ? 'bg-slate-800 border border-slate-700 text-slate-200 shadow-2xl shadow-black/50'
+                    : 'bg-white border border-slate-200 text-slate-600 shadow-xl shadow-slate-200/60'}
+                `}>
+                  <span
+                    className="block text-[10px] font-bold uppercase tracking-widest mb-1"
+                    style={{ color: section.accent }}
+                  >
+                    {section.label}
+                  </span>
+                  <span className="font-body">{section.message}</span>
+
+                  {/* Botón minimizar — oculta avatar + bubble → FAB */}
+                  <button
+                    onClick={() => setMinimized(true)}
+                    className="mt-2 flex items-center gap-1 text-[10px] font-body opacity-50 hover:opacity-100 transition-opacity"
+                  >
+                    <span>─</span> Minimizar
+                  </button>
+                </div>
+                {/* Tail */}
+                <div className="absolute -bottom-[9px] right-8" style={{ width:0, height:0, borderLeft:'9px solid transparent', borderRight:'9px solid transparent', borderTop:`9px solid ${isDark ? '#1e293b' : 'white'}` }} />
+                <div className="absolute -bottom-[11px] right-[30px]" style={{ width:0, height:0, borderLeft:'11px solid transparent', borderRight:'11px solid transparent', borderTop:`11px solid ${isDark ? '#334155' : '#e2e8f0'}`, zIndex:-1 }} />
+              </div>
+            )}
+
+            {/* Avatar — click muestra/oculta solo el bubble */}
+            <button
+              onClick={() => setBubbleOpen(v => !v)}
+              className="mascot-bounce focus:outline-none hover:scale-105 active:scale-95 transition-transform duration-150 cursor-pointer"
+              title={bubbleOpen ? 'Ocultar mensaje' : 'Mostrar mensaje'}
+              aria-label="Guía del dashboard"
+            >
+              {CUSTOM_AVATAR_SRC ? (
+                <img src={CUSTOM_AVATAR_SRC} alt="Guía" className="w-28 h-auto object-contain drop-shadow-lg" />
+              ) : (
+                <SVGAvatar isDark={isDark} armAngle={section.armAngle} />
+              )}
+            </button>
+
           </div>
         )}
-
-        {/* ── Avatar ─────────────────────────────────────────────────────── */}
-        <button
-          onClick={() => setMinimized(v => !v)}
-          className="mascot-bounce focus:outline-none hover:scale-105 active:scale-95 transition-transform duration-150 cursor-pointer"
-          title={minimized ? 'Mostrar guía' : 'Ocultar guía'}
-          aria-label="Guía del dashboard"
-        >
-          {CUSTOM_AVATAR_SRC ? (
-            <img
-              src={CUSTOM_AVATAR_SRC}
-              alt="Guía"
-              className="w-28 h-auto object-contain drop-shadow-lg"
-            />
-          ) : (
-            <SVGAvatar isDark={isDark} armAngle={section.armAngle} />
-          )}
-        </button>
 
       </div>
     </>
