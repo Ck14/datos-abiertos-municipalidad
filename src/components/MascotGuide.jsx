@@ -59,7 +59,7 @@ export default function MascotGuide({ activeTab }) {
         .fab-in        { animation: fab-in 0.3s cubic-bezier(0.34,1.5,0.64,1) both; }
       `}</style>
 
-      <div className="fixed bottom-20 lg:bottom-40 right-4 z-50 flex flex-col items-end gap-2 select-none">
+      <div className="fixed bottom-20 lg:bottom-6 right-4 z-50 flex flex-col items-end gap-2 select-none">
 
         {minimized ? (
           /* ── FAB cuando está minimizado ───────────────────────────────── */
