@@ -5,7 +5,7 @@ export function useTheme() {
     try {
       const saved = localStorage.getItem('theme')
       if (saved) return saved === 'dark'
-      return true // dark by default
+      return false // light by default — más amigable para la comunidad
     } catch {
       return true
     }

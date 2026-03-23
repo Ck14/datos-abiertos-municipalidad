@@ -6,13 +6,13 @@
     <title>Presupuesto Municipal — Chimaltenango 2026</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <!-- Prevent dark mode flash -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Rubik:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <!-- Prevent flash on theme load -->
     <script>
       (function() {
         try {
           var t = localStorage.getItem('theme');
-          if (t !== 'light') {
+          if (t === 'dark') {
             document.documentElement.classList.add('dark');
           }
         } catch(e) {}

@@ -5,7 +5,7 @@ export default function Breadcrumb({ path, onDrillUp }) {
     <nav className="flex items-center gap-1 flex-wrap text-xs font-body">
       <button
         onClick={() => onDrillUp(0)}
-        className="flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 font-medium transition-colors"
+        className="flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 font-bold transition-colors"
       >
         <Home size={12} />
         <span>Inicio</span>
