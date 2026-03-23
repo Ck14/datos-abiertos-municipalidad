@@ -8,9 +8,9 @@ import { getItemMeta } from '../../utils/levelIcons'
 
 function EmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center py-16 text-slate-400 dark:text-slate-500">
-      <span className="text-5xl mb-3">📭</span>
-      <p className="text-sm font-body">No hay datos para este nivel.</p>
+    <div className="flex flex-col items-center justify-center py-16 text-teal-400 dark:text-teal-500">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="mb-3 opacity-50"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <p className="text-base font-body font-semibold">No hay información para mostrar aquí.</p>
     </div>
   )
 }
@@ -42,10 +42,10 @@ export default function DrilldownNavigator({ records, drilldown }) {
 
       {/* Contador */}
       {items.length > 0 && (
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-body">
-          <span className="font-semibold text-slate-700 dark:text-slate-300">{items.length}</span> {currentLevelLabel}{items.length !== 1 ? 's' : ''} encontrados
+        <p className="text-sm font-body font-bold text-stone-500 dark:text-stone-400">
+          <span className="font-black text-stone-800 dark:text-stone-200">{items.length}</span> {currentLevelLabel}{items.length !== 1 ? 's' : ''} encontrados
           {items[0]?.hasChildren &&
-            <span className="ml-1 text-brand-600 dark:text-brand-400">· Haz clic para explorar</span>
+            <span className="ml-1.5 text-brand-600 dark:text-brand-400">👆 Toca para explorar</span>
           }
         </p>
       )}
@@ -77,10 +77,10 @@ export default function DrilldownNavigator({ records, drilldown }) {
       {/* Leyenda semáforo */}
       {items.length > 0 && (
         <div className="flex items-center gap-4 pt-1">
-          <span className="text-[10px] font-body text-slate-400 dark:text-slate-500 uppercase tracking-wide">Ejecución:</span>
-          {[['#ef4444','Bajo (<30%)'],['#eab308','Medio (30–70%)'],['#22c55e','Alto (>70%)']].map(([c,l]) => (
-            <span key={l} className="flex items-center gap-1 text-xs font-body text-slate-500 dark:text-slate-400">
-              <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: c }} />
+          <span className="text-[10px] font-body font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wide">Ejecución:</span>
+          {[['#ef4444','Bajo (<30%)'],['#f59e0b','Medio (30–70%)'],['#22c55e','Alto (>70%)']].map(([c,l]) => (
+            <span key={l} className="flex items-center gap-1.5 text-xs font-body font-semibold text-stone-500 dark:text-stone-400">
+              <span className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: c }} />
               {l}
             </span>
           ))}

@@ -9,10 +9,10 @@ import { useIsDark } from '../../contexts/ThemeContext'
 function CustomTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null
   return (
-    <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 shadow-lg text-xs font-body max-w-xs">
-      <p className="font-medium text-slate-800 dark:text-slate-200 mb-1 truncate">{label}</p>
+    <div className="bg-white dark:bg-teal-800 border-2 border-brand-200 dark:border-stone-600 rounded-2xl px-4 py-3 shadow-xl text-sm font-body max-w-xs">
+      <p className="font-black text-teal-800 dark:text-teal-200 mb-1 truncate">{label}</p>
       {payload.map(p => (
-        <div key={p.dataKey} className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
+        <div key={p.dataKey} className="flex items-center gap-1.5 text-stone-600 dark:text-stone-400 font-semibold">
           <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: p.fill || p.color }} />
           <span>{p.name}: <strong>{formatMillions(p.value)}</strong></span>
         </div>
@@ -26,20 +26,20 @@ function SingleItemChart({ item, title }) {
   const pctWidth  = Math.min(item.pctEjecucion, 100)
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm transition-colors duration-200">
-      <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200 mb-4">{title}</h3>
+    <div className="bg-white dark:bg-teal-900 rounded-3xl border-2 border-brand-100 dark:border-teal-700 p-5 shadow-sm transition-colors duration-200">
+      <h3 className="text-sm font-display font-black text-teal-800 dark:text-teal-200 mb-4">{title}</h3>
       <div className="space-y-4">
         {[
-          { label: 'Vigente',   val: item.totalVigente,   color: '#bfdbfe', width: 100 },
-          { label: 'Devengado', val: item.totalDevengado, color: execColor,  width: pctWidth },
-          { label: 'Pagado',    val: item.totalPagado,    color: '#6ee7b7',  width: item.totalVigente > 0 ? (item.totalPagado / item.totalVigente) * 100 : 0 },
+          { label: 'Dinero disponible',    val: item.totalVigente,   color: '#5eead4', width: 100 },
+          { label: 'Comprometido a pagar', val: item.totalDevengado, color: execColor,  width: pctWidth },
+          { label: 'Ya pagado',            val: item.totalPagado,    color: '#6ee7b7',  width: item.totalVigente > 0 ? (item.totalPagado / item.totalVigente) * 100 : 0 },
         ].map(({ label, val, color, width }) => (
           <div key={label}>
-            <div className="flex justify-between text-xs font-body mb-1.5">
-              <span className="text-slate-600 dark:text-slate-400 font-medium">{label}</span>
-              <span className="font-mono font-bold text-slate-800 dark:text-slate-200">{formatMillions(val)}</span>
+            <div className="flex justify-between text-sm font-body mb-1.5">
+              <span className="text-stone-600 dark:text-stone-400 font-bold">{label}</span>
+              <span className="font-mono font-black text-teal-800 dark:text-teal-200">{formatMillions(val)}</span>
             </div>
-            <div className="h-4 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+            <div className="h-4 w-full bg-stone-100 dark:bg-teal-700 rounded-full overflow-hidden">
               <div
                 className="h-full rounded-full transition-all duration-700"
                 style={{ width: `${width}%`, backgroundColor: color }}
@@ -47,9 +47,9 @@ function SingleItemChart({ item, title }) {
             </div>
           </div>
         ))}
-        <div className="flex justify-between items-center pt-1 border-t border-slate-100 dark:border-slate-700">
-          <span className="text-xs font-body text-slate-500 dark:text-slate-400">% de ejecución</span>
-          <span className="text-sm font-mono font-bold" style={{ color: execColor }}>
+        <div className="flex justify-between items-center pt-2 border-t-2 border-stone-100 dark:border-teal-700">
+          <span className="text-sm font-body font-bold text-teal-500 dark:text-teal-400">% del dinero comprometido</span>
+          <span className="text-base font-mono font-black" style={{ color: execColor }}>
             {item.pctEjecucion < 1 ? '<1%' : `${item.pctEjecucion.toFixed(1)}%`}
           </span>
         </div>
@@ -73,24 +73,24 @@ export default function ExecutionBarChart({ items, title = 'Ejecución Presupues
   }))
 
   const height   = Math.max(120, data.length * 52)
-  const gridColor = isDark ? '#1e293b' : '#f1f5f9'
-  const textColor = isDark ? '#94a3b8' : '#64748b'
+  const gridColor = isDark ? '#0f3330' : '#ccfbf1'
+  const textColor = isDark ? '#5eead4' : '#0f766e'
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm transition-colors duration-200">
-      <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200 mb-4">{title}</h3>
+    <div className="bg-white dark:bg-teal-900 rounded-3xl border-2 border-brand-100 dark:border-teal-700 p-5 shadow-sm transition-colors duration-200">
+      <h3 className="text-sm font-display font-black text-teal-800 dark:text-teal-200 mb-4">{title}</h3>
       <ResponsiveContainer width="100%" height={height}>
         <BarChart data={data} layout="vertical" margin={{ left: 0, right: 20, top: 0, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke={gridColor} />
-          <XAxis type="number" tickFormatter={formatMillions} tick={{ fontSize: 10, fontFamily: 'DM Sans', fill: textColor }} />
+          <XAxis type="number" tickFormatter={formatMillions} tick={{ fontSize: 10, fontFamily: 'Rubik', fill: textColor }} />
           <YAxis
             type="category" dataKey="name" width={140}
-            tick={{ fontSize: 10, fontFamily: 'DM Sans', fill: textColor }}
+            tick={{ fontSize: 10, fontFamily: 'Rubik', fill: textColor }}
           />
           <Tooltip content={<CustomTooltip />} />
-          <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11, fontFamily: 'DM Sans', color: textColor }} />
-          <Bar dataKey="Vigente" fill="#bfdbfe" radius={[0, 3, 3, 0]} maxBarSize={14} />
-          <Bar dataKey="Devengado" radius={[0, 3, 3, 0]} maxBarSize={14}>
+          <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11, fontFamily: 'Rubik', color: textColor }} />
+          <Bar dataKey="Vigente" name="Disponible" fill="#5eead4" radius={[0, 4, 4, 0]} maxBarSize={16} />
+          <Bar dataKey="Devengado" name="Comprometido" radius={[0, 4, 4, 0]} maxBarSize={16}>
             {data.map((d, i) => (
               <Cell key={i} fill={getExecutionColor(d.pct)} />
             ))}
