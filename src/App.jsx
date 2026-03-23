@@ -12,6 +12,7 @@ import { useDrilldown } from './hooks/useDrilldown'
 import { useTheme } from './hooks/useTheme'
 import { ThemeContext } from './contexts/ThemeContext'
 import { calcGlobalTotals } from './utils/budgetAggregator'
+import MascotGuide from './components/MascotGuide'
 
 function LoadingScreen() {
   return (
@@ -103,6 +104,8 @@ export default function App() {
         </div>
         <Footer />
       </div>
+
+      <MascotGuide activeTab={activeTab} />
     </ThemeContext.Provider>
   )
 }
