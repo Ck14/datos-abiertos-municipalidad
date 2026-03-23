@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, ArrowUpDown } from 'lucide-react'
 import TableFilters from './TableFilters'
 import { fixEncoding, formatGTQ, formatPct } from '../../utils/formatters'
 import { getExecutionColor, getExecutionTailwind } from '../../utils/colorScale'
+import HelpButton from '../HelpButton'
 
 const PAGE_SIZE = 25
 
@@ -117,14 +118,14 @@ export default function BudgetTable({ records }) {
     { key: 'programa',        label: 'Área',           sortable: false },
     { key: 'actividad',       label: 'Tarea',          sortable: false },
     { key: 'obra',            label: 'Obra',           sortable: false },
-    { key: 'renglon',         label: 'Partida',        sortable: false },
-    { key: 'fuente',          label: 'Financiamiento', sortable: false },
+    { key: 'renglon',         label: 'Partida',        sortable: false, help: { label: '¿Qué es una partida?', message: 'Una partida identifica el tipo de gasto: salarios, materiales, servicios, infraestructura, etc. Cada municipio tiene muchas partidas por cada área de trabajo.' } },
+    { key: 'fuente',          label: 'Financiamiento', sortable: false, help: { label: '¿Qué es el financiamiento?', message: 'Indica de dónde viene el dinero para este gasto específico: fondos propios del municipio, aporte del gobierno central, IVA Paz u otros fondos.' } },
     { key: 'tipoPresupuesto', label: 'Tipo',           sortable: false },
-    { key: 'asignado',        label: 'Aprobado',       sortable: true  },
-    { key: 'vigente',         label: 'Disponible',     sortable: true  },
-    { key: 'devengado',       label: 'Comprometido',   sortable: true  },
-    { key: 'pagado',          label: 'Pagado',         sortable: true  },
-    { key: 'pctEjecucion',    label: '% Gastado',      sortable: true  },
+    { key: 'asignado',        label: 'Aprobado',       sortable: true,  help: { label: 'Dinero Aprobado', message: 'Monto que se aprobó gastar para esta partida al inicio del año.' } },
+    { key: 'vigente',         label: 'Disponible',     sortable: true,  help: { label: 'Dinero Disponible', message: 'Presupuesto actual disponible para esta partida, ya con modificaciones.' } },
+    { key: 'devengado',       label: 'Comprometido',   sortable: true,  help: { label: 'Ya Comprometido', message: 'Dinero ya asignado a contratos u obligaciones. Aún no se ha pagado pero ya tiene destino.' } },
+    { key: 'pagado',          label: 'Pagado',         sortable: true,  help: { label: 'Ya Pagado', message: 'Dinero que ya salió efectivamente de las cuentas del municipio para esta partida.' } },
+    { key: 'pctEjecucion',    label: '% Gastado',      sortable: true,  help: { label: '% Gastado', message: 'Porcentaje del dinero disponible que ya se comprometió a gastar. Verde=bueno (>70%), amarillo=medio, rojo=bajo (<30%).' } },
   ]
 
   return (
@@ -157,6 +158,7 @@ export default function BudgetTable({ records }) {
                     <div className="flex items-center gap-1 overflow-hidden">
                       <span className="truncate">{col.label}</span>
                       {col.sortable && <ArrowUpDown size={10} className={`flex-shrink-0 ${sortKey === col.key ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400 dark:text-slate-600'}`} />}
+                      {col.help && <HelpButton label={col.help.label} message={col.help.message} />}
                     </div>
                     {/* Resize handle */}
                     <div

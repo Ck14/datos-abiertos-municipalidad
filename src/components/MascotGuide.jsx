@@ -1,6 +1,7 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { MessageCircle } from 'lucide-react'
 import { ThemeContext } from '../contexts/ThemeContext'
+import { useHelp } from '../contexts/HelpContext'
 import avatarPng from '../assets/avatar1.png'
 
 // ─── Para cambiar de avatar, reemplaza el archivo src/assets/avatar1.png ──────
@@ -30,9 +31,28 @@ const SECTIONS = {
 
 export default function MascotGuide({ activeTab }) {
   const isDark = useContext(ThemeContext)
+  const { helpMsg, clearHelp } = useHelp() || {}
   const [minimized, setMinimized] = useState(false)
   const [bubbleOpen, setBubbleOpen] = useState(true)
   const section = SECTIONS[activeTab] || SECTIONS.dashboard
+
+  // Al cambiar sección, limpia el mensaje de ayuda y reabre el globo
+  useEffect(() => {
+    clearHelp?.()
+    setBubbleOpen(true)
+  }, [activeTab])
+
+  // Cuando llega ayuda nueva, abre el globo y des-minimiza
+  useEffect(() => {
+    if (helpMsg) {
+      setMinimized(false)
+      setBubbleOpen(true)
+    }
+  }, [helpMsg])
+
+  const displayLabel   = helpMsg ? helpMsg.label   : section.label
+  const displayMessage = helpMsg ? helpMsg.message : section.message
+  const displayAccent  = helpMsg ? '#f59e0b'        : section.accent
 
   return (
     <>
@@ -91,19 +111,26 @@ export default function MascotGuide({ activeTab }) {
                 `}>
                   <span
                     className="block text-[10px] font-bold uppercase tracking-widest mb-1"
-                    style={{ color: section.accent }}
+                    style={{ color: displayAccent }}
                   >
-                    {section.label}
+                    {displayLabel}
                   </span>
-                  <span className="font-body">{section.message}</span>
+                  <span className="font-body">{displayMessage}</span>
 
-                  {/* Botón minimizar — oculta avatar + bubble → FAB */}
-                  <button
-                    onClick={() => setMinimized(true)}
-                    className="mt-2 flex items-center gap-1 text-[10px] font-body opacity-50 hover:opacity-100 transition-opacity"
-                  >
-                    <span>─</span> Minimizar
-                  </button>
+                  {/* Fila inferior: cerrar ayuda + minimizar al mismo nivel */}
+                  <div className="mt-2 flex items-center justify-between gap-2">
+                    {helpMsg ? (
+                      <button onClick={clearHelp} className="text-[10px] font-body opacity-50 hover:opacity-90 transition-opacity">
+                        ✕ cerrar ayuda
+                      </button>
+                    ) : <span />}
+                    <button
+                      onClick={() => setMinimized(true)}
+                      className="flex items-center gap-0.5 text-[10px] font-body opacity-50 hover:opacity-90 transition-opacity"
+                    >
+                      <span>─</span> Minimizar
+                    </button>
+                  </div>
                 </div>
                 {/* Tail */}
                 <div className="absolute -bottom-[9px] right-8" style={{ width:0, height:0, borderLeft:'9px solid transparent', borderRight:'9px solid transparent', borderTop:`9px solid ${isDark ? '#1e293b' : 'white'}` }} />

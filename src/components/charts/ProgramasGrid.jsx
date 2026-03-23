@@ -1,6 +1,7 @@
 import { aggregateByPrograma } from '../../utils/budgetAggregator'
 import { formatMillions, formatPct } from '../../utils/formatters'
 import { getExecutionColor } from '../../utils/colorScale'
+import HelpButton from '../HelpButton'
 
 const PROGRAM_META = {
   'ACTIVIDADES CENTRALES':                          { icon: '🏛️', color: '#1d4ed8', short: 'Administración' },
@@ -158,9 +159,15 @@ export default function ProgramasGrid({ records, onProgramClick }) {
   return (
     <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm transition-colors duration-200">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200">
-          Gasto por Área de Trabajo
-        </h3>
+        <div className="flex items-center gap-2">
+          <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200">
+            Gasto por Área de Trabajo
+          </h3>
+          <HelpButton
+            label="Áreas de trabajo"
+            message="Cada área agrupa actividades relacionadas que hace el municipio: agua potable, educación, seguridad, administración, etc. Haz clic en cualquier área para ver en qué tareas específicas se gasta el dinero."
+          />
+        </div>
         <span className="text-xs font-body text-slate-500 dark:text-slate-400">{data.length} programas</span>
       </div>
 

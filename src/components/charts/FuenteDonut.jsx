@@ -2,6 +2,7 @@ import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts'
 import { aggregateByFuente } from '../../utils/budgetAggregator'
 import { formatMillions, formatPct } from '../../utils/formatters'
 import { useIsDark } from '../../contexts/ThemeContext'
+import HelpButton from '../HelpButton'
 
 const FUENTE_META = {
   'INGRESOS PROPIOS':                                      { icon: '🏦', short: 'Ingresos Propios',        color: '#1d4ed8' },
@@ -38,9 +39,15 @@ export default function FuenteDonut({ records }) {
 
   return (
     <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm flex flex-col transition-colors duration-200">
-      <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200 mb-1">
-        ¿De dónde viene el dinero?
-      </h3>
+      <div className="flex items-center gap-2 mb-1">
+        <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200">
+          ¿De dónde viene el dinero?
+        </h3>
+        <HelpButton
+          label="¿De dónde viene el dinero?"
+          message="El municipio recibe dinero de varias fuentes: sus propios cobros (tasas, servicios), el IVA Paz que reparte el gobierno central, el Aporte Constitucional (10% del presupuesto nacional) y otros fondos especiales."
+        />
+      </div>
       <p className="text-xs font-body text-slate-500 dark:text-slate-400 mb-4">
         Total disponible: <span className="font-semibold text-slate-700 dark:text-slate-300">{formatMillions(total)}</span>
       </p>

@@ -5,6 +5,7 @@ import {
 import { formatMillions } from '../../utils/formatters'
 import { getExecutionColor } from '../../utils/colorScale'
 import { useIsDark } from '../../contexts/ThemeContext'
+import HelpButton from '../HelpButton'
 
 function CustomTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null
@@ -27,7 +28,13 @@ function SingleItemChart({ item, title }) {
 
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm transition-colors duration-200">
-      <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200 mb-4">{title}</h3>
+      <div className="flex items-center gap-2 mb-4">
+        <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200">{title}</h3>
+        <HelpButton
+          label="Disponible vs Comprometido"
+          message="La barra azul muestra el dinero disponible. La barra de color muestra cuánto ya se comprometió a gastar. Si están parejas, se está ejecutando bien el presupuesto."
+        />
+      </div>
       <div className="space-y-4">
         {[
           { label: 'Disponible',   val: item.totalVigente,   color: '#bfdbfe', width: 100 },
@@ -78,7 +85,13 @@ export default function ExecutionBarChart({ items, title = 'Avance del Gasto' })
 
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm transition-colors duration-200">
-      <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200 mb-4">{title}</h3>
+      <div className="flex items-center gap-2 mb-4">
+        <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200">{title}</h3>
+        <HelpButton
+          label="Disponible vs Comprometido"
+          message="Compara cuánto dinero hay disponible (azul) vs cuánto ya se comprometió a gastar (color). El semáforo indica el avance: rojo=bajo, amarillo=medio, verde=bueno."
+        />
+      </div>
       <ResponsiveContainer width="100%" height={height}>
         <BarChart data={data} layout="vertical" margin={{ left: 0, right: 20, top: 0, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke={gridColor} />

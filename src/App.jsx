@@ -11,6 +11,7 @@ import { useBudgetData } from './hooks/useBudgetData'
 import { useDrilldown } from './hooks/useDrilldown'
 import { useTheme } from './hooks/useTheme'
 import { ThemeContext } from './contexts/ThemeContext'
+import { HelpProvider } from './contexts/HelpContext'
 import { calcGlobalTotals } from './utils/budgetAggregator'
 import MascotGuide from './components/MascotGuide'
 import WelcomeModal from './components/WelcomeModal'
@@ -51,6 +52,7 @@ export default function App() {
   if (loading) return <LoadingScreen />
 
   return (
+    <HelpProvider>
     <ThemeContext.Provider value={isDark}>
       <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col transition-colors duration-200">
         <Header
@@ -109,5 +111,6 @@ export default function App() {
       <MascotGuide activeTab={activeTab} />
       <WelcomeModal year={year} />
     </ThemeContext.Provider>
+    </HelpProvider>
   )
 }
