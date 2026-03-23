@@ -40,10 +40,10 @@ export default function KPICards({ totals }) {
 
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-      <KPICard icon={FileText}      label="Presupuesto Asignado" amount={totalAsignado}  color="#1d4ed8" />
-      <KPICard icon={CalendarCheck} label="Presupuesto Vigente"  amount={totalVigente}   color="#4f46e5" />
-      <KPICard icon={TrendingUp}    label="Total Devengado"      amount={totalDevengado} pct={pctDevengado} color="#0891b2" showBar />
-      <KPICard icon={CheckCircle2}  label="Total Pagado"         amount={totalPagado}    pct={pctPagado}    color="#059669" showBar />
+      <KPICard icon={FileText}      label="Dinero Aprobado"    amount={totalAsignado}  color="#1d4ed8" />
+      <KPICard icon={CalendarCheck} label="Dinero Disponible"   amount={totalVigente}   color="#4f46e5" />
+      <KPICard icon={TrendingUp}    label="Ya Comprometido"     amount={totalDevengado} pct={pctDevengado} color="#0891b2" showBar />
+      <KPICard icon={CheckCircle2}  label="Ya Pagado"           amount={totalPagado}    pct={pctPagado}    color="#059669" showBar />
     </div>
   )
 }

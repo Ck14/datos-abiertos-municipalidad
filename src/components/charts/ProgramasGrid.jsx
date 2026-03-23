@@ -77,14 +77,14 @@ function HeroCard({ item, meta, totalVigente, onClick }) {
           <div className="flex items-center gap-2 mb-1">
             <span className="text-2xl">{meta.icon}</span>
             <span className="text-xs font-body font-medium opacity-80 uppercase tracking-widest">
-              Programa principal
+              Área principal
             </span>
           </div>
           <h4 className="font-display font-bold text-lg leading-tight mb-3">{meta.short}</h4>
 
           <div className="flex items-end gap-6">
             <div>
-              <p className="text-xs opacity-70 font-body">Presupuesto vigente</p>
+              <p className="text-xs opacity-70 font-body">Dinero disponible</p>
               <p className="text-2xl font-display font-bold">{formatMillions(item.vigente)}</p>
             </div>
             <div>
@@ -159,7 +159,7 @@ export default function ProgramasGrid({ records, onProgramClick }) {
     <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm transition-colors duration-200">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200">
-          Presupuesto por Programa
+          Gasto por Área de Trabajo
         </h3>
         <span className="text-xs font-body text-slate-500 dark:text-slate-400">{data.length} programas</span>
       </div>

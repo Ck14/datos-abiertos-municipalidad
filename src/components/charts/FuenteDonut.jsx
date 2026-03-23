@@ -39,10 +39,10 @@ export default function FuenteDonut({ records }) {
   return (
     <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm flex flex-col transition-colors duration-200">
       <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200 mb-1">
-        Fuentes de Financiamiento
+        ¿De dónde viene el dinero?
       </h3>
       <p className="text-xs font-body text-slate-500 dark:text-slate-400 mb-4">
-        Total vigente: <span className="font-semibold text-slate-700 dark:text-slate-300">{formatMillions(total)}</span>
+        Total disponible: <span className="font-semibold text-slate-700 dark:text-slate-300">{formatMillions(total)}</span>
       </p>
 
       {/* Donut */}

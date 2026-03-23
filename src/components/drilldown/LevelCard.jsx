@@ -62,9 +62,9 @@ export function HeroLevelCard({ item, meta, onClick }) {
 
           <div className="flex flex-wrap items-end gap-5">
             {[
-              { label: 'Presupuesto vigente', val: item.totalVigente, big: true },
-              { label: 'Devengado',           val: item.totalDevengado },
-              { label: 'Pagado',              val: item.totalPagado },
+              { label: 'Dinero disponible', val: item.totalVigente, big: true },
+              { label: 'Comprometido',      val: item.totalDevengado },
+              { label: 'Pagado',            val: item.totalPagado },
             ].map(({ label, val, big }) => (
               <div key={label}>
                 <p className="text-[10px] opacity-70 font-body">{label}</p>
@@ -78,7 +78,7 @@ export function HeroLevelCard({ item, meta, onClick }) {
 
         <div className="flex flex-col items-center gap-1 flex-shrink-0">
           <Ring pct={item.pctEjecucion} color="white" size={72} />
-          <span className="text-[10px] font-body opacity-75">ejecución</span>
+          <span className="text-[10px] font-body opacity-75">% gastado</span>
         </div>
       </div>
 
@@ -132,7 +132,7 @@ export default function LevelCard({ item, meta, onClick }) {
           </div>
         </div>
         <p className="text-[10px] text-slate-400 dark:text-slate-500 font-body mt-0.5">
-          Devengado: <span className="font-medium text-slate-600 dark:text-slate-400">{formatMillions(item.totalDevengado)}</span>
+          Comprometido: <span className="font-medium text-slate-600 dark:text-slate-400">{formatMillions(item.totalDevengado)}</span>
         </p>
       </div>
 

@@ -69,7 +69,7 @@ export default function App() {
               <div className="space-y-5 animate-fade-in">
                 <div>
                   <h2 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100 mb-1">Resumen General</h2>
-                  <p className="text-xs font-body text-slate-500 dark:text-slate-400">Ejercicio Fiscal {year} · {records.length} renglones presupuestarios</p>
+                  <p className="text-xs font-body text-slate-500 dark:text-slate-400">Año {year} · {records.length} partidas de gasto</p>
                 </div>
                 <KPICards totals={totals} />
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start">
@@ -84,7 +84,7 @@ export default function App() {
               <div className="animate-fade-in">
                 <div className="mb-5">
                   <h2 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100 mb-1">Explorar Presupuesto</h2>
-                  <p className="text-xs font-body text-slate-500 dark:text-slate-400">Navega por las jerarquías presupuestarias haciendo click en cada tarjeta.</p>
+                  <p className="text-xs font-body text-slate-500 dark:text-slate-400">Haz clic en cada tarjeta para ver el detalle del gasto.</p>
                 </div>
                 <DrilldownNavigator records={records} drilldown={drilldown} />
               </div>
@@ -95,7 +95,7 @@ export default function App() {
               <div className="animate-fade-in">
                 <div className="mb-5">
                   <h2 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100 mb-1">Tabla Detallada</h2>
-                  <p className="text-xs font-body text-slate-500 dark:text-slate-400">Todos los renglones del ejercicio {year} con filtros y ordenamiento.</p>
+                  <p className="text-xs font-body text-slate-500 dark:text-slate-400">Todas las partidas de gasto del año {year} con filtros y búsqueda.</p>
                 </div>
                 <BudgetTable records={records} />
               </div>

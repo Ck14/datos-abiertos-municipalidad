@@ -30,9 +30,9 @@ function SingleItemChart({ item, title }) {
       <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200 mb-4">{title}</h3>
       <div className="space-y-4">
         {[
-          { label: 'Vigente',   val: item.totalVigente,   color: '#bfdbfe', width: 100 },
-          { label: 'Devengado', val: item.totalDevengado, color: execColor,  width: pctWidth },
-          { label: 'Pagado',    val: item.totalPagado,    color: '#6ee7b7',  width: item.totalVigente > 0 ? (item.totalPagado / item.totalVigente) * 100 : 0 },
+          { label: 'Disponible',   val: item.totalVigente,   color: '#bfdbfe', width: 100 },
+          { label: 'Comprometido', val: item.totalDevengado, color: execColor,  width: pctWidth },
+          { label: 'Pagado',       val: item.totalPagado,    color: '#6ee7b7',  width: item.totalVigente > 0 ? (item.totalPagado / item.totalVigente) * 100 : 0 },
         ].map(({ label, val, color, width }) => (
           <div key={label}>
             <div className="flex justify-between text-xs font-body mb-1.5">
@@ -48,7 +48,7 @@ function SingleItemChart({ item, title }) {
           </div>
         ))}
         <div className="flex justify-between items-center pt-1 border-t border-slate-100 dark:border-slate-700">
-          <span className="text-xs font-body text-slate-500 dark:text-slate-400">% de ejecución</span>
+          <span className="text-xs font-body text-slate-500 dark:text-slate-400">% gastado</span>
           <span className="text-sm font-mono font-bold" style={{ color: execColor }}>
             {item.pctEjecucion < 1 ? '<1%' : `${item.pctEjecucion.toFixed(1)}%`}
           </span>
@@ -58,7 +58,7 @@ function SingleItemChart({ item, title }) {
   )
 }
 
-export default function ExecutionBarChart({ items, title = 'Ejecución Presupuestaria' }) {
+export default function ExecutionBarChart({ items, title = 'Avance del Gasto' }) {
   const isDark = useIsDark()
 
   if (items.length === 1) {
@@ -67,8 +67,8 @@ export default function ExecutionBarChart({ items, title = 'Ejecución Presupues
 
   const data = items.slice(0, 12).map(item => ({
     name: item.label.length > 22 ? item.label.slice(0, 22) + '…' : item.label,
-    Vigente: item.totalVigente,
-    Devengado: item.totalDevengado,
+    Disponible: item.totalVigente,
+    Comprometido: item.totalDevengado,
     pct: item.pctEjecucion,
   }))
 
@@ -89,8 +89,8 @@ export default function ExecutionBarChart({ items, title = 'Ejecución Presupues
           />
           <Tooltip content={<CustomTooltip />} />
           <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11, fontFamily: 'DM Sans', color: textColor }} />
-          <Bar dataKey="Vigente" fill="#bfdbfe" radius={[0, 3, 3, 0]} maxBarSize={14} />
-          <Bar dataKey="Devengado" radius={[0, 3, 3, 0]} maxBarSize={14}>
+          <Bar dataKey="Disponible" fill="#bfdbfe" radius={[0, 3, 3, 0]} maxBarSize={14} />
+          <Bar dataKey="Comprometido" radius={[0, 3, 3, 0]} maxBarSize={14}>
             {data.map((d, i) => (
               <Cell key={i} fill={getExecutionColor(d.pct)} />
             ))}

@@ -9,19 +9,19 @@ const CUSTOM_AVATAR_SRC = avatarPng
 const SECTIONS = {
   dashboard: {
     label: 'Resumen General',
-    message: '¡Aquí tienes el resumen del presupuesto 2026! Revisa los KPIs y gráficas.',
+    message: '¡Aquí ves en qué se gasta el dinero del municipio! Revisa los totales y gráficas.',
     armAngle: -148,
     accent: '#6366f1',
   },
   explorar: {
     label: 'Explorar',
-    message: 'Navega la jerarquía presupuestaria haciendo clic en cada tarjeta.',
+    message: 'Haz clic en cada tarjeta para ver el detalle de cada área de gasto.',
     armAngle: -118,
     accent: '#0ea5e9',
   },
   tabla: {
     label: 'Tabla Detallada',
-    message: 'Filtra y ordena todos los renglones del ejercicio fiscal.',
+    message: 'Busca y filtra todas las partidas de gasto del año.',
     armAngle: -92,
     accent: '#10b981',
   },

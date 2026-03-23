@@ -59,7 +59,7 @@ export default function TableFilters({ records, filters, onFilterChange, onClear
           <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" />
           <input
             type="text"
-            placeholder="Programa, actividad, obra, renglón…"
+            placeholder="Área, tarea, obra, partida…"
             value={filters.search || ''}
             onChange={e => onFilterChange('search', e.target.value)}
             className="w-full pl-7 pr-3 py-1.5 text-xs font-body bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-700 dark:text-slate-300 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-300 dark:focus:ring-brand-700 focus:border-brand-400 dark:focus:border-brand-600 transition-all"
@@ -69,16 +69,16 @@ export default function TableFilters({ records, filters, onFilterChange, onClear
 
       {/* Jerarquía programática — 2 cols en móvil */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
-        <Select label="Programa"    value={filters.programa    || ''} onChange={handlePrograma}    options={programas} />
-        <Select label="SubPrograma" value={filters.subPrograma || ''} onChange={handleSubPrograma} options={subProgramas} />
-        <Select label="Proyecto"    value={filters.proyecto    || ''} onChange={handleProyecto}    options={proyectos} />
-        <Select label="Actividad"   value={filters.actividad   || ''} onChange={handleActividad}   options={actividades} />
+        <Select label="Área"         value={filters.programa    || ''} onChange={handlePrograma}    options={programas} />
+        <Select label="Subárea"      value={filters.subPrograma || ''} onChange={handleSubPrograma} options={subProgramas} />
+        <Select label="Proyecto"     value={filters.proyecto    || ''} onChange={handleProyecto}    options={proyectos} />
+        <Select label="Tarea"        value={filters.actividad   || ''} onChange={handleActividad}   options={actividades} />
       </div>
 
       {/* Otros filtros */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 items-end">
         <Select label="Obra"   value={filters.obra   || ''} onChange={v => onFilterChange('obra',   v)} options={obras} />
-        <Select label="Fuente" value={filters.fuente  || ''} onChange={v => onFilterChange('fuente', v)} options={fuentes} />
+        <Select label="Financiamiento" value={filters.fuente  || ''} onChange={v => onFilterChange('fuente', v)} options={fuentes} />
         <Select label="Tipo"   value={filters.tipo    || ''} onChange={v => onFilterChange('tipo',   v)} options={tipos} />
 
         {hasFilters && (

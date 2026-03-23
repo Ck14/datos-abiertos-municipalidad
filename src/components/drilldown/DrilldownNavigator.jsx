@@ -70,14 +70,14 @@ export default function DrilldownNavigator({ records, drilldown }) {
       {items.length > 0 && (
         <ExecutionBarChart
           items={items}
-          title={`Vigente vs Devengado — por ${currentLevelLabel}`}
+          title={`Disponible vs Comprometido — por ${currentLevelLabel}`}
         />
       )}
 
       {/* Leyenda semáforo */}
       {items.length > 0 && (
         <div className="flex items-center gap-4 pt-1">
-          <span className="text-[10px] font-body text-slate-400 dark:text-slate-500 uppercase tracking-wide">Ejecución:</span>
+          <span className="text-[10px] font-body text-slate-400 dark:text-slate-500 uppercase tracking-wide">Avance:</span>
           {[['#ef4444','Bajo (<30%)'],['#eab308','Medio (30–70%)'],['#22c55e','Alto (>70%)']].map(([c,l]) => (
             <span key={l} className="flex items-center gap-1 text-xs font-body text-slate-500 dark:text-slate-400">
               <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: c }} />

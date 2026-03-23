@@ -114,17 +114,17 @@ export default function BudgetTable({ records }) {
   const paginated  = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   const cols = [
-    { key: 'programa',        label: 'Programa',   sortable: false },
-    { key: 'actividad',       label: 'Actividad',  sortable: false },
-    { key: 'obra',            label: 'Obra',       sortable: false },
-    { key: 'renglon',         label: 'Renglón',    sortable: false },
-    { key: 'fuente',          label: 'Fuente',     sortable: false },
-    { key: 'tipoPresupuesto', label: 'Tipo',       sortable: false },
-    { key: 'asignado',        label: 'Asignado',   sortable: true  },
-    { key: 'vigente',         label: 'Vigente',    sortable: true  },
-    { key: 'devengado',       label: 'Devengado',  sortable: true  },
-    { key: 'pagado',          label: 'Pagado',     sortable: true  },
-    { key: 'pctEjecucion',    label: '% Ejec.',    sortable: true  },
+    { key: 'programa',        label: 'Área',           sortable: false },
+    { key: 'actividad',       label: 'Tarea',          sortable: false },
+    { key: 'obra',            label: 'Obra',           sortable: false },
+    { key: 'renglon',         label: 'Partida',        sortable: false },
+    { key: 'fuente',          label: 'Financiamiento', sortable: false },
+    { key: 'tipoPresupuesto', label: 'Tipo',           sortable: false },
+    { key: 'asignado',        label: 'Aprobado',       sortable: true  },
+    { key: 'vigente',         label: 'Disponible',     sortable: true  },
+    { key: 'devengado',       label: 'Comprometido',   sortable: true  },
+    { key: 'pagado',          label: 'Pagado',         sortable: true  },
+    { key: 'pctEjecucion',    label: '% Gastado',      sortable: true  },
   ]
 
   return (
