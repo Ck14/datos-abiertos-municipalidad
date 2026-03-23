@@ -8,19 +8,19 @@ const CUSTOM_AVATAR_SRC = avatarPng
 
 const SECTIONS = {
   dashboard: {
-    label: 'Resumen General',
+    label: 'Inicio',
     message: '¡Aquí ves en qué se gasta el dinero del municipio! Revisa los totales y gráficas.',
     armAngle: -148,
     accent: '#6366f1',
   },
   explorar: {
-    label: 'Explorar',
+    label: '¿En qué se gasta?',
     message: 'Haz clic en cada tarjeta para ver el detalle de cada área de gasto.',
     armAngle: -118,
     accent: '#0ea5e9',
   },
   tabla: {
-    label: 'Tabla Detallada',
+    label: 'Ver todo el gasto',
     message: 'Busca y filtra todas las partidas de gasto del año.',
     armAngle: -92,
     accent: '#10b981',
@@ -47,7 +47,7 @@ export default function MascotGuide({ activeTab }) {
         .bubble-pop    { animation: bubble-pop 0.28s cubic-bezier(0.34,1.56,0.64,1) both; }
       `}</style>
 
-      <div className="fixed bottom-6 right-4 z-50 flex flex-col items-end gap-2 select-none">
+      <div className="fixed bottom-6 lg:bottom-40 right-4 z-50 flex flex-col items-end gap-2 select-none">
 
         {/* ── Speech bubble ──────────────────────────────────────────────── */}
         {!minimized && (

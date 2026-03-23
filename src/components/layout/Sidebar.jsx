@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { LayoutDashboard, FolderTree, Table2, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const NAV = [
-  { id: 'dashboard', label: 'Resumen',              icon: LayoutDashboard },
-  { id: 'explorar',  label: 'Explorar Presupuesto', icon: FolderTree },
-  { id: 'tabla',     label: 'Tabla Detallada',       icon: Table2 },
+  { id: 'dashboard', label: 'Inicio',            mobile: 'Inicio',   icon: LayoutDashboard },
+  { id: 'explorar',  label: '¿En qué se gasta?', mobile: 'El gasto', icon: FolderTree },
+  { id: 'tabla',     label: 'Ver todo',           mobile: 'Ver todo', icon: Table2 },
 ]
 
 export default function Sidebar({ activeTab, onTabChange }) {
@@ -52,7 +52,7 @@ export default function Sidebar({ activeTab, onTabChange }) {
 
       {/* Mobile bottom nav */}
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 flex safe-area-pb transition-colors duration-200">
-        {NAV.map(({ id, label, icon: Icon }) => (
+        {NAV.map(({ id, label, mobile, icon: Icon }) => (
           <button
             key={id}
             onClick={() => onTabChange(id)}
@@ -63,7 +63,7 @@ export default function Sidebar({ activeTab, onTabChange }) {
             }`}
           >
             <Icon size={20} />
-            <span className="truncate px-1">{label.split(' ')[0]}</span>
+            <span className="truncate px-1">{mobile}</span>
           </button>
         ))}
       </nav>

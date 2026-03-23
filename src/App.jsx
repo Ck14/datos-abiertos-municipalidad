@@ -69,7 +69,7 @@ export default function App() {
             {activeTab === 'dashboard' && (
               <div className="space-y-5 animate-fade-in">
                 <div>
-                  <h2 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100 mb-1">Resumen General</h2>
+                  <h2 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100 mb-1">¿En qué se usa el dinero del municipio?</h2>
                   <p className="text-xs font-body text-slate-500 dark:text-slate-400">Año {year} · {records.length} partidas de gasto</p>
                 </div>
                 <KPICards totals={totals} />
@@ -84,7 +84,7 @@ export default function App() {
             {activeTab === 'explorar' && (
               <div className="animate-fade-in">
                 <div className="mb-5">
-                  <h2 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100 mb-1">Explorar Presupuesto</h2>
+                  <h2 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100 mb-1">¿En qué se gasta?</h2>
                   <p className="text-xs font-body text-slate-500 dark:text-slate-400">Haz clic en cada tarjeta para ver el detalle del gasto.</p>
                 </div>
                 <DrilldownNavigator records={records} drilldown={drilldown} />
@@ -95,7 +95,7 @@ export default function App() {
             {activeTab === 'tabla' && (
               <div className="animate-fade-in">
                 <div className="mb-5">
-                  <h2 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100 mb-1">Tabla Detallada</h2>
+                  <h2 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100 mb-1">Ver todo el gasto</h2>
                   <p className="text-xs font-body text-slate-500 dark:text-slate-400">Todas las partidas de gasto del año {year} con filtros y búsqueda.</p>
                 </div>
                 <BudgetTable records={records} />
