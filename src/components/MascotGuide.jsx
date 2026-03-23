@@ -8,6 +8,13 @@ import avatarPng from '../assets/avatar1.png'
 const CUSTOM_AVATAR_SRC = avatarPng
 // ─────────────────────────────────────────────────────────────────────────────
 
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1, 3), 16)
+  const g = parseInt(hex.slice(3, 5), 16)
+  const b = parseInt(hex.slice(5, 7), 16)
+  return `${r},${g},${b}`
+}
+
 const SECTIONS = {
   dashboard: {
     label: 'Inicio',
@@ -103,12 +110,19 @@ export default function MascotGuide({ activeTab }) {
             {/* Speech bubble — toggle con click en avatar */}
             {bubbleOpen && (
               <div key={activeTab} className="bubble-pop relative max-w-[210px]">
-                <div className={`
-                  px-4 py-3 rounded-2xl rounded-br-none text-xs leading-snug
-                  ${isDark
-                    ? 'bg-slate-800 border border-slate-700 text-slate-200 shadow-2xl shadow-black/50'
-                    : 'bg-white border border-slate-200 text-slate-600 shadow-xl shadow-slate-200/60'}
-                `}>
+                <div
+                  className="px-4 py-3 rounded-2xl rounded-br-none text-xs leading-snug"
+                  style={{
+                    background: isDark
+                      ? `rgba(15,23,42,0.96)`
+                      : `rgba(255,255,255,0.97)`,
+                    border: `1.5px solid rgba(${hexToRgb(displayAccent)}, 0.5)`,
+                    backdropFilter: 'blur(14px)',
+                    WebkitBackdropFilter: 'blur(14px)',
+                    boxShadow: `0 8px 24px rgba(${hexToRgb(displayAccent)}, 0.22), 0 2px 8px rgba(0,0,0,0.18)`,
+                    color: isDark ? '#f1f5f9' : '#1e293b',
+                  }}
+                >
                   <span
                     className="block text-[10px] font-bold uppercase tracking-widest mb-1"
                     style={{ color: displayAccent }}
@@ -133,8 +147,7 @@ export default function MascotGuide({ activeTab }) {
                   </div>
                 </div>
                 {/* Tail */}
-                <div className="absolute -bottom-[9px] right-8" style={{ width:0, height:0, borderLeft:'9px solid transparent', borderRight:'9px solid transparent', borderTop:`9px solid ${isDark ? '#1e293b' : 'white'}` }} />
-                <div className="absolute -bottom-[11px] right-[30px]" style={{ width:0, height:0, borderLeft:'11px solid transparent', borderRight:'11px solid transparent', borderTop:`11px solid ${isDark ? '#334155' : '#e2e8f0'}`, zIndex:-1 }} />
+                <div className="absolute -bottom-[9px] right-8" style={{ width:0, height:0, borderLeft:'9px solid transparent', borderRight:'9px solid transparent', borderTop:`9px solid ${isDark ? 'rgba(15,23,42,0.96)' : 'rgba(255,255,255,0.97)'}` }} />
               </div>
             )}
 
