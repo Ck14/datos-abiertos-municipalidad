@@ -100,14 +100,15 @@ export default function LevelCard({ item, meta, onClick }) {
     <button
       onClick={() => clickable && onClick(item)}
       disabled={!clickable}
-      className={`w-full text-left bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl p-3.5 flex items-center gap-3 transition-all duration-150 ${
+      className={`w-full text-left bg-white dark:bg-teal-900 border-2 rounded-2xl p-4 flex items-center gap-3 transition-all duration-150 ${
         clickable
-          ? 'hover:border-slate-300 dark:hover:border-slate-500 hover:shadow-md hover:-translate-y-0.5 cursor-pointer'
+          ? 'hover:shadow-md hover:-translate-y-0.5 cursor-pointer'
           : 'cursor-default'
       }`}
+      style={{ borderColor: meta.color + '30' }}
     >
       <div
-        className="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+        className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"
         style={{ backgroundColor: meta.color + '18' }}
       >
         {meta.icon}
@@ -115,24 +116,24 @@ export default function LevelCard({ item, meta, onClick }) {
 
       <div className="flex-1 min-w-0">
         <div className="flex items-start justify-between gap-1">
-          <p className="text-xs font-display font-semibold text-slate-800 dark:text-slate-200 leading-tight line-clamp-2">
+          <p className="text-xs font-display font-black text-teal-800 dark:text-teal-200 leading-tight line-clamp-2">
             {item.label}
           </p>
-          {clickable && <ChevronRight size={13} className="text-slate-400 dark:text-slate-500 flex-shrink-0 mt-0.5" />}
+          {clickable && <ChevronRight size={13} className="text-brand-500 dark:text-brand-400 flex-shrink-0 mt-0.5" />}
         </div>
-        <p className="text-sm font-mono font-bold mt-0.5" style={{ color: meta.color }}>
+        <p className="text-sm font-mono font-black mt-0.5" style={{ color: meta.color }}>
           {formatMillions(item.totalVigente)}
         </p>
         <div className="flex items-center gap-2 mt-1.5">
-          <div className="flex-1 h-1 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+          <div className="flex-1 h-1.5 bg-teal-100 dark:bg-teal-700 rounded-full overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-500"
               style={{ width: `${Math.min(item.pctEjecucion, 100)}%`, backgroundColor: execColor }}
             />
           </div>
         </div>
-        <p className="text-[10px] text-slate-400 dark:text-slate-500 font-body mt-0.5">
-          Devengado: <span className="font-medium text-slate-600 dark:text-slate-400">{formatMillions(item.totalDevengado)}</span>
+        <p className="text-[10px] text-teal-400 dark:text-stone-500 font-body font-semibold mt-0.5">
+          Devengado: <span className="font-bold text-stone-600 dark:text-teal-400">{formatMillions(item.totalDevengado)}</span>
         </p>
       </div>
 

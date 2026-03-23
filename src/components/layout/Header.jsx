@@ -1,68 +1,71 @@
-import { RefreshCw, Database, HardDrive, Calendar, Sun, Moon } from 'lucide-react'
+import { RefreshCw, Database, HardDrive, Sun, Moon, Wifi, WifiOff } from 'lucide-react'
 import appConfig from '../../data/config.json'
 
 export default function Header({ source, lastUpdated, year, loading, onRefetch, isDark, onToggleTheme }) {
   const isAPI = source === 'api'
 
   return (
-    <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-30 transition-colors duration-200">
-      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 gap-4">
-
-          {/* Logo + título */}
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-brand-700 flex items-center justify-center">
-              <span className="text-white font-display font-bold text-sm">CH</span>
+    <header className="sticky top-0 z-30 transition-colors duration-200">
+      {/* Barra superior teal oscura */}
+      <div className="bg-brand-700 dark:bg-brand-900 px-4 sm:px-6 lg:px-8 py-1.5 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          {source && (
+            <div className="flex items-center gap-1.5 text-xs font-body font-semibold text-brand-200">
+              {isAPI
+                ? <><Wifi size={11} className="text-teal-300" /> <span className="text-teal-300">Datos actuales del gobierno</span></>
+                : <><WifiOff size={11} className="text-amber-300" /> <span className="text-amber-300">Datos guardados</span></>
+              }
             </div>
-            <div className="min-w-0">
-              <h1 className="font-display font-bold text-slate-900 dark:text-slate-100 text-sm sm:text-base leading-tight truncate">
-                {appConfig.entidad}
-              </h1>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-body">
-                Presupuesto Municipal {year ?? new Date().getFullYear()}
-              </p>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          {lastUpdated && (
+            <span className="hidden sm:block text-[11px] font-body text-brand-300">
+              Actualizado: {lastUpdated}
+            </span>
+          )}
+          <button
+            onClick={onToggleTheme}
+            className="p-1 rounded-md text-brand-300 hover:text-white transition-colors"
+            title={isDark ? 'Modo claro' : 'Modo oscuro'}
+          >
+            {isDark ? <Sun size={14} /> : <Moon size={14} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Barra principal blanca */}
+      <div className="bg-white dark:bg-teal-950 border-b-2 border-brand-100 dark:border-teal-800 shadow-sm">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 gap-4">
+
+            {/* Logo + título */}
+            <div className="flex items-center gap-3 min-w-0">
+              {/* Logo cuadrado con ícono de escudo */}
+              <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-brand-600 flex items-center justify-center shadow-lg shadow-brand-200 dark:shadow-brand-900 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-500/40 to-transparent" />
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </div>
+              <div className="min-w-0">
+                <h1 className="font-display font-bold text-teal-900 dark:text-teal-100 text-sm sm:text-base leading-tight truncate">
+                  Chimaltenango Transparente
+                </h1>
+                <p className="text-xs font-body text-brand-600 dark:text-brand-400 font-medium">
+                  Presupuesto {year ?? new Date().getFullYear()} · {appConfig.entidad}
+                </p>
+              </div>
             </div>
-          </div>
-
-          {/* Estado + botones */}
-          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            {/* Badge de fuente */}
-            {source && (
-              <div className={`hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-body font-medium border ${
-                isAPI
-                  ? 'bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800'
-                  : 'bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800'
-              }`}>
-                {isAPI ? <Database size={11} /> : <HardDrive size={11} />}
-                {isAPI ? 'En línea' : 'Datos locales'}
-              </div>
-            )}
-
-            {/* Fecha */}
-            {lastUpdated && (
-              <div className="hidden md:flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-body">
-                <Calendar size={12} />
-                <span>Actualizado: {lastUpdated}</span>
-              </div>
-            )}
-
-            {/* Toggle dark mode */}
-            <button
-              onClick={onToggleTheme}
-              className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-              title={isDark ? 'Modo claro' : 'Modo oscuro'}
-            >
-              {isDark ? <Sun size={16} /> : <Moon size={16} />}
-            </button>
 
             {/* Botón actualizar */}
             <button
               onClick={onRefetch}
               disabled={loading}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-brand-700 hover:bg-brand-800 disabled:opacity-50 text-white text-xs font-body font-medium rounded-lg transition-colors duration-150"
+              className="flex items-center gap-2 px-4 py-2.5 bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white text-sm font-body font-semibold rounded-xl transition-all duration-150 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
             >
-              <RefreshCw size={12} className={loading ? 'animate-spin' : ''} />
-              <span className="hidden sm:inline">{loading ? 'Cargando…' : 'Actualizar'}</span>
+              <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
+              <span className="hidden sm:inline">{loading ? 'Actualizando…' : 'Actualizar datos'}</span>
             </button>
           </div>
         </div>

@@ -4,11 +4,11 @@ import { fixEncoding } from '../../utils/formatters'
 function Select({ label, value, onChange, options }) {
   return (
     <div className="flex flex-col gap-1 min-w-0">
-      <label className="text-[10px] font-body font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">{label}</label>
+      <label className="text-[10px] font-body font-black text-teal-500 dark:text-teal-400 uppercase tracking-wide">{label}</label>
       <select
         value={value}
         onChange={e => onChange(e.target.value)}
-        className="w-full text-xs font-body bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-2.5 py-1.5 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-300 dark:focus:ring-brand-700 focus:border-brand-400 dark:focus:border-brand-600 transition-all"
+        className="w-full text-xs font-body bg-white dark:bg-teal-800 border-2 border-brand-100 dark:border-teal-600 rounded-xl px-2.5 py-1.5 text-teal-700 dark:text-teal-300 focus:outline-none focus:ring-2 focus:ring-brand-300 dark:focus:ring-brand-700 focus:border-brand-400 dark:focus:border-brand-500 transition-all"
       >
         <option value="">Todos</option>
         {options.map(o => <option key={o} value={o}>{o}</option>)}
@@ -51,18 +51,18 @@ export default function TableFilters({ records, filters, onFilterChange, onClear
   const handleActividad   = v => { onFilterChange('actividad', v); onFilterChange('obra', '') }
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-4 shadow-sm transition-colors duration-200">
+    <div className="bg-white dark:bg-teal-900 rounded-3xl border-2 border-brand-100 dark:border-teal-700 p-5 shadow-sm transition-colors duration-200">
       {/* Búsqueda — ancho completo */}
-      <div className="flex flex-col gap-1 mb-3">
-        <label className="text-[10px] font-body font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Buscar</label>
+      <div className="flex flex-col gap-1.5 mb-4">
+        <label className="text-[10px] font-body font-black text-teal-500 dark:text-teal-400 uppercase tracking-wide">🔍 Buscar</label>
         <div className="relative">
-          <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-400 dark:text-brand-500" />
           <input
             type="text"
-            placeholder="Programa, actividad, obra, renglón…"
+            placeholder="Ej: agua, salud, educación, calles…"
             value={filters.search || ''}
             onChange={e => onFilterChange('search', e.target.value)}
-            className="w-full pl-7 pr-3 py-1.5 text-xs font-body bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-700 dark:text-slate-300 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-300 dark:focus:ring-brand-700 focus:border-brand-400 dark:focus:border-brand-600 transition-all"
+            className="w-full pl-9 pr-3 py-2.5 text-sm font-body bg-white dark:bg-teal-800 border-2 border-brand-100 dark:border-teal-600 rounded-2xl text-teal-700 dark:text-teal-300 placeholder-teal-400 dark:placeholder-teal-500 focus:outline-none focus:ring-2 focus:ring-brand-300 dark:focus:ring-brand-700 focus:border-brand-400 dark:focus:border-brand-500 transition-all"
           />
         </div>
       </div>
@@ -84,9 +84,9 @@ export default function TableFilters({ records, filters, onFilterChange, onClear
         {hasFilters && (
           <button
             onClick={onClear}
-            className="flex items-center gap-1 text-xs font-body text-slate-500 dark:text-slate-400 hover:text-red-500 dark:hover:text-red-400 transition-colors self-end pb-1.5"
+            className="flex items-center gap-1.5 text-sm font-body font-bold text-teal-500 dark:text-teal-400 hover:text-red-500 dark:hover:text-red-400 transition-colors self-end py-1.5 px-3 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20"
           >
-            <X size={12} /> Limpiar
+            <X size={13} /> Limpiar filtros
           </button>
         )}
       </div>
