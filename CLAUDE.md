@@ -20,6 +20,17 @@ Empresa: **Chimaltenango Transparente**.
 ## Jerarquía programática
 `programa → subPrograma → proyecto → actividad → obra`
 
+## MCP Facebook (`mcp-facebook/`)
+Servidor MCP para publicar en la página de Facebook de Chimaltenango Transparente.
+
+- **Configurado en:** `C:/Users/covalle.DC-DI01/.claude.json` — en la clave `mcpServers` (Claude Code 2.x lee este archivo, NO `~/.claude/mcp.json` ni `~/.claude/.mcp.json`)
+- **Comando:** ruta absoluta `C:/Program Files/nodejs/node.exe` (no usar `"node"` — en Windows Claude Code no resuelve el PATH)
+- **Args:** ruta absoluta al script `D:/REPOSITORIO_GITHUB/DatosAbiertos/mcp-facebook/index.js`
+- **Variables de entorno:** definidas en `~/.claude.json` bajo `env` Y también en `mcp-facebook/.env` (dotenv como respaldo)
+- **`mcpServers` NO va en `settings.json`** — va en `~/.claude.json` directamente
+- **Herramientas disponibles:** `post_text`, `post_with_image`, `post_budget_summary`, `schedule_post`, `get_recent_posts`
+- Si el MCP no aparece en `/mcp`: reiniciar Claude Code (se inicializa al arrancar)
+
 ## Archivos clave
 | Archivo | Propósito |
 |---------|-----------|
