@@ -5,32 +5,37 @@ import LevelCard from './LevelCard'
 import ExecutionBarChart from '../charts/ExecutionBarChart'
 import { aggregateByLevel, HIERARCHY_CONFIG } from '../../utils/budgetAggregator'
 import { getItemMeta } from '../../utils/levelIcons'
+import { useLang } from '../../contexts/LanguageContext'
 
 function EmptyState() {
+  const { t } = useLang()
   return (
     <div className="flex flex-col items-center justify-center py-16 text-slate-400 dark:text-slate-500">
       <span className="text-5xl mb-3">📭</span>
-      <p className="text-sm font-body">No hay datos para este nivel.</p>
+      <p className="text-sm font-body">{t('drilldown.empty')}</p>
     </div>
   )
 }
 
 export default function DrilldownNavigator({ records, drilldown }) {
   const { view, path, drillDown, drillUp, resetPath, setView } = drilldown
+  const { t } = useLang()
 
   const items = useMemo(
     () => aggregateByLevel(records, view, path),
     [records, view, path]
   )
 
-  const config           = HIERARCHY_CONFIG[view]
-  const currentLevelIdx  = path.length
+  const config            = HIERARCHY_CONFIG[view]
+  const currentLevelIdx   = path.length
   const currentLevelLabel = config?.levels[currentLevelIdx]?.label || ''
 
   const handleBreadcrumb = (index) => {
     if (index === 0) resetPath()
     else drillUp(index)
   }
+
+  const foundKey = items.length === 1 ? 'drilldown.found_one' : 'drilldown.found_other'
 
   return (
     <div className="space-y-5">
@@ -43,9 +48,10 @@ export default function DrilldownNavigator({ records, drilldown }) {
       {/* Contador */}
       {items.length > 0 && (
         <p className="text-xs text-slate-500 dark:text-slate-400 font-body">
-          <span className="font-semibold text-slate-700 dark:text-slate-300">{items.length}</span> {currentLevelLabel}{items.length !== 1 ? 's' : ''} encontrados
+          <span className="font-semibold text-slate-700 dark:text-slate-300">{items.length}</span>{' '}
+          {t(foundKey, { count: '', level: currentLevelLabel }).replace(/^\d+\s*/, '')}
           {items[0]?.hasChildren &&
-            <span className="ml-1 text-brand-600 dark:text-brand-400">· Haz clic para explorar</span>
+            <span className="ml-1 text-brand-600 dark:text-brand-400">{t('drilldown.clickToExplore')}</span>
           }
         </p>
       )}
@@ -70,15 +76,15 @@ export default function DrilldownNavigator({ records, drilldown }) {
       {items.length > 0 && (
         <ExecutionBarChart
           items={items}
-          title={`Disponible vs Comprometido — por ${currentLevelLabel}`}
+          title={t('drilldown.chartTitle', { level: currentLevelLabel })}
         />
       )}
 
       {/* Leyenda semáforo */}
       {items.length > 0 && (
         <div className="flex items-center gap-4 pt-1">
-          <span className="text-[10px] font-body text-slate-400 dark:text-slate-500 uppercase tracking-wide">Avance:</span>
-          {[['#ef4444','Bajo (<30%)'],['#eab308','Medio (30–70%)'],['#22c55e','Alto (>70%)']].map(([c,l]) => (
+          <span className="text-[10px] font-body text-slate-400 dark:text-slate-500 uppercase tracking-wide">{t('drilldown.progress')}</span>
+          {[['#ef4444', t('drilldown.low')], ['#eab308', t('drilldown.medium')], ['#22c55e', t('drilldown.high')]].map(([c, l]) => (
             <span key={l} className="flex items-center gap-1 text-xs font-body text-slate-500 dark:text-slate-400">
               <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: c }} />
               {l}

@@ -1,0 +1,97 @@
+{
+  "_note": "Traducciones al kaqchikel — revisar con hablante nativo",
+  "header": {
+    "subtitle": "Xolb'al pa ri Tinamït {year}",
+    "sourceOnline": "Pa li'äj",
+    "sourceLocal": "Taq b'ix wuqaj",
+    "updated": "Xtz'ib'ax:",
+    "darkMode": "Raqän q'eq",
+    "lightMode": "Raqän säq",
+    "refresh": "Xtz'ib'ax jub'a",
+    "loading": "K'o pa b'e…",
+    "langSwitch": "Español"
+  },
+  "nav": {
+    "dashboard": "Tikirib'äl",
+    "dashboardMobile": "Tikirib'äl",
+    "explore": "¿Jas xb'an?",
+    "exploreMobile": "Xb'an",
+    "table": "Ilb'äl ronojel",
+    "tableMobile": "Ronojel",
+    "collapse": "Tz'apïx ri b'e",
+    "expand": "Yäk ri b'e"
+  },
+  "dashboard": {
+    "title": "¿Jas xb'an rech ri taq poy pa ri Tinamït?",
+    "subtitle": "Juna' {year} · {count} taq ch'akoj"
+  },
+  "explore": {
+    "title": "¿Jas xb'an rech ri taq poy?",
+    "subtitle": "Tiq'ax jumek'al b'ix chi kilo ri rub'eyal ri ch'akoj."
+  },
+  "table": {
+    "title": "Ilb'äl ronojel ri ch'akoj",
+    "subtitle": "Ronojel taq ch'akoj pa juna' {year} ruk'in taq xojonem."
+  },
+  "kpi": {
+    "approved": "Taq Poy Xkimatzij",
+    "approvedHelp": "Are ri taq poy xkimatzij ri Aj Ch'akoj pa tikirib'al ri juna'. Are ri tikirib'al rech ri xolb'al.",
+    "available": "Taq Poy K'o Chupam",
+    "availableHelp": "Are ri xolb'al k'o ruk'in ri q'ij xuquje' kanoq. Nïm o ti'j xpe pa ri tikirib'al rech ri yawab'il ri Tinamït.",
+    "committed": "Xb'an Chik",
+    "committedHelp": "Taq poy xb'an chik rech taq tzijonem, taq tzijob'äl o taq ch'akoj. Man xel ta wi pa ri taq pa'ijb'äl, xa xe' k'o wi ri rub'eyal.",
+    "paid": "Xel Chik",
+    "paidHelp": "Taq poy xel chik pa ri taq pa'ijb'äl rech ri Tinamït. Are ri xb'an chik ruk'in ri k'ak'a' q'ij."
+  },
+  "mascot": {
+    "dashboard": {
+      "label": "Tikirib'äl",
+      "message": "Pa wakami kilo jas xb'an rech ri taq poy pa ri Tinamït! Kilo ri taq ronojel xuquje' taq tz'ib'."
+    },
+    "explorar": {
+      "label": "¿Jas xb'an?",
+      "message": "Tiq'ax jumek'al b'ix chi kilo ri rub'eyal ri ch'akoj pa ronojel k'ojlib'äl."
+    },
+    "tabla": {
+      "label": "Ilb'äl ronojel",
+      "message": "Xoj xuquje' xojon ronojel taq ch'akoj pa ri juna'."
+    },
+    "minimize": "Tz'apïx",
+    "closeHelp": "✕ tz'apïx ri b'ix",
+    "showGuide": "Kilo ri ajyuq'"
+  },
+  "drilldown": {
+    "found_one": "{count} {level} xetz'et",
+    "found_other": "{count} {level} xetz'et",
+    "clickToExplore": "· Tiq'ax chi kilo",
+    "empty": "Man k'o ta wi taq b'ix pa wakami.",
+    "chartTitle": "K'o rech vs Xb'an chik — rech ri {level}",
+    "progress": "Rub'eyal:",
+    "low": "Ti'j (<30%)",
+    "medium": "Chuwi' (30–70%)",
+    "high": "Nïm (>70%)"
+  },
+  "welcome": {
+    "title": "¡Saqarik!",
+    "brand": "Chimaltenango Transparente",
+    "body1": "Pa wakami kilo",
+    "bodyStrong": "jas xb'an rech ri taq poy",
+    "body2": "pa ri awatinamït pa {year}.",
+    "source": "Taq b'ix ajawab'äl rech ri Ajpatan Taq Poy.",
+    "cta": "Kilo ri xolb'al →",
+    "noRepeat": "Ri tzij man xpe ta wi jub'a"
+  },
+  "footer": {
+    "description": "Pixab'al chi kilo ri xolb'al rech ri Tinamït {entity}. Kib'an ri Q'alajisanik xuquje' ri rub'eyal rech ri Tinamït.",
+    "dataSource": "Rub'eyal ri Taq B'ix",
+    "minfinLabel": "MINFIN — Taq B'ix Ajawab'äl Guatemala",
+    "minfinYear": "Taq b'ix xolb'al Tinamït {year} — Región V Central",
+    "credits": "Taq Rub'eyal",
+    "builtBy": "Xb'an ruk'in",
+    "builtWith": "Xb'an ruk'in React, Vite, Tailwind CSS xuquje' Recharts.",
+    "copyright": "© {year} Chimaltenango Transparente. Taq b'ix ajawab'äl.",
+    "official": "Ri taq b'ix xpe pa ri Ajpatan Taq Poy Ajawab'äl Guatemala."
+  },
+  "loading": "K'o pa b'e ri xolb'al…",
+  "error": "Xerr pa ri taq b'ix:"
+}
