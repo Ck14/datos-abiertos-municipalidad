@@ -3,8 +3,9 @@ import { Database, ExternalLink, Eye } from 'lucide-react'
 import appConfig from '../../data/config.json'
 import { useLang } from '../../contexts/LanguageContext'
 
-// const COUNTER_BASE = 'https://api.counterapi.dev/v2/ckevyn-ovalles-team-3705/first-counter-3705'
-const COUNTER_BASE = '/counter/v2/ckevyn-ovalles-team-3705/first-counter-3705'
+const COUNTER_BASE = import.meta.env.DEV
+  ? '/counter/v2/ckevyn-ovalles-team-3705/first-counter-3705'
+  : 'https://api.counterapi.dev/v2/ckevyn-ovalles-team-3705/first-counter-3705'
 const API_KEY = import.meta.env.VITE_COUNTER_API_KEY
 
 function useVisitCounter() {
@@ -61,12 +62,6 @@ export default function Footer() {
             <p className="text-xs font-body text-slate-500 dark:text-slate-400 leading-relaxed">
               {t('footer.description', { entity: appConfig.entidad })}
             </p>
-            {visits !== null && (
-              <div className="flex items-center gap-1.5 text-[10px] font-body text-slate-400 dark:text-slate-500">
-                <Eye size={11} />
-                <span>{visits.toLocaleString()} visitas</span>
-              </div>
-            )}
           </div>
 
           {/* Fuente de datos */}
@@ -112,6 +107,15 @@ export default function Footer() {
           <p className="text-[10px] font-body text-slate-400 dark:text-slate-500">
             {t('footer.copyright', { year: currentYear })}
           </p>
+          {visits !== null && (
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
+              <Eye size={13} />
+              <span className="text-sm font-display font-semibold text-slate-700 dark:text-slate-200">
+                {visits.toLocaleString()}
+              </span>
+              <span className="text-xs font-body">visitas</span>
+            </div>
+          )}
           <p className="text-[10px] font-body text-slate-400 dark:text-slate-500">
             {t('footer.official')}
           </p>
