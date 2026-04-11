@@ -12,34 +12,38 @@ import { useDrilldown } from './hooks/useDrilldown'
 import { useTheme } from './hooks/useTheme'
 import { ThemeContext } from './contexts/ThemeContext'
 import { HelpProvider } from './contexts/HelpContext'
+import { LanguageProvider, useLang } from './contexts/LanguageContext'
 import { calcGlobalTotals } from './utils/budgetAggregator'
 import MascotGuide from './components/MascotGuide'
 import WelcomeModal from './components/WelcomeModal'
 
 function LoadingScreen() {
+  const { t } = useLang()
   return (
     <div className="fixed inset-0 bg-slate-50 dark:bg-slate-900 flex flex-col items-center justify-center gap-4">
       <div className="w-10 h-10 rounded-xl bg-brand-700 flex items-center justify-center animate-pulse">
         <span className="text-white font-display font-bold text-lg">CH</span>
       </div>
-      <p className="text-sm font-body text-slate-500 dark:text-slate-400 animate-pulse">Cargando presupuesto…</p>
+      <p className="text-sm font-body text-slate-500 dark:text-slate-400 animate-pulse">{t('loading')}</p>
     </div>
   )
 }
 
 function ErrorBanner({ message }) {
+  const { t } = useLang()
   return (
     <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4 text-sm font-body text-red-700 dark:text-red-400">
-      Error al cargar los datos: {message}
+      {t('error')} {message}
     </div>
   )
 }
 
-export default function App() {
+function AppInner() {
   const { records, loading, error, source, year, lastUpdated, refetch } = useBudgetData()
   const [activeTab, setActiveTab] = useState('dashboard')
   const drilldown = useDrilldown()
   const { isDark, toggleTheme } = useTheme()
+  const { t } = useLang()
 
   const totals = useMemo(() => calcGlobalTotals(records), [records])
 
@@ -71,8 +75,8 @@ export default function App() {
             {activeTab === 'dashboard' && (
               <div className="space-y-5 animate-fade-in">
                 <div>
-                  <h2 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100 mb-1">¿En qué se usa el dinero del municipio?</h2>
-                  <p className="text-xs font-body text-slate-500 dark:text-slate-400">Año {year} · {records.length} partidas de gasto</p>
+                  <h2 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100 mb-1">{t('dashboard.title')}</h2>
+                  <p className="text-xs font-body text-slate-500 dark:text-slate-400">{t('dashboard.subtitle', { year, count: records.length })}</p>
                 </div>
                 <KPICards totals={totals} />
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start">
@@ -86,8 +90,8 @@ export default function App() {
             {activeTab === 'explorar' && (
               <div className="animate-fade-in">
                 <div className="mb-5">
-                  <h2 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100 mb-1">¿En qué se gasta?</h2>
-                  <p className="text-xs font-body text-slate-500 dark:text-slate-400">Haz clic en cada tarjeta para ver el detalle del gasto.</p>
+                  <h2 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100 mb-1">{t('explore.title')}</h2>
+                  <p className="text-xs font-body text-slate-500 dark:text-slate-400">{t('explore.subtitle')}</p>
                 </div>
                 <DrilldownNavigator records={records} drilldown={drilldown} />
               </div>
@@ -97,8 +101,8 @@ export default function App() {
             {activeTab === 'tabla' && (
               <div className="animate-fade-in">
                 <div className="mb-5">
-                  <h2 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100 mb-1">Ver todo el gasto</h2>
-                  <p className="text-xs font-body text-slate-500 dark:text-slate-400">Todas las partidas de gasto del año {year} con filtros y búsqueda.</p>
+                  <h2 className="text-lg font-display font-bold text-slate-900 dark:text-slate-100 mb-1">{t('table.title')}</h2>
+                  <p className="text-xs font-body text-slate-500 dark:text-slate-400">{t('table.subtitle', { year })}</p>
                 </div>
                 <BudgetTable records={records} />
               </div>
@@ -112,5 +116,13 @@ export default function App() {
       <WelcomeModal year={year} />
     </ThemeContext.Provider>
     </HelpProvider>
+  )
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <AppInner />
+    </LanguageProvider>
   )
 }

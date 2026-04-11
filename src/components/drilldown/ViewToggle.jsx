@@ -1,9 +1,11 @@
 import { HIERARCHY_CONFIG } from '../../utils/budgetAggregator'
+import { useLang } from '../../contexts/LanguageContext'
 
 export default function ViewToggle({ view, onViewChange }) {
+  const { t } = useLang()
   return (
     <div className="flex gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg w-fit">
-      {Object.entries(HIERARCHY_CONFIG).map(([key, cfg]) => (
+      {Object.entries(HIERARCHY_CONFIG).map(([key]) => (
         <button
           key={key}
           onClick={() => onViewChange(key)}
@@ -13,7 +15,7 @@ export default function ViewToggle({ view, onViewChange }) {
               : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
           }`}
         >
-          {cfg.label}
+          {t(`views.${key}`)}
         </button>
       ))}
     </div>

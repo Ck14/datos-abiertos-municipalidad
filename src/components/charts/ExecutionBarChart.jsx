@@ -5,6 +5,7 @@ import {
 import { formatMillions } from '../../utils/formatters'
 import { getExecutionColor } from '../../utils/colorScale'
 import { useIsDark } from '../../contexts/ThemeContext'
+import { useLang } from '../../contexts/LanguageContext'
 import HelpButton from '../HelpButton'
 
 function CustomTooltip({ active, payload, label }) {
@@ -23,6 +24,7 @@ function CustomTooltip({ active, payload, label }) {
 }
 
 function SingleItemChart({ item, title }) {
+  const { t } = useLang()
   const execColor = getExecutionColor(item.pctEjecucion)
   const pctWidth  = Math.min(item.pctEjecucion, 100)
 
@@ -31,15 +33,15 @@ function SingleItemChart({ item, title }) {
       <div className="flex items-center gap-2 mb-4">
         <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200">{title}</h3>
         <HelpButton
-          label="Disponible vs Comprometido"
-          message="La barra azul muestra el dinero disponible. La barra de color muestra cuánto ya se comprometió a gastar. Si están parejas, se está ejecutando bien el presupuesto."
+          label={t('chart.helpLabel')}
+          message={t('chart.helpMessageSingle')}
         />
       </div>
       <div className="space-y-4">
         {[
-          { label: 'Disponible',   val: item.totalVigente,   color: '#bfdbfe', width: 100 },
-          { label: 'Comprometido', val: item.totalDevengado, color: execColor,  width: pctWidth },
-          { label: 'Pagado',       val: item.totalPagado,    color: '#6ee7b7',  width: item.totalVigente > 0 ? (item.totalPagado / item.totalVigente) * 100 : 0 },
+          { label: t('chart.available'),  val: item.totalVigente,   color: '#bfdbfe', width: 100 },
+          { label: t('chart.committed'),  val: item.totalDevengado, color: execColor,  width: pctWidth },
+          { label: t('chart.paid'),       val: item.totalPagado,    color: '#6ee7b7',  width: item.totalVigente > 0 ? (item.totalPagado / item.totalVigente) * 100 : 0 },
         ].map(({ label, val, color, width }) => (
           <div key={label}>
             <div className="flex justify-between text-xs font-body mb-1.5">
@@ -55,7 +57,7 @@ function SingleItemChart({ item, title }) {
           </div>
         ))}
         <div className="flex justify-between items-center pt-1 border-t border-slate-100 dark:border-slate-700">
-          <span className="text-xs font-body text-slate-500 dark:text-slate-400">% gastado</span>
+          <span className="text-xs font-body text-slate-500 dark:text-slate-400">{t('chart.pctSpent')}</span>
           <span className="text-sm font-mono font-bold" style={{ color: execColor }}>
             {item.pctEjecucion < 1 ? '<1%' : `${item.pctEjecucion.toFixed(1)}%`}
           </span>
@@ -65,17 +67,22 @@ function SingleItemChart({ item, title }) {
   )
 }
 
-export default function ExecutionBarChart({ items, title = 'Avance del Gasto' }) {
+export default function ExecutionBarChart({ items, title }) {
   const isDark = useIsDark()
+  const { t } = useLang()
+  const chartTitle = title ?? t('chart.available')
 
   if (items.length === 1) {
-    return <SingleItemChart item={items[0]} title={title} />
+    return <SingleItemChart item={items[0]} title={chartTitle} />
   }
+
+  const available  = t('chart.available')
+  const committed  = t('chart.committed')
 
   const data = items.slice(0, 12).map(item => ({
     name: item.label.length > 22 ? item.label.slice(0, 22) + '…' : item.label,
-    Disponible: item.totalVigente,
-    Comprometido: item.totalDevengado,
+    [available]: item.totalVigente,
+    [committed]: item.totalDevengado,
     pct: item.pctEjecucion,
   }))
 
@@ -86,10 +93,10 @@ export default function ExecutionBarChart({ items, title = 'Avance del Gasto' })
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm transition-colors duration-200">
       <div className="flex items-center gap-2 mb-4">
-        <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200">{title}</h3>
+        <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200">{chartTitle}</h3>
         <HelpButton
-          label="Disponible vs Comprometido"
-          message="Compara cuánto dinero hay disponible (azul) vs cuánto ya se comprometió a gastar (color). El semáforo indica el avance: rojo=bajo, amarillo=medio, verde=bueno."
+          label={t('chart.helpLabel')}
+          message={t('chart.helpMessageMulti')}
         />
       </div>
       <ResponsiveContainer width="100%" height={height}>
@@ -102,8 +109,8 @@ export default function ExecutionBarChart({ items, title = 'Avance del Gasto' })
           />
           <Tooltip content={<CustomTooltip />} />
           <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 11, fontFamily: 'DM Sans', color: textColor }} />
-          <Bar dataKey="Disponible" fill="#bfdbfe" radius={[0, 3, 3, 0]} maxBarSize={14} />
-          <Bar dataKey="Comprometido" radius={[0, 3, 3, 0]} maxBarSize={14}>
+          <Bar dataKey={available} fill="#bfdbfe" radius={[0, 3, 3, 0]} maxBarSize={14} />
+          <Bar dataKey={committed} radius={[0, 3, 3, 0]} maxBarSize={14}>
             {data.map((d, i) => (
               <Cell key={i} fill={getExecutionColor(d.pct)} />
             ))}

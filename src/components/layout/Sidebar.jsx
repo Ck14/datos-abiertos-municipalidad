@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { LayoutDashboard, FolderTree, Table2, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useLang } from '../../contexts/LanguageContext'
 
-const NAV = [
-  { id: 'dashboard', label: 'Inicio',            mobile: 'Inicio',   icon: LayoutDashboard },
-  { id: 'explorar',  label: '¿En qué se gasta?', mobile: 'El gasto', icon: FolderTree },
-  { id: 'tabla',     label: 'Ver todo',           mobile: 'Ver todo', icon: Table2 },
+const NAV_IDS = [
+  { id: 'dashboard', labelKey: 'nav.dashboard',      mobileKey: 'nav.dashboardMobile', icon: LayoutDashboard },
+  { id: 'explorar',  labelKey: 'nav.explore',        mobileKey: 'nav.exploreMobile',   icon: FolderTree },
+  { id: 'tabla',     labelKey: 'nav.table',          mobileKey: 'nav.tableMobile',     icon: Table2 },
 ]
 
 export default function Sidebar({ activeTab, onTabChange }) {
   const [collapsed, setCollapsed] = useState(false)
+  const { t } = useLang()
 
   return (
     <>
@@ -23,36 +25,39 @@ export default function Sidebar({ activeTab, onTabChange }) {
           <button
             onClick={() => setCollapsed(c => !c)}
             className="p-1.5 rounded-md text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-            title={collapsed ? 'Expandir menú' : 'Colapsar menú'}
+            title={collapsed ? t('nav.expand') : t('nav.collapse')}
           >
             {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
           </button>
         </div>
 
         <nav className="p-2 space-y-1">
-          {NAV.map(({ id, label, icon: Icon }) => (
-            <button
-              key={id}
-              onClick={() => onTabChange(id)}
-              title={collapsed ? label : undefined}
-              className={`w-full flex items-center gap-2.5 px-2.5 py-2.5 rounded-lg text-sm font-body font-medium transition-all duration-150 ${
-                collapsed ? 'justify-center' : ''
-              } ${
-                activeTab === id
-                  ? 'bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400 border border-brand-200 dark:border-brand-800'
-                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200'
-              }`}
-            >
-              <Icon size={16} className="flex-shrink-0" />
-              {!collapsed && <span>{label}</span>}
-            </button>
-          ))}
+          {NAV_IDS.map(({ id, labelKey, icon: Icon }) => {
+            const label = t(labelKey)
+            return (
+              <button
+                key={id}
+                onClick={() => onTabChange(id)}
+                title={collapsed ? label : undefined}
+                className={`w-full flex items-center gap-2.5 px-2.5 py-2.5 rounded-lg text-sm font-body font-medium transition-all duration-150 ${
+                  collapsed ? 'justify-center' : ''
+                } ${
+                  activeTab === id
+                    ? 'bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400 border border-brand-200 dark:border-brand-800'
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-200'
+                }`}
+              >
+                <Icon size={16} className="flex-shrink-0" />
+                {!collapsed && <span>{label}</span>}
+              </button>
+            )
+          })}
         </nav>
       </aside>
 
       {/* Mobile bottom nav */}
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 flex safe-area-pb transition-colors duration-200">
-        {NAV.map(({ id, label, mobile, icon: Icon }) => (
+        {NAV_IDS.map(({ id, mobileKey, icon: Icon }) => (
           <button
             key={id}
             onClick={() => onTabChange(id)}
@@ -63,7 +68,7 @@ export default function Sidebar({ activeTab, onTabChange }) {
             }`}
           >
             <Icon size={20} />
-            <span className="truncate px-1">{mobile}</span>
+            <span className="truncate px-1">{t(mobileKey)}</span>
           </button>
         ))}
       </nav>

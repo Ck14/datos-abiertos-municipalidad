@@ -1,11 +1,13 @@
 import { useState, useContext } from 'react'
 import { ThemeContext } from '../contexts/ThemeContext'
+import { useLang } from '../contexts/LanguageContext'
 import avatarPng from '../assets/avatar1.png'
 
 const STORAGE_KEY = 'chimaltenango_welcome_seen'
 
 export default function WelcomeModal({ year }) {
   const isDark = useContext(ThemeContext)
+  const { t } = useLang()
   const [visible, setVisible] = useState(() => !localStorage.getItem(STORAGE_KEY))
   const [leaving, setLeaving] = useState(false)
 
@@ -123,13 +125,13 @@ export default function WelcomeModal({ year }) {
               className="font-display font-bold text-2xl leading-tight mb-1"
               style={{ color: isDark ? '#f1f5f9' : '#0f172a' }}
             >
-              ¡Bienvenido!
+              {t('welcome.title')}
             </h2>
             <p
               className="font-display font-semibold text-sm"
               style={{ color: '#6366f1' }}
             >
-              Chimaltenango Transparente
+              {t('welcome.brand')}
             </p>
           </div>
 
@@ -139,17 +141,17 @@ export default function WelcomeModal({ year }) {
               className="text-sm font-body leading-relaxed mb-2"
               style={{ color: isDark ? 'rgba(203,213,225,0.85)' : 'rgba(51,65,85,0.85)' }}
             >
-              Aquí puedes ver{' '}
+              {t('welcome.body1')}{' '}
               <strong style={{ color: isDark ? '#e2e8f0' : '#1e293b' }}>
-                en qué se gasta el dinero
+                {t('welcome.bodyStrong')}
               </strong>{' '}
-              de tu municipio en {year ?? new Date().getFullYear()}.
+              {t('welcome.body2', { year: year ?? new Date().getFullYear() })}
             </p>
             <p
               className="text-xs font-body leading-relaxed"
               style={{ color: isDark ? 'rgba(148,163,184,0.75)' : 'rgba(100,116,139,0.75)' }}
             >
-              Información pública del Ministerio de Finanzas.
+              {t('welcome.source')}
             </p>
           </div>
 
@@ -159,14 +161,14 @@ export default function WelcomeModal({ year }) {
             className="wm-btn wm-shimmer-btn w-full py-3 px-6 rounded-2xl text-white font-display font-semibold text-sm transition-all duration-150 active:scale-95"
             style={{ boxShadow: '0 8px 24px rgba(99,102,241,0.4)' }}
           >
-            Ver el presupuesto →
+            {t('welcome.cta')}
           </button>
 
           <p
             className="wm-btn mt-3 text-[10px] font-body"
             style={{ color: isDark ? 'rgba(100,116,139,0.7)' : 'rgba(148,163,184,0.8)' }}
           >
-            Este mensaje no volverá a aparecer
+            {t('welcome.noRepeat')}
           </p>
         </div>
       </div>

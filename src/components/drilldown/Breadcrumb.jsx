@@ -1,6 +1,8 @@
 import { ChevronRight, Home } from 'lucide-react'
+import { useLang } from '../../contexts/LanguageContext'
 
 export default function Breadcrumb({ path, onDrillUp }) {
+  const { t } = useLang()
   return (
     <nav className="flex items-center gap-1 flex-wrap text-xs font-body">
       <button
@@ -8,7 +10,7 @@ export default function Breadcrumb({ path, onDrillUp }) {
         className="flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 font-medium transition-colors"
       >
         <Home size={12} />
-        <span>Inicio</span>
+        <span>{t('breadcrumb.home')}</span>
       </button>
 
       {path.map((step, i) => (
