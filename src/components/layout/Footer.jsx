@@ -1,10 +1,47 @@
-import { Database, ExternalLink } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Database, ExternalLink, Eye } from 'lucide-react'
 import appConfig from '../../data/config.json'
 import { useLang } from '../../contexts/LanguageContext'
+
+// const COUNTER_BASE = 'https://api.counterapi.dev/v2/ckevyn-ovalles-team-3705/first-counter-3705'
+const COUNTER_BASE = '/counter/v2/ckevyn-ovalles-team-3705/first-counter-3705'
+const API_KEY = import.meta.env.VITE_COUNTER_API_KEY
+
+function useVisitCounter() {
+  const [count, setCount] = useState(null)
+
+  useEffect(() => {
+    const headers = { Authorization: `Bearer ${API_KEY}` }
+    const alreadyCounted = sessionStorage.getItem('visit_counted')
+
+    const parseCount = (json) => json?.data?.up_count ?? null
+
+    const readCount = () =>
+      fetch(COUNTER_BASE, { headers })
+        .then(r => r.json())
+        .then(json => setCount(parseCount(json)))
+        .catch(err => console.warn('[counter] GET error:', err))
+
+    if (!alreadyCounted) {
+      fetch(`${COUNTER_BASE}/up`, { headers })
+        .then(r => r.json())
+        .then(() => {
+          sessionStorage.setItem('visit_counted', '1')
+          return readCount()
+        })
+        .catch(err => console.warn('[counter] UP error:', err))
+    } else {
+      readCount()
+    }
+  }, [])
+
+  return count
+}
 
 export default function Footer() {
   const { t } = useLang()
   const currentYear = new Date().getFullYear()
+  const visits = useVisitCounter()
 
   return (
     <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 mt-auto transition-colors duration-200">
@@ -24,6 +61,12 @@ export default function Footer() {
             <p className="text-xs font-body text-slate-500 dark:text-slate-400 leading-relaxed">
               {t('footer.description', { entity: appConfig.entidad })}
             </p>
+            {visits !== null && (
+              <div className="flex items-center gap-1.5 text-[10px] font-body text-slate-400 dark:text-slate-500">
+                <Eye size={11} />
+                <span>{visits.toLocaleString()} visitas</span>
+              </div>
+            )}
           </div>
 
           {/* Fuente de datos */}
