@@ -1,8 +1,10 @@
 import { RefreshCw, Database, HardDrive, Calendar, Sun, Moon } from 'lucide-react'
 import appConfig from '../../data/config.json'
+import { useLang } from '../../contexts/LanguageContext'
 
 export default function Header({ source, lastUpdated, year, loading, onRefetch, isDark, onToggleTheme }) {
   const isAPI = source === 'api'
+  const { t, lang, toggleLang } = useLang()
 
   return (
     <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-30 transition-colors duration-200">
@@ -19,7 +21,7 @@ export default function Header({ source, lastUpdated, year, loading, onRefetch, 
                 {appConfig.entidad}
               </h1>
               <p className="text-xs text-slate-500 dark:text-slate-400 font-body">
-                Presupuesto Municipal {year ?? new Date().getFullYear()}
+                {t('header.subtitle', { year: year ?? new Date().getFullYear() })}
               </p>
             </div>
           </div>
@@ -34,7 +36,7 @@ export default function Header({ source, lastUpdated, year, loading, onRefetch, 
                   : 'bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800'
               }`}>
                 {isAPI ? <Database size={11} /> : <HardDrive size={11} />}
-                {isAPI ? 'En línea' : 'Datos locales'}
+                {isAPI ? t('header.sourceOnline') : t('header.sourceLocal')}
               </div>
             )}
 
@@ -42,15 +44,24 @@ export default function Header({ source, lastUpdated, year, loading, onRefetch, 
             {lastUpdated && (
               <div className="hidden md:flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-body">
                 <Calendar size={12} />
-                <span>Actualizado: {lastUpdated}</span>
+                <span>{t('header.updated')} {lastUpdated}</span>
               </div>
             )}
+
+            {/* Toggle idioma */}
+            <button
+              onClick={toggleLang}
+              className="px-2.5 py-1 rounded-lg text-xs font-body font-semibold text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700"
+              title={t('header.langSwitch')}
+            >
+              {lang === 'es' ? 'KAQ' : 'ES'}
+            </button>
 
             {/* Toggle dark mode */}
             <button
               onClick={onToggleTheme}
               className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-              title={isDark ? 'Modo claro' : 'Modo oscuro'}
+              title={isDark ? t('header.lightMode') : t('header.darkMode')}
             >
               {isDark ? <Sun size={16} /> : <Moon size={16} />}
             </button>
@@ -62,7 +73,7 @@ export default function Header({ source, lastUpdated, year, loading, onRefetch, 
               className="flex items-center gap-1.5 px-3 py-1.5 bg-brand-700 hover:bg-brand-800 disabled:opacity-50 text-white text-xs font-body font-medium rounded-lg transition-colors duration-150"
             >
               <RefreshCw size={12} className={loading ? 'animate-spin' : ''} />
-              <span className="hidden sm:inline">{loading ? 'Cargando…' : 'Actualizar'}</span>
+              <span className="hidden sm:inline">{loading ? t('header.loading') : t('header.refresh')}</span>
             </button>
           </div>
         </div>

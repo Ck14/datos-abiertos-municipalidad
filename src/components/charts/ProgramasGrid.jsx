@@ -1,24 +1,25 @@
 import { aggregateByPrograma } from '../../utils/budgetAggregator'
 import { formatMillions, formatPct } from '../../utils/formatters'
 import { getExecutionColor } from '../../utils/colorScale'
+import { useLang } from '../../contexts/LanguageContext'
 import HelpButton from '../HelpButton'
 
 const PROGRAM_META = {
-  'ACTIVIDADES CENTRALES':                          { icon: '🏛️', color: '#1d4ed8', short: 'Administración' },
-  'ACCESO AL AGUA POTABLE Y SANEAMIENTO BÁSICO':    { icon: '💧', color: '#0891b2', short: 'Agua y Saneamiento' },
-  'SEGURIDAD INTEGRAL':                             { icon: '🛡️', color: '#7c3aed', short: 'Seguridad' },
-  'MOVILIDAD URBANA Y ESPACIOS PÚBLICOS':           { icon: '🏙️', color: '#0369a1', short: 'Movilidad Urbana' },
-  'AMBIENTE Y RECURSOS NATURALES':                  { icon: '🌿', color: '#15803d', short: 'Ambiente' },
-  'INCREMENTO DE LA COMPETITIVIDAD TURÍSTICA':      { icon: '✈️', color: '#b45309', short: 'Turismo' },
-  'PREVENCIÓN DE LA MORTALIDAD':                    { icon: '❤️', color: '#dc2626', short: 'Prevención Mortalidad' },
-  'GESTIÓN DE LA EDUCACIÓN LOCAL DE CALIDAD':       { icon: '📚', color: '#7e22ce', short: 'Educación' },
-  'RECUPERACIÓN DE LA SALUD':                       { icon: '🏥', color: '#0f766e', short: 'Salud' },
-  'PARTIDAS NO ASIGNABLES A PROGRAMAS':             { icon: '📋', color: '#64748b', short: 'Otras Partidas' },
-  'ATENCIÓN A POBLACIÓN VULNERABLE':                { icon: '🤝', color: '#c2410c', short: 'Población Vulnerable' },
-  'APOYO AL DESARROLLO ECONÓMICO LOCAL':            { icon: '📈', color: '#166534', short: 'Desarrollo Económico' },
+  'ACTIVIDADES CENTRALES':                          { icon: '🏛️', color: '#1d4ed8', tKey: 'programas.admin' },
+  'ACCESO AL AGUA POTABLE Y SANEAMIENTO BÁSICO':    { icon: '💧', color: '#0891b2', tKey: 'programas.agua' },
+  'SEGURIDAD INTEGRAL':                             { icon: '🛡️', color: '#7c3aed', tKey: 'programas.seguridad' },
+  'MOVILIDAD URBANA Y ESPACIOS PÚBLICOS':           { icon: '🏙️', color: '#0369a1', tKey: 'programas.movilidad' },
+  'AMBIENTE Y RECURSOS NATURALES':                  { icon: '🌿', color: '#15803d', tKey: 'programas.ambiente' },
+  'INCREMENTO DE LA COMPETITIVIDAD TURÍSTICA':      { icon: '✈️', color: '#b45309', tKey: 'programas.turismo' },
+  'PREVENCIÓN DE LA MORTALIDAD':                    { icon: '❤️', color: '#dc2626', tKey: 'programas.mortalidad' },
+  'GESTIÓN DE LA EDUCACIÓN LOCAL DE CALIDAD':       { icon: '📚', color: '#7e22ce', tKey: 'programas.educacion' },
+  'RECUPERACIÓN DE LA SALUD':                       { icon: '🏥', color: '#0f766e', tKey: 'programas.salud' },
+  'PARTIDAS NO ASIGNABLES A PROGRAMAS':             { icon: '📋', color: '#64748b', tKey: 'programas.otras' },
+  'ATENCIÓN A POBLACIÓN VULNERABLE':                { icon: '🤝', color: '#c2410c', tKey: 'programas.vulnerable' },
+  'APOYO AL DESARROLLO ECONÓMICO LOCAL':            { icon: '📈', color: '#166534', tKey: 'programas.desarrollo' },
 }
 
-const FALLBACK = { icon: '📌', color: '#94a3b8', short: 'Programa' }
+const FALLBACK = { icon: '📌', color: '#94a3b8', tKey: 'programas.fallback' }
 
 function getMeta(name) {
   if (PROGRAM_META[name]) return PROGRAM_META[name]
@@ -61,6 +62,7 @@ function Ring({ pct, color, size = 52 }) {
 }
 
 function HeroCard({ item, meta, totalVigente, onClick }) {
+  const { t } = useLang()
   const pctOfTotal = totalVigente > 0 ? (item.vigente / totalVigente) * 100 : 0
 
   return (
@@ -78,22 +80,22 @@ function HeroCard({ item, meta, totalVigente, onClick }) {
           <div className="flex items-center gap-2 mb-1">
             <span className="text-2xl">{meta.icon}</span>
             <span className="text-xs font-body font-medium opacity-80 uppercase tracking-widest">
-              Área principal
+              {t('programas.mainArea')}
             </span>
           </div>
-          <h4 className="font-display font-bold text-lg leading-tight mb-3">{meta.short}</h4>
+          <h4 className="font-display font-bold text-lg leading-tight mb-3">{t(meta.tKey)}</h4>
 
           <div className="flex items-end gap-6">
             <div>
-              <p className="text-xs opacity-70 font-body">Dinero disponible</p>
+              <p className="text-xs opacity-70 font-body">{t('programas.available')}</p>
               <p className="text-2xl font-display font-bold">{formatMillions(item.vigente)}</p>
             </div>
             <div>
-              <p className="text-xs opacity-70 font-body">Devengado</p>
+              <p className="text-xs opacity-70 font-body">{t('programas.committed')}</p>
               <p className="text-lg font-display font-semibold">{formatMillions(item.devengado)}</p>
             </div>
             <div>
-              <p className="text-xs opacity-70 font-body">Del total</p>
+              <p className="text-xs opacity-70 font-body">{t('programas.ofTotal')}</p>
               <p className="text-lg font-display font-semibold">{formatPct(pctOfTotal)}</p>
             </div>
           </div>
@@ -101,7 +103,7 @@ function HeroCard({ item, meta, totalVigente, onClick }) {
 
         <div className="flex flex-col items-center gap-1">
           <Ring pct={item.pctEjecucion} color="white" size={72} />
-          <span className="text-xs font-body opacity-80">ejecución</span>
+          <span className="text-xs font-body opacity-80">{t('programas.execution')}</span>
         </div>
       </div>
 
@@ -116,6 +118,7 @@ function HeroCard({ item, meta, totalVigente, onClick }) {
 }
 
 function MiniCard({ item, meta, onClick }) {
+  const { t } = useLang()
   const execColor = getExecutionColor(item.pctEjecucion)
 
   return (
@@ -131,7 +134,7 @@ function MiniCard({ item, meta, onClick }) {
       </div>
 
       <div className="flex-1 min-w-0">
-        <p className="text-xs font-display font-semibold text-slate-800 dark:text-slate-200 leading-tight truncate">{meta.short}</p>
+        <p className="text-xs font-display font-semibold text-slate-800 dark:text-slate-200 leading-tight truncate">{t(meta.tKey)}</p>
         <p className="text-sm font-mono font-bold mt-0.5" style={{ color: meta.color }}>
           {formatMillions(item.vigente)}
         </p>
@@ -149,6 +152,7 @@ function MiniCard({ item, meta, onClick }) {
 }
 
 export default function ProgramasGrid({ records, onProgramClick }) {
+  const { t } = useLang()
   const data = aggregateByPrograma(records)
   if (!data.length) return null
 
@@ -161,14 +165,14 @@ export default function ProgramasGrid({ records, onProgramClick }) {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200">
-            Gasto por Área de Trabajo
+            {t('programas.title')}
           </h3>
           <HelpButton
-            label="Áreas de trabajo"
-            message="Cada área agrupa actividades relacionadas que hace el municipio: agua potable, educación, seguridad, administración, etc. Haz clic en cualquier área para ver en qué tareas específicas se gasta el dinero."
+            label={t('programas.helpLabel')}
+            message={t('programas.helpMessage')}
           />
         </div>
-        <span className="text-xs font-body text-slate-500 dark:text-slate-400">{data.length} programas</span>
+        <span className="text-xs font-body text-slate-500 dark:text-slate-400">{t('programas.count', { count: data.length })}</span>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -179,8 +183,8 @@ export default function ProgramasGrid({ records, onProgramClick }) {
       </div>
 
       <div className="flex items-center gap-4 mt-4 pt-3 border-t border-slate-200 dark:border-slate-700">
-        <span className="text-[10px] font-body text-slate-400 dark:text-slate-500 uppercase tracking-wide">Ejecución:</span>
-        {[['#ef4444', 'Bajo'], ['#eab308', 'Medio'], ['#22c55e', 'Alto']].map(([c, l]) => (
+        <span className="text-[10px] font-body text-slate-400 dark:text-slate-500 uppercase tracking-wide">{t('programas.executionLegend')}</span>
+        {[['#ef4444', t('programas.low')], ['#eab308', t('programas.medium')], ['#22c55e', t('programas.high')]].map(([c, l]) => (
           <span key={l} className="flex items-center gap-1 text-xs font-body text-slate-500 dark:text-slate-400">
             <span className="w-2 h-2 rounded-full" style={{ backgroundColor: c }} />
             {l}

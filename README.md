@@ -10,6 +10,8 @@ Sitio web interactivo para visualizar y explorar el presupuesto de la **Municipa
 - **Tabla detallada** con filtros por programa, fuente, tipo de presupuesto y búsqueda de texto
 - **Semáforo de ejecución**: verde ≥70%, amarillo 30–70%, rojo <30%
 - **Actualización automática**: detecta el recurso correcto de MINFIN según el año en curso, sin necesidad de tocar código
+- **Glosario presupuestario** ("¿Qué significa?"): 15 términos clave del presupuesto municipal con definiciones en lenguaje sencillo, ejemplos y buscador por nombre o definición
+- **Interfaz bilingüe español / kaqchikel**: todo el contenido de la interfaz es traducible; el idioma se persiste en `localStorage`
 
 ## Stack tecnológico
 
@@ -27,12 +29,20 @@ Sitio web interactivo para visualizar y explorar el presupuesto de la **Municipa
 src/
 ├── api/
 │   └── minfin.js              # Cliente de la API de MINFIN con auto-descubrimiento
+├── contexts/
+│   ├── LanguageContext.jsx    # Proveedor de idioma (español / kaqchikel) con t()
+│   ├── ThemeContext.jsx       # Proveedor de dark/light mode
+│   └── HelpContext.jsx        # Proveedor de ayuda contextual del avatar
+├── locales/
+│   ├── es.json                # Textos en español
+│   └── kaq.json               # Textos en kaqchikel
 ├── data/
 │   ├── config.json            # Configuración: prefijos de paquete y recurso
 │   └── chimaltenango_presupuesto_2026.json  # Datos locales de fallback
 ├── hooks/
 │   ├── useBudgetData.js       # Carga de datos, estado de fuente y refetch
-│   └── useDrilldown.js        # Estado de navegación por niveles
+│   ├── useDrilldown.js        # Estado de navegación por niveles
+│   └── useTheme.js            # Dark/light mode persistido en localStorage
 ├── utils/
 │   ├── budgetAggregator.js    # Agrupaciones y cálculos por jerarquía
 │   ├── formatters.js          # Formato GTQ, millones, porcentajes y fix de encoding
@@ -42,7 +52,10 @@ src/
     ├── dashboard/             # KPICards
     ├── charts/                # TreemapChart, ExecutionBarChart, FuenteDonut
     ├── drilldown/             # DrilldownNavigator, Breadcrumb, LevelCard, ViewToggle
-    └── table/                 # BudgetTable y TableFilters
+    ├── table/                 # BudgetTable y TableFilters
+    ├── Glossary.jsx           # Pantalla "¿Qué significa?" con 15 términos y buscador
+    ├── MascotGuide.jsx        # Avatar guía con mensajes contextuales por pantalla
+    └── WelcomeModal.jsx       # Modal de bienvenida (se muestra una sola vez)
 ```
 
 ## Cómo correr el proyecto
