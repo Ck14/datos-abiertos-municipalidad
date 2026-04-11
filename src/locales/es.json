@@ -64,7 +64,11 @@
     "helpLabel": "¿De dónde viene el dinero?",
     "helpMessage": "El municipio recibe dinero de varias fuentes: sus propios cobros (tasas, servicios), el IVA Paz que reparte el gobierno central, el Aporte Constitucional (10% del presupuesto nacional) y otros fondos especiales.",
     "total": "Total disponible:",
-    "ofTotal": "del total"
+    "ofTotal": "del total",
+    "propios": "Ingresos Propios",
+    "ivaPaz": "IVA Paz",
+    "aporte": "Aporte Constitucional",
+    "otros": "Otros Recursos"
   },
   "programas": {
     "title": "Gasto por Área de Trabajo",
@@ -79,7 +83,20 @@
     "executionLegend": "Ejecución:",
     "low": "Bajo",
     "medium": "Medio",
-    "high": "Alto"
+    "high": "Alto",
+    "admin": "Administración",
+    "agua": "Agua y Saneamiento",
+    "seguridad": "Seguridad",
+    "movilidad": "Movilidad Urbana",
+    "ambiente": "Ambiente",
+    "turismo": "Turismo",
+    "mortalidad": "Prevención Mortalidad",
+    "educacion": "Educación",
+    "salud": "Salud",
+    "otras": "Otras Partidas",
+    "vulnerable": "Población Vulnerable",
+    "desarrollo": "Desarrollo Económico",
+    "fallback": "Programa"
   },
   "chart": {
     "helpLabel": "Disponible vs Comprometido",

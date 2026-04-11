@@ -54,7 +54,7 @@ export function HeroLevelCard({ item, meta, onClick }) {
           <div className="flex items-center gap-2 mb-1">
             <span className="text-2xl">{meta.icon}</span>
             <span className="text-[10px] font-body font-medium opacity-75 uppercase tracking-widest">
-              {item.levelLabel} {t('levelCard.mainSuffix')}
+              {t(`levelLabels.${item.key}`) || item.levelLabel} {t('levelCard.mainSuffix')}
             </span>
             {clickable && <ChevronRight size={14} className="opacity-70 ml-auto" />}
           </div>

@@ -65,7 +65,11 @@
     "helpLabel": "¿Jas rub'eyal ri taq poy?",
     "helpMessage": "Ri Tinamït kuya' taq poy pa k'ïy rub'eyal: ri rub'ixik taq retamab'äl (taq tzijonem, taq ajk'amib'äl), ri IVA Paz xb'an ri ajawarem, ri Aporte Constitucional (10% rech ri xolb'al ajawab'äl) xuquje' junab'ik taq ulew.",
     "total": "Ronojel k'o:",
-    "ofTotal": "rech ri ronojel"
+    "ofTotal": "rech ri ronojel",
+    "propios": "Taq Poy Rech Tinamït",
+    "ivaPaz": "IVA Paz",
+    "aporte": "Poy Ajawarem",
+    "otros": "Jub'a Taq Poy"
   },
   "programas": {
     "title": "Ch'akoj pa Taq K'ojlib'äl",
@@ -80,7 +84,20 @@
     "executionLegend": "Rub'eyal:",
     "low": "Ti'j",
     "medium": "Chuwi'",
-    "high": "Nïm"
+    "high": "Nïm",
+    "admin": "Ajb'anom",
+    "agua": "Ja' xuquje' K'isb'äl",
+    "seguridad": "Nimsanik",
+    "movilidad": "B'e pa Tinamït",
+    "ambiente": "Ulew xuquje' Che'",
+    "turismo": "Ilb'al Tinamït",
+    "mortalidad": "Tzijonem Kimil",
+    "educacion": "Tijonik",
+    "salud": "Ajyuq' Yawab'il",
+    "otras": "Jub'a Taq Tz'ib'",
+    "vulnerable": "Taq Winaq K'ax",
+    "desarrollo": "Nïmb'äl Tinamït",
+    "fallback": "Ajb'anom"
   },
   "chart": {
     "helpLabel": "K'o rech vs Xb'an chik",

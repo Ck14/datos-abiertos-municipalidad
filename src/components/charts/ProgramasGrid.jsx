@@ -5,21 +5,21 @@ import { useLang } from '../../contexts/LanguageContext'
 import HelpButton from '../HelpButton'
 
 const PROGRAM_META = {
-  'ACTIVIDADES CENTRALES':                          { icon: '🏛️', color: '#1d4ed8', short: 'Administración' },
-  'ACCESO AL AGUA POTABLE Y SANEAMIENTO BÁSICO':    { icon: '💧', color: '#0891b2', short: 'Agua y Saneamiento' },
-  'SEGURIDAD INTEGRAL':                             { icon: '🛡️', color: '#7c3aed', short: 'Seguridad' },
-  'MOVILIDAD URBANA Y ESPACIOS PÚBLICOS':           { icon: '🏙️', color: '#0369a1', short: 'Movilidad Urbana' },
-  'AMBIENTE Y RECURSOS NATURALES':                  { icon: '🌿', color: '#15803d', short: 'Ambiente' },
-  'INCREMENTO DE LA COMPETITIVIDAD TURÍSTICA':      { icon: '✈️', color: '#b45309', short: 'Turismo' },
-  'PREVENCIÓN DE LA MORTALIDAD':                    { icon: '❤️', color: '#dc2626', short: 'Prevención Mortalidad' },
-  'GESTIÓN DE LA EDUCACIÓN LOCAL DE CALIDAD':       { icon: '📚', color: '#7e22ce', short: 'Educación' },
-  'RECUPERACIÓN DE LA SALUD':                       { icon: '🏥', color: '#0f766e', short: 'Salud' },
-  'PARTIDAS NO ASIGNABLES A PROGRAMAS':             { icon: '📋', color: '#64748b', short: 'Otras Partidas' },
-  'ATENCIÓN A POBLACIÓN VULNERABLE':                { icon: '🤝', color: '#c2410c', short: 'Población Vulnerable' },
-  'APOYO AL DESARROLLO ECONÓMICO LOCAL':            { icon: '📈', color: '#166534', short: 'Desarrollo Económico' },
+  'ACTIVIDADES CENTRALES':                          { icon: '🏛️', color: '#1d4ed8', tKey: 'programas.admin' },
+  'ACCESO AL AGUA POTABLE Y SANEAMIENTO BÁSICO':    { icon: '💧', color: '#0891b2', tKey: 'programas.agua' },
+  'SEGURIDAD INTEGRAL':                             { icon: '🛡️', color: '#7c3aed', tKey: 'programas.seguridad' },
+  'MOVILIDAD URBANA Y ESPACIOS PÚBLICOS':           { icon: '🏙️', color: '#0369a1', tKey: 'programas.movilidad' },
+  'AMBIENTE Y RECURSOS NATURALES':                  { icon: '🌿', color: '#15803d', tKey: 'programas.ambiente' },
+  'INCREMENTO DE LA COMPETITIVIDAD TURÍSTICA':      { icon: '✈️', color: '#b45309', tKey: 'programas.turismo' },
+  'PREVENCIÓN DE LA MORTALIDAD':                    { icon: '❤️', color: '#dc2626', tKey: 'programas.mortalidad' },
+  'GESTIÓN DE LA EDUCACIÓN LOCAL DE CALIDAD':       { icon: '📚', color: '#7e22ce', tKey: 'programas.educacion' },
+  'RECUPERACIÓN DE LA SALUD':                       { icon: '🏥', color: '#0f766e', tKey: 'programas.salud' },
+  'PARTIDAS NO ASIGNABLES A PROGRAMAS':             { icon: '📋', color: '#64748b', tKey: 'programas.otras' },
+  'ATENCIÓN A POBLACIÓN VULNERABLE':                { icon: '🤝', color: '#c2410c', tKey: 'programas.vulnerable' },
+  'APOYO AL DESARROLLO ECONÓMICO LOCAL':            { icon: '📈', color: '#166534', tKey: 'programas.desarrollo' },
 }
 
-const FALLBACK = { icon: '📌', color: '#94a3b8', short: 'Programa' }
+const FALLBACK = { icon: '📌', color: '#94a3b8', tKey: 'programas.fallback' }
 
 function getMeta(name) {
   if (PROGRAM_META[name]) return PROGRAM_META[name]
@@ -83,7 +83,7 @@ function HeroCard({ item, meta, totalVigente, onClick }) {
               {t('programas.mainArea')}
             </span>
           </div>
-          <h4 className="font-display font-bold text-lg leading-tight mb-3">{meta.short}</h4>
+          <h4 className="font-display font-bold text-lg leading-tight mb-3">{t(meta.tKey)}</h4>
 
           <div className="flex items-end gap-6">
             <div>
@@ -118,6 +118,7 @@ function HeroCard({ item, meta, totalVigente, onClick }) {
 }
 
 function MiniCard({ item, meta, onClick }) {
+  const { t } = useLang()
   const execColor = getExecutionColor(item.pctEjecucion)
 
   return (
@@ -133,7 +134,7 @@ function MiniCard({ item, meta, onClick }) {
       </div>
 
       <div className="flex-1 min-w-0">
-        <p className="text-xs font-display font-semibold text-slate-800 dark:text-slate-200 leading-tight truncate">{meta.short}</p>
+        <p className="text-xs font-display font-semibold text-slate-800 dark:text-slate-200 leading-tight truncate">{t(meta.tKey)}</p>
         <p className="text-sm font-mono font-bold mt-0.5" style={{ color: meta.color }}>
           {formatMillions(item.vigente)}
         </p>
