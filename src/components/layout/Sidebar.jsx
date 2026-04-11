@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { LayoutDashboard, FolderTree, Table2, ChevronLeft, ChevronRight } from 'lucide-react'
+import { LayoutDashboard, FolderTree, Table2, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useLang } from '../../contexts/LanguageContext'
 
 const NAV_IDS = [
-  { id: 'dashboard', labelKey: 'nav.dashboard',      mobileKey: 'nav.dashboardMobile', icon: LayoutDashboard },
-  { id: 'explorar',  labelKey: 'nav.explore',        mobileKey: 'nav.exploreMobile',   icon: FolderTree },
-  { id: 'tabla',     labelKey: 'nav.table',          mobileKey: 'nav.tableMobile',     icon: Table2 },
+  { id: 'dashboard', labelKey: 'nav.dashboard', mobileKey: 'nav.dashboardMobile', icon: LayoutDashboard },
+  { id: 'explorar',  labelKey: 'nav.explore',   mobileKey: 'nav.exploreMobile',   icon: FolderTree },
+  { id: 'tabla',     labelKey: 'nav.table',     mobileKey: 'nav.tableMobile',     icon: Table2 },
+  { id: 'glosario',  labelKey: 'nav.glossary',  mobileKey: 'nav.glossaryMobile',  icon: BookOpen },
 ]
 
 export default function Sidebar({ activeTab, onTabChange }) {

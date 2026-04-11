@@ -17,8 +17,123 @@
     "exploreMobile": "El gasto",
     "table": "Ver todo",
     "tableMobile": "Ver todo",
+    "glossary": "¿Qué significa?",
+    "glossaryMobile": "Términos",
     "collapse": "Colapsar menú",
     "expand": "Expandir menú"
+  },
+  "glossary": {
+    "title": "¿Qué significa?",
+    "subtitle": "Guía de los términos del presupuesto municipal en lenguaje sencillo.",
+    "search": "Buscar término…",
+    "noResults": "No se encontraron términos.",
+    "terms": [
+      {
+        "term": "Presupuesto Aprobado",
+        "icon": "📋",
+        "color": "#1d4ed8",
+        "definition": "Es el monto total que el Concejo Municipal aprobó gastar durante el año. Se fija al inicio de cada año y es el punto de partida oficial del presupuesto.",
+        "example": "Si el Concejo aprobó Q50 millones, ese es el presupuesto aprobado."
+      },
+      {
+        "term": "Presupuesto Vigente",
+        "icon": "📅",
+        "color": "#4f46e5",
+        "definition": "Es el presupuesto actualizado después de modificaciones o ampliaciones durante el año. Puede ser mayor o menor al aprobado.",
+        "example": "Si se recibió dinero extra del gobierno, el vigente sube respecto al aprobado."
+      },
+      {
+        "term": "Devengado",
+        "icon": "🔒",
+        "color": "#0891b2",
+        "definition": "Dinero que ya fue comprometido para pagos, contratos u obligaciones. El municipio ya tiene la deuda, pero el dinero aún no salió de las cuentas.",
+        "example": "Cuando se firma un contrato de construcción, ese monto se devengado."
+      },
+      {
+        "term": "Pagado",
+        "icon": "✅",
+        "color": "#059669",
+        "definition": "Dinero que ya salió efectivamente de las cuentas del municipio. Es el gasto real ejecutado hasta la fecha.",
+        "example": "Cuando el municipio transfiere el dinero al proveedor, se registra como pagado."
+      },
+      {
+        "term": "Ejecución Presupuestaria",
+        "icon": "📊",
+        "color": "#7c3aed",
+        "definition": "Es el porcentaje del presupuesto vigente que ya se ha comprometido o gastado. Indica qué tan avanzado está el gasto del año.",
+        "example": "Una ejecución del 70% significa que ya se comprometió el 70% del dinero disponible."
+      },
+      {
+        "term": "Programa",
+        "icon": "🗂️",
+        "color": "#1d4ed8",
+        "definition": "Es la agrupación más grande del presupuesto. Cada programa representa un área de trabajo del municipio como educación, salud, infraestructura, etc.",
+        "example": "El programa de Agua y Saneamiento agrupa todos los gastos relacionados con agua potable."
+      },
+      {
+        "term": "Subprograma",
+        "icon": "📁",
+        "color": "#0891b2",
+        "definition": "Es una división dentro de un programa. Permite organizar mejor las actividades de un área de trabajo grande.",
+        "example": "Dentro del programa de Educación puede haber un subprograma de Educación Primaria."
+      },
+      {
+        "term": "Proyecto",
+        "icon": "🏗️",
+        "color": "#7c3aed",
+        "definition": "Es una iniciativa concreta con inicio y fin definidos. Los proyectos producen un resultado específico como una escuela, una carretera o un sistema de agua.",
+        "example": "Construcción del mercado municipal es un proyecto."
+      },
+      {
+        "term": "Actividad",
+        "icon": "⚙️",
+        "color": "#b45309",
+        "definition": "Son las tareas recurrentes o permanentes del municipio. A diferencia de los proyectos, las actividades no tienen fecha de finalización.",
+        "example": "El mantenimiento de calles es una actividad permanente."
+      },
+      {
+        "term": "Obra",
+        "icon": "🔨",
+        "color": "#dc2626",
+        "definition": "Es el nivel más detallado del gasto. Representa una acción específica dentro de una actividad o proyecto.",
+        "example": "Dentro del mantenimiento de calles, pavimentar la calle 5 es una obra."
+      },
+      {
+        "term": "Renglón",
+        "icon": "🏷️",
+        "color": "#64748b",
+        "definition": "Identifica el tipo de gasto: salarios, materiales, servicios profesionales, maquinaria, etc. El sistema MINFIN tiene cientos de renglones distintos.",
+        "example": "El renglón 011 es para sueldos, el 022 para combustibles."
+      },
+      {
+        "term": "Fuente de Financiamiento",
+        "icon": "💰",
+        "color": "#059669",
+        "definition": "Indica de dónde viene el dinero para cada gasto. Las principales fuentes son los ingresos propios del municipio, el IVA Paz y el Aporte Constitucional.",
+        "example": "Una obra de agua potable puede financiarse con el Aporte Constitucional."
+      },
+      {
+        "term": "IVA Paz",
+        "icon": "🧾",
+        "color": "#4f46e5",
+        "definition": "Es el 1.5% del IVA que recauda el gobierno central y redistribuye a los municipios. Es una fuente importante de ingresos para obras e inversión local.",
+        "example": "Cada vez que alguien paga IVA en Guatemala, una parte llega al municipio como IVA Paz."
+      },
+      {
+        "term": "Aporte Constitucional",
+        "icon": "🏛️",
+        "color": "#0369a1",
+        "definition": "Es el 10% del presupuesto general del Estado que la Constitución de Guatemala manda transferir a los municipios para su desarrollo.",
+        "example": "Si el presupuesto nacional es Q100 mil millones, los municipios reciben Q10 mil millones."
+      },
+      {
+        "term": "MINFIN",
+        "icon": "🏦",
+        "color": "#166534",
+        "definition": "Ministerio de Finanzas Públicas de Guatemala. Es la institución que administra el presupuesto nacional y publica los datos abiertos que usa esta plataforma.",
+        "example": "Todos los datos que ves aquí provienen directamente del portal de datos abiertos del MINFIN."
+      }
+    ]
   },
   "dashboard": {
     "title": "¿En qué se usa el dinero del municipio?",
