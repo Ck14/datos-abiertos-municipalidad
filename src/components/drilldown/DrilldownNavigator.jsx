@@ -28,7 +28,8 @@ export default function DrilldownNavigator({ records, drilldown }) {
 
   const config            = HIERARCHY_CONFIG[view]
   const currentLevelIdx   = path.length
-  const currentLevelLabel = config?.levels[currentLevelIdx]?.label || ''
+  const currentLevelKey   = config?.levels[currentLevelIdx]?.key || ''
+  const currentLevelLabel = t(`levelLabels.${currentLevelKey}`) || config?.levels[currentLevelIdx]?.label || ''
 
   const handleBreadcrumb = (index) => {
     if (index === 0) resetPath()

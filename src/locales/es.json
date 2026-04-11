@@ -59,6 +59,70 @@
     "closeHelp": "✕ cerrar ayuda",
     "showGuide": "Mostrar guía"
   },
+  "fuente": {
+    "title": "¿De dónde viene el dinero?",
+    "helpLabel": "¿De dónde viene el dinero?",
+    "helpMessage": "El municipio recibe dinero de varias fuentes: sus propios cobros (tasas, servicios), el IVA Paz que reparte el gobierno central, el Aporte Constitucional (10% del presupuesto nacional) y otros fondos especiales.",
+    "total": "Total disponible:",
+    "ofTotal": "del total"
+  },
+  "programas": {
+    "title": "Gasto por Área de Trabajo",
+    "helpLabel": "Áreas de trabajo",
+    "helpMessage": "Cada área agrupa actividades relacionadas que hace el municipio: agua potable, educación, seguridad, administración, etc. Haz clic en cualquier área para ver en qué tareas específicas se gasta el dinero.",
+    "count": "{count} programas",
+    "mainArea": "Área principal",
+    "available": "Dinero disponible",
+    "committed": "Devengado",
+    "ofTotal": "Del total",
+    "execution": "ejecución",
+    "executionLegend": "Ejecución:",
+    "low": "Bajo",
+    "medium": "Medio",
+    "high": "Alto"
+  },
+  "chart": {
+    "helpLabel": "Disponible vs Comprometido",
+    "helpMessageSingle": "La barra azul muestra el dinero disponible. La barra de color muestra cuánto ya se comprometió a gastar. Si están parejas, se está ejecutando bien el presupuesto.",
+    "helpMessageMulti": "Compara cuánto dinero hay disponible (azul) vs cuánto ya se comprometió a gastar (color). El semáforo indica el avance: rojo=bajo, amarillo=medio, verde=bueno.",
+    "available": "Disponible",
+    "committed": "Comprometido",
+    "paid": "Pagado",
+    "pctSpent": "% gastado",
+    "treemapTitle": "Distribución por Programa",
+    "vigente": "Vigente:",
+    "devengado": "Devengado:",
+    "ejecucion": "Ejecución:"
+  },
+  "levelCard": {
+    "mainSuffix": "principal",
+    "available": "Dinero disponible",
+    "committed": "Comprometido",
+    "paid": "Pagado",
+    "pctSpent": "% gastado",
+    "committedLabel": "Comprometido:"
+  },
+  "breadcrumb": {
+    "home": "Inicio"
+  },
+  "views": {
+    "programatica": "Programática",
+    "funcional": "Funcional",
+    "gasto": "Por Tipo de Gasto"
+  },
+  "levelLabels": {
+    "programa": "Programa",
+    "subPrograma": "SubPrograma",
+    "proyecto": "Proyecto",
+    "actividad": "Actividad",
+    "obra": "Obra",
+    "finalidad": "Finalidad",
+    "funcion": "Función",
+    "division": "División",
+    "grupoGasto": "Grupo de Gasto",
+    "subGrupoGasto": "SubGrupo de Gasto",
+    "renglon": "Renglón"
+  },
   "drilldown": {
     "found_one": "{count} {level} encontrado",
     "found_other": "{count} {level}s encontrados",
@@ -69,6 +133,51 @@
     "low": "Bajo (<30%)",
     "medium": "Medio (30–70%)",
     "high": "Alto (>70%)"
+  },
+  "budgetTable": {
+    "colArea": "Área",
+    "colTask": "Tarea",
+    "colWork": "Obra",
+    "colLine": "Partida",
+    "colFunding": "Financiamiento",
+    "colType": "Tipo",
+    "colApproved": "Aprobado",
+    "colAvailable": "Disponible",
+    "colCommitted": "Comprometido",
+    "colPaid": "Pagado",
+    "colPct": "% Gastado",
+    "helpLineLabel": "¿Qué es una partida?",
+    "helpLineMessage": "Una partida identifica el tipo de gasto: salarios, materiales, servicios, infraestructura, etc. Cada municipio tiene muchas partidas por cada área de trabajo.",
+    "helpFundingLabel": "¿Qué es el financiamiento?",
+    "helpFundingMessage": "Indica de dónde viene el dinero para este gasto específico: fondos propios del municipio, aporte del gobierno central, IVA Paz u otros fondos.",
+    "helpApprovedLabel": "Dinero Aprobado",
+    "helpApprovedMessage": "Monto que se aprobó gastar para esta partida al inicio del año.",
+    "helpAvailableLabel": "Dinero Disponible",
+    "helpAvailableMessage": "Presupuesto actual disponible para esta partida, ya con modificaciones.",
+    "helpCommittedLabel": "Ya Comprometido",
+    "helpCommittedMessage": "Dinero ya asignado a contratos u obligaciones. Aún no se ha pagado pero ya tiene destino.",
+    "helpPaidLabel": "Ya Pagado",
+    "helpPaidMessage": "Dinero que ya salió efectivamente de las cuentas del municipio para esta partida.",
+    "helpPctLabel": "% Gastado",
+    "helpPctMessage": "Porcentaje del dinero disponible que ya se comprometió a gastar. Verde=bueno (>70%), amarillo=medio, rojo=bajo (<30%).",
+    "records": "registros",
+    "page": "Página {page} de {total}",
+    "noResults": "No se encontraron registros con estos filtros.",
+    "prev": "Anterior",
+    "next": "Siguiente"
+  },
+  "tableFilters": {
+    "all": "Todos",
+    "search": "Buscar",
+    "searchPlaceholder": "Área, tarea, obra, partida…",
+    "area": "Área",
+    "subarea": "Subárea",
+    "project": "Proyecto",
+    "task": "Tarea",
+    "work": "Obra",
+    "funding": "Financiamiento",
+    "type": "Tipo",
+    "clear": "Limpiar"
   },
   "welcome": {
     "title": "¡Bienvenido!",

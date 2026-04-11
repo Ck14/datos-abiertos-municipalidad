@@ -60,6 +60,70 @@
     "closeHelp": "✕ tz'apïx ri b'ix",
     "showGuide": "Kilo ri ajyuq'"
   },
+  "fuente": {
+    "title": "¿Jas rub'eyal ri taq poy?",
+    "helpLabel": "¿Jas rub'eyal ri taq poy?",
+    "helpMessage": "Ri Tinamït kuya' taq poy pa k'ïy rub'eyal: ri rub'ixik taq retamab'äl (taq tzijonem, taq ajk'amib'äl), ri IVA Paz xb'an ri ajawarem, ri Aporte Constitucional (10% rech ri xolb'al ajawab'äl) xuquje' junab'ik taq ulew.",
+    "total": "Ronojel k'o:",
+    "ofTotal": "rech ri ronojel"
+  },
+  "programas": {
+    "title": "Ch'akoj pa Taq K'ojlib'äl",
+    "helpLabel": "Taq k'ojlib'äl ch'akoj",
+    "helpMessage": "Ri k'ojlib'äl kukemow taq ch'akoj rech ri Tinamït: ja' k'isb'äl, tijonik, taq nimsanik, ajb'anom, etc. Tiq'ax chi k'ojlib'äl chi kilo jas taq b'anom xb'an rech ri taq poy.",
+    "count": "{count} taq ajb'anom",
+    "mainArea": "K'ojlib'äl nïm",
+    "available": "Taq poy k'o",
+    "committed": "Xb'an chik",
+    "ofTotal": "Rech ri ronojel",
+    "execution": "xb'an",
+    "executionLegend": "Rub'eyal:",
+    "low": "Ti'j",
+    "medium": "Chuwi'",
+    "high": "Nïm"
+  },
+  "chart": {
+    "helpLabel": "K'o rech vs Xb'an chik",
+    "helpMessageSingle": "Ri säq tz'ib' kuq'et ri taq poy k'o. Ri tz'ib' color kuq'et jas xb'an chik chi b'an. Rumal wi are' ki'kotäj, are k'o wi rub'eyal ri xolb'al.",
+    "helpMessageMulti": "Kub'ij jas taq poy k'o (säq) vs jas xb'an chik chi b'an (color). Ri taq b'aq'wachib'äl kuq'et ri rub'eyal: q'an=ti'j, q'eq'al=chuwi', q'eq=nïm.",
+    "available": "K'o rech",
+    "committed": "Xb'an chik",
+    "paid": "Xel chik",
+    "pctSpent": "% xb'an",
+    "treemapTitle": "Ukemowik pa Taq Ajb'anom",
+    "vigente": "K'o:",
+    "devengado": "Xb'an chik:",
+    "ejecucion": "Rub'eyal:"
+  },
+  "levelCard": {
+    "mainSuffix": "nïm",
+    "available": "Taq poy k'o",
+    "committed": "Xb'an chik",
+    "paid": "Xel chik",
+    "pctSpent": "% xb'an",
+    "committedLabel": "Xb'an chik:"
+  },
+  "breadcrumb": {
+    "home": "Tikirib'äl"
+  },
+  "views": {
+    "programatica": "Pa Taq Ajb'anom",
+    "funcional": "Pa Rub'eyal",
+    "gasto": "Pa Rub'anikil Ch'akoj"
+  },
+  "levelLabels": {
+    "programa": "Ajb'anom",
+    "subPrograma": "Tikel Ajb'anom",
+    "proyecto": "Pixab'al",
+    "actividad": "Ch'akoj",
+    "obra": "Oxe'",
+    "finalidad": "Ruk'isb'äl",
+    "funcion": "Rub'eyal",
+    "division": "K'utb'äl",
+    "grupoGasto": "Tz'aqat Ch'akoj",
+    "subGrupoGasto": "Tikel Tz'aqat Ch'akoj",
+    "renglon": "Tz'ib'"
+  },
   "drilldown": {
     "found_one": "{count} {level} xetz'et",
     "found_other": "{count} {level} xetz'et",
@@ -70,6 +134,51 @@
     "low": "Ti'j (<30%)",
     "medium": "Chuwi' (30–70%)",
     "high": "Nïm (>70%)"
+  },
+  "budgetTable": {
+    "colArea": "K'ojlib'äl",
+    "colTask": "Ch'akoj",
+    "colWork": "Oxe'",
+    "colLine": "Taq tz'ib'",
+    "colFunding": "Rub'eyal poy",
+    "colType": "Rub'anikil",
+    "colApproved": "Xkimatzij",
+    "colAvailable": "K'o rech",
+    "colCommitted": "Xb'an chik",
+    "colPaid": "Xel chik",
+    "colPct": "% Xb'an",
+    "helpLineLabel": "¿Jas are' ri tz'ib'?",
+    "helpLineMessage": "Ri tz'ib' kuq'et ri rub'anikil ri ch'akoj: taq aqanik, taq ajb'anom, taq k'amow, taq oxe', etc. K'ïy taq tz'ib' k'o pa ri Tinamït pa ronojel k'ojlib'äl ch'akoj.",
+    "helpFundingLabel": "¿Jas are' ri rub'eyal poy?",
+    "helpFundingMessage": "Kuq'et jas rub'eyal ri taq poy rech ri ch'akoj: taq poy rech ri Tinamït, aporte ri ajawarem, IVA Paz o jub'a taq ulew.",
+    "helpApprovedLabel": "Taq Poy Xkimatzij",
+    "helpApprovedMessage": "Ri taq poy xkimatzij chi b'an pa ri tz'ib' pa tikirib'al ri juna'.",
+    "helpAvailableLabel": "Taq Poy K'o Rech",
+    "helpAvailableMessage": "Xolb'al k'o rech pa ri tz'ib', ruk'in taq b'anatajinaq.",
+    "helpCommittedLabel": "Xb'an Chik",
+    "helpCommittedMessage": "Taq poy xb'an chik rech taq tzijob'äl o taq ch'akoj. Man xel ta wi xa xe' k'o wi ri rub'eyal.",
+    "helpPaidLabel": "Xel Chik",
+    "helpPaidMessage": "Taq poy xel chik pa ri taq pa'ijb'äl rech ri Tinamït pa ri tz'ib'.",
+    "helpPctLabel": "% Xb'an",
+    "helpPctMessage": "Rucholaj ri taq poy k'o xb'an chik chi b'an. Q'eq=nïm (>70%), q'an=chuwi', q'an ch'ich'=ti'j (<30%).",
+    "records": "taq tz'ib'",
+    "page": "Uwujil {page} rech {total}",
+    "noResults": "Man xetz'et ta wi taq tz'ib' ruk'in wakami xojonem.",
+    "prev": "Chuchi'",
+    "next": "Pa tzaq"
+  },
+  "tableFilters": {
+    "all": "Ronojel",
+    "search": "Xojon",
+    "searchPlaceholder": "K'ojlib'äl, ch'akoj, oxe', tz'ib'…",
+    "area": "K'ojlib'äl",
+    "subarea": "K'ojlib'äl tikel",
+    "project": "Ajb'anom",
+    "task": "Ch'akoj",
+    "work": "Oxe'",
+    "funding": "Rub'eyal poy",
+    "type": "Rub'anikil",
+    "clear": "Titz'apïx"
   },
   "welcome": {
     "title": "¡Saqarik!",

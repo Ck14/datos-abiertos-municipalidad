@@ -1,8 +1,9 @@
-import { useState, useMemo, useCallback, useRef } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { ChevronLeft, ChevronRight, ArrowUpDown } from 'lucide-react'
 import TableFilters from './TableFilters'
 import { fixEncoding, formatGTQ, formatPct } from '../../utils/formatters'
 import { getExecutionColor, getExecutionTailwind } from '../../utils/colorScale'
+import { useLang } from '../../contexts/LanguageContext'
 import HelpButton from '../HelpButton'
 
 const PAGE_SIZE = 25
@@ -31,6 +32,7 @@ function PctCell({ pct }) {
 }
 
 export default function BudgetTable({ records }) {
+  const { t } = useLang()
   const [filters, setFilters] = useState({ search: '', programa: '', subPrograma: '', proyecto: '', actividad: '', obra: '', fuente: '', tipo: '' })
   const [page, setPage]       = useState(1)
   const [sortKey, setSortKey] = useState('totalVigente')
@@ -115,17 +117,17 @@ export default function BudgetTable({ records }) {
   const paginated  = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   const cols = [
-    { key: 'programa',        label: 'Área',           sortable: false },
-    { key: 'actividad',       label: 'Tarea',          sortable: false },
-    { key: 'obra',            label: 'Obra',           sortable: false },
-    { key: 'renglon',         label: 'Partida',        sortable: false, help: { label: '¿Qué es una partida?', message: 'Una partida identifica el tipo de gasto: salarios, materiales, servicios, infraestructura, etc. Cada municipio tiene muchas partidas por cada área de trabajo.' } },
-    { key: 'fuente',          label: 'Financiamiento', sortable: false, help: { label: '¿Qué es el financiamiento?', message: 'Indica de dónde viene el dinero para este gasto específico: fondos propios del municipio, aporte del gobierno central, IVA Paz u otros fondos.' } },
-    { key: 'tipoPresupuesto', label: 'Tipo',           sortable: false },
-    { key: 'asignado',        label: 'Aprobado',       sortable: true,  help: { label: 'Dinero Aprobado', message: 'Monto que se aprobó gastar para esta partida al inicio del año.' } },
-    { key: 'vigente',         label: 'Disponible',     sortable: true,  help: { label: 'Dinero Disponible', message: 'Presupuesto actual disponible para esta partida, ya con modificaciones.' } },
-    { key: 'devengado',       label: 'Comprometido',   sortable: true,  help: { label: 'Ya Comprometido', message: 'Dinero ya asignado a contratos u obligaciones. Aún no se ha pagado pero ya tiene destino.' } },
-    { key: 'pagado',          label: 'Pagado',         sortable: true,  help: { label: 'Ya Pagado', message: 'Dinero que ya salió efectivamente de las cuentas del municipio para esta partida.' } },
-    { key: 'pctEjecucion',    label: '% Gastado',      sortable: true,  help: { label: '% Gastado', message: 'Porcentaje del dinero disponible que ya se comprometió a gastar. Verde=bueno (>70%), amarillo=medio, rojo=bajo (<30%).' } },
+    { key: 'programa',        label: t('budgetTable.colArea'),      sortable: false },
+    { key: 'actividad',       label: t('budgetTable.colTask'),      sortable: false },
+    { key: 'obra',            label: t('budgetTable.colWork'),      sortable: false },
+    { key: 'renglon',         label: t('budgetTable.colLine'),      sortable: false, help: { label: t('budgetTable.helpLineLabel'),    message: t('budgetTable.helpLineMessage') } },
+    { key: 'fuente',          label: t('budgetTable.colFunding'),   sortable: false, help: { label: t('budgetTable.helpFundingLabel'), message: t('budgetTable.helpFundingMessage') } },
+    { key: 'tipoPresupuesto', label: t('budgetTable.colType'),      sortable: false },
+    { key: 'asignado',        label: t('budgetTable.colApproved'),  sortable: true,  help: { label: t('budgetTable.helpApprovedLabel'),  message: t('budgetTable.helpApprovedMessage') } },
+    { key: 'vigente',         label: t('budgetTable.colAvailable'), sortable: true,  help: { label: t('budgetTable.helpAvailableLabel'), message: t('budgetTable.helpAvailableMessage') } },
+    { key: 'devengado',       label: t('budgetTable.colCommitted'), sortable: true,  help: { label: t('budgetTable.helpCommittedLabel'), message: t('budgetTable.helpCommittedMessage') } },
+    { key: 'pagado',          label: t('budgetTable.colPaid'),      sortable: true,  help: { label: t('budgetTable.helpPaidLabel'),      message: t('budgetTable.helpPaidMessage') } },
+    { key: 'pctEjecucion',    label: t('budgetTable.colPct'),       sortable: true,  help: { label: t('budgetTable.helpPctLabel'),       message: t('budgetTable.helpPctMessage') } },
   ]
 
   return (
@@ -135,10 +137,10 @@ export default function BudgetTable({ records }) {
       <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden transition-colors duration-200">
         <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-700">
           <p className="text-xs font-body text-slate-500 dark:text-slate-400">
-            <span className="font-medium text-slate-800 dark:text-slate-200">{filtered.length}</span> registros
+            <span className="font-medium text-slate-800 dark:text-slate-200">{filtered.length}</span> {t('budgetTable.records')}
           </p>
           <p className="text-xs font-body text-slate-500 dark:text-slate-400">
-            Página {page} de {totalPages || 1}
+            {t('budgetTable.page', { page, total: totalPages || 1 })}
           </p>
         </div>
 
@@ -191,7 +193,7 @@ export default function BudgetTable({ records }) {
               {paginated.length === 0 && (
                 <tr>
                   <td colSpan={11} className="text-center py-10 text-slate-400 dark:text-slate-500">
-                    No se encontraron registros con estos filtros.
+                    {t('budgetTable.noResults')}
                   </td>
                 </tr>
               )}
@@ -206,7 +208,7 @@ export default function BudgetTable({ records }) {
             disabled={page === 1}
             className="flex items-center gap-1 text-xs font-body text-slate-600 dark:text-slate-400 hover:text-brand-700 dark:hover:text-brand-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
-            <ChevronLeft size={14} /> Anterior
+            <ChevronLeft size={14} /> {t('budgetTable.prev')}
           </button>
           <div className="flex gap-1">
             {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
@@ -231,7 +233,7 @@ export default function BudgetTable({ records }) {
             disabled={page === totalPages || totalPages === 0}
             className="flex items-center gap-1 text-xs font-body text-slate-600 dark:text-slate-400 hover:text-brand-700 dark:hover:text-brand-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
-            Siguiente <ChevronRight size={14} />
+            {t('budgetTable.next')} <ChevronRight size={14} />
           </button>
         </div>
       </div>

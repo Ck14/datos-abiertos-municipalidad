@@ -2,6 +2,7 @@ import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts'
 import { aggregateByFuente } from '../../utils/budgetAggregator'
 import { formatMillions, formatPct } from '../../utils/formatters'
 import { useIsDark } from '../../contexts/ThemeContext'
+import { useLang } from '../../contexts/LanguageContext'
 import HelpButton from '../HelpButton'
 
 const FUENTE_META = {
@@ -12,19 +13,21 @@ const FUENTE_META = {
 }
 
 function CustomTooltip({ active, payload }) {
+  const { t } = useLang()
   if (!active || !payload?.length) return null
   const d = payload[0]
   return (
     <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 shadow-lg text-xs font-body">
       <p className="font-semibold text-slate-800 dark:text-slate-200 mb-0.5">{d.payload.meta.short}</p>
       <p className="text-slate-600 dark:text-slate-400">{formatMillions(d.value)}</p>
-      <p className="text-slate-500 dark:text-slate-500">{formatPct(d.payload.pct)} del total</p>
+      <p className="text-slate-500 dark:text-slate-500">{formatPct(d.payload.pct)} {t('fuente.ofTotal')}</p>
     </div>
   )
 }
 
 export default function FuenteDonut({ records }) {
   const isDark = useIsDark()
+  const { t } = useLang()
   const raw   = aggregateByFuente(records)
   const total = raw.reduce((s, d) => s + d.value, 0)
 
@@ -41,15 +44,15 @@ export default function FuenteDonut({ records }) {
     <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm flex flex-col transition-colors duration-200">
       <div className="flex items-center gap-2 mb-1">
         <h3 className="text-sm font-display font-semibold text-slate-800 dark:text-slate-200">
-          ¿De dónde viene el dinero?
+          {t('fuente.title')}
         </h3>
         <HelpButton
-          label="¿De dónde viene el dinero?"
-          message="El municipio recibe dinero de varias fuentes: sus propios cobros (tasas, servicios), el IVA Paz que reparte el gobierno central, el Aporte Constitucional (10% del presupuesto nacional) y otros fondos especiales."
+          label={t('fuente.helpLabel')}
+          message={t('fuente.helpMessage')}
         />
       </div>
       <p className="text-xs font-body text-slate-500 dark:text-slate-400 mb-4">
-        Total disponible: <span className="font-semibold text-slate-700 dark:text-slate-300">{formatMillions(total)}</span>
+        {t('fuente.total')} <span className="font-semibold text-slate-700 dark:text-slate-300">{formatMillions(total)}</span>
       </p>
 
       {/* Donut */}
