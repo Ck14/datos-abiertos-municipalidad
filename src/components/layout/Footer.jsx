@@ -8,23 +8,24 @@ const COUNTER_BASE = import.meta.env.DEV
   : 'https://api.counterapi.dev/v2/ckevyn-ovalles-team-3705/first-counter-3705'
 const API_KEY = import.meta.env.VITE_COUNTER_API_KEY
 
+const apiUrl = (path) => `${path}${API_KEY ? `?api_key=${API_KEY}` : ''}`
+
 function useVisitCounter() {
   const [count, setCount] = useState(null)
 
   useEffect(() => {
-    const headers = { Authorization: `Bearer ${API_KEY}` }
     const alreadyCounted = sessionStorage.getItem('visit_counted')
 
     const parseCount = (json) => json?.data?.up_count ?? null
 
     const readCount = () =>
-      fetch(COUNTER_BASE, { headers })
+      fetch(apiUrl(COUNTER_BASE))
         .then(r => r.json())
         .then(json => setCount(parseCount(json)))
         .catch(err => console.warn('[counter] GET error:', err))
 
     if (!alreadyCounted) {
-      fetch(`${COUNTER_BASE}/up`, { headers })
+      fetch(apiUrl(`${COUNTER_BASE}/up`))
         .then(r => r.json())
         .then(() => {
           sessionStorage.setItem('visit_counted', '1')
