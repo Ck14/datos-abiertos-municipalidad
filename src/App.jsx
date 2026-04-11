@@ -16,6 +16,7 @@ import { LanguageProvider, useLang } from './contexts/LanguageContext'
 import { calcGlobalTotals } from './utils/budgetAggregator'
 import MascotGuide from './components/MascotGuide'
 import WelcomeModal from './components/WelcomeModal'
+import Glossary from './components/Glossary'
 
 function LoadingScreen() {
   const { t } = useLang()
@@ -107,6 +108,9 @@ function AppInner() {
                 <BudgetTable records={records} />
               </div>
             )}
+
+            {/* GLOSARIO */}
+            {activeTab === 'glosario' && <Glossary />}
           </main>
         </div>
         <Footer />
