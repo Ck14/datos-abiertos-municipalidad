@@ -1,6 +1,7 @@
 import { ChevronRight } from 'lucide-react'
 import { formatMillions } from '../../utils/formatters'
 import { getExecutionColor } from '../../utils/colorScale'
+import { useLang } from '../../contexts/LanguageContext'
 
 function Ring({ pct, color, size = 48 }) {
   const r     = (size - 8) / 2
@@ -31,6 +32,7 @@ function Ring({ pct, color, size = 48 }) {
 }
 
 export function HeroLevelCard({ item, meta, onClick }) {
+  const { t } = useLang()
   const execColor = getExecutionColor(item.pctEjecucion)
   const clickable = item.hasChildren
 
@@ -52,7 +54,7 @@ export function HeroLevelCard({ item, meta, onClick }) {
           <div className="flex items-center gap-2 mb-1">
             <span className="text-2xl">{meta.icon}</span>
             <span className="text-[10px] font-body font-medium opacity-75 uppercase tracking-widest">
-              {item.levelLabel} principal
+              {t(`levelLabels.${item.key}`) || item.levelLabel} {t('levelCard.mainSuffix')}
             </span>
             {clickable && <ChevronRight size={14} className="opacity-70 ml-auto" />}
           </div>
@@ -62,9 +64,9 @@ export function HeroLevelCard({ item, meta, onClick }) {
 
           <div className="flex flex-wrap items-end gap-5">
             {[
-              { label: 'Dinero disponible', val: item.totalVigente, big: true },
-              { label: 'Comprometido',      val: item.totalDevengado },
-              { label: 'Pagado',            val: item.totalPagado },
+              { label: t('levelCard.available'), val: item.totalVigente, big: true },
+              { label: t('levelCard.committed'), val: item.totalDevengado },
+              { label: t('levelCard.paid'),      val: item.totalPagado },
             ].map(({ label, val, big }) => (
               <div key={label}>
                 <p className="text-[10px] opacity-70 font-body">{label}</p>
@@ -78,7 +80,7 @@ export function HeroLevelCard({ item, meta, onClick }) {
 
         <div className="flex flex-col items-center gap-1 flex-shrink-0">
           <Ring pct={item.pctEjecucion} color="white" size={72} />
-          <span className="text-[10px] font-body opacity-75">% gastado</span>
+          <span className="text-[10px] font-body opacity-75">{t('levelCard.pctSpent')}</span>
         </div>
       </div>
 
@@ -93,6 +95,7 @@ export function HeroLevelCard({ item, meta, onClick }) {
 }
 
 export default function LevelCard({ item, meta, onClick }) {
+  const { t } = useLang()
   const execColor = getExecutionColor(item.pctEjecucion)
   const clickable = item.hasChildren
 
@@ -132,7 +135,7 @@ export default function LevelCard({ item, meta, onClick }) {
           </div>
         </div>
         <p className="text-[10px] text-slate-400 dark:text-slate-500 font-body mt-0.5">
-          Comprometido: <span className="font-medium text-slate-600 dark:text-slate-400">{formatMillions(item.totalDevengado)}</span>
+          {t('levelCard.committedLabel')} <span className="font-medium text-slate-600 dark:text-slate-400">{formatMillions(item.totalDevengado)}</span>
         </p>
       </div>
 

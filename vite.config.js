@@ -11,6 +11,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/minfin/, '/api/action'),
         secure: true,
+      },
+      '/counter': {
+        target: 'https://api.counterapi.dev',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/counter/, ''),
       }
     }
   }

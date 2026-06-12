@@ -2,6 +2,7 @@ import { FileText, CalendarCheck, TrendingUp, CheckCircle2 } from 'lucide-react'
 import { formatMillions, formatPct } from '../../utils/formatters'
 import { getExecutionColor } from '../../utils/colorScale'
 import HelpButton from '../HelpButton'
+import { useLang } from '../../contexts/LanguageContext'
 
 function KPICard({ icon: Icon, label, amount, pct, color, showBar = false, helpLabel, helpMessage }) {
   const barColor = showBar ? getExecutionColor(pct) : null
@@ -41,21 +42,22 @@ export default function KPICards({ totals }) {
   const { totalAsignado, totalVigente, totalDevengado, totalPagado } = totals
   const pctDevengado = totalVigente > 0 ? (totalDevengado / totalVigente) * 100 : 0
   const pctPagado    = totalVigente > 0 ? (totalPagado    / totalVigente) * 100 : 0
+  const { t } = useLang()
 
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-      <KPICard icon={FileText}      label="Dinero Aprobado"    amount={totalAsignado}  color="#1d4ed8"
-        helpLabel="Dinero Aprobado"
-        helpMessage="Es el monto que el Concejo Municipal aprobó gastar al inicio del año. Es el punto de partida del presupuesto." />
-      <KPICard icon={CalendarCheck} label="Dinero Disponible"   amount={totalVigente}   color="#4f46e5"
-        helpLabel="Dinero Disponible"
-        helpMessage="Es el presupuesto actual luego de modificaciones. Puede ser mayor o menor al aprobado según las necesidades del municipio." />
-      <KPICard icon={TrendingUp}    label="Ya Comprometido"     amount={totalDevengado} pct={pctDevengado} color="#0891b2" showBar
-        helpLabel="Ya Comprometido"
-        helpMessage="Dinero que ya fue asignado a pagos, contratos u obligaciones. Aún no ha salido de las cuentas, pero ya tiene destino." />
-      <KPICard icon={CheckCircle2}  label="Ya Pagado"           amount={totalPagado}    pct={pctPagado}    color="#059669" showBar
-        helpLabel="Ya Pagado"
-        helpMessage="Dinero que ya salió efectivamente de las cuentas del municipio. Es lo que realmente se ha gastado hasta hoy." />
+      <KPICard icon={FileText}      label={t('kpi.approved')}   amount={totalAsignado}  color="#1d4ed8"
+        helpLabel={t('kpi.approved')}
+        helpMessage={t('kpi.approvedHelp')} />
+      <KPICard icon={CalendarCheck} label={t('kpi.available')}  amount={totalVigente}   color="#4f46e5"
+        helpLabel={t('kpi.available')}
+        helpMessage={t('kpi.availableHelp')} />
+      <KPICard icon={TrendingUp}    label={t('kpi.committed')}  amount={totalDevengado} pct={pctDevengado} color="#0891b2" showBar
+        helpLabel={t('kpi.committed')}
+        helpMessage={t('kpi.committedHelp')} />
+      <KPICard icon={CheckCircle2}  label={t('kpi.paid')}       amount={totalPagado}    pct={pctPagado}    color="#059669" showBar
+        helpLabel={t('kpi.paid')}
+        helpMessage={t('kpi.paidHelp')} />
     </div>
   )
 }

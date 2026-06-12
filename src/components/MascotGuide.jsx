@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from 'react'
 import { MessageCircle } from 'lucide-react'
 import { ThemeContext } from '../contexts/ThemeContext'
 import { useHelp } from '../contexts/HelpContext'
+import { useLang } from '../contexts/LanguageContext'
 import avatarPng from '../assets/avatar1.png'
 
 // ─── Para cambiar de avatar, reemplaza el archivo src/assets/avatar1.png ──────
@@ -15,33 +16,24 @@ function hexToRgb(hex) {
   return `${r},${g},${b}`
 }
 
-const SECTIONS = {
-  dashboard: {
-    label: 'Inicio',
-    message: '¡Aquí ves en qué se gasta el dinero del municipio! Revisa los totales y gráficas.',
-    armAngle: -148,
-    accent: '#6366f1',
-  },
-  explorar: {
-    label: '¿En qué se gasta?',
-    message: 'Haz clic en cada tarjeta para ver el detalle de cada área de gasto.',
-    armAngle: -118,
-    accent: '#0ea5e9',
-  },
-  tabla: {
-    label: 'Ver todo el gasto',
-    message: 'Busca y filtra todas las partidas de gasto del año.',
-    armAngle: -92,
-    accent: '#10b981',
-  },
+const SECTION_META = {
+  dashboard: { armAngle: -148, accent: '#6366f1' },
+  explorar:  { armAngle: -118, accent: '#0ea5e9' },
+  tabla:     { armAngle: -92,  accent: '#10b981' },
 }
 
 export default function MascotGuide({ activeTab }) {
   const isDark = useContext(ThemeContext)
   const { helpMsg, clearHelp } = useHelp() || {}
+  const { t } = useLang()
   const [minimized, setMinimized] = useState(false)
   const [bubbleOpen, setBubbleOpen] = useState(true)
-  const section = SECTIONS[activeTab] || SECTIONS.dashboard
+  const meta = SECTION_META[activeTab] || SECTION_META.dashboard
+  const section = {
+    label:   t(`mascot.${activeTab}.label`),
+    message: t(`mascot.${activeTab}.message`),
+    ...meta,
+  }
 
   // Al cambiar sección, limpia el mensaje de ayuda y reabre el globo
   useEffect(() => {
@@ -93,8 +85,8 @@ export default function MascotGuide({ activeTab }) {
           <button
             key="fab"
             onClick={() => { setMinimized(false); setBubbleOpen(true) }}
-            title="Mostrar guía"
-            aria-label="Mostrar guía"
+            title={t('mascot.showGuide')}
+            aria-label={t('mascot.showGuide')}
             className="fab-in w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-transform duration-150 focus:outline-none"
             style={{
               background: `linear-gradient(135deg, ${section.accent}, ${section.accent}cc)`,
@@ -135,14 +127,14 @@ export default function MascotGuide({ activeTab }) {
                   <div className="mt-2 flex items-center justify-between gap-2">
                     {helpMsg ? (
                       <button onClick={clearHelp} className="text-[10px] font-body opacity-50 hover:opacity-90 transition-opacity">
-                        ✕ cerrar ayuda
+                        {t('mascot.closeHelp')}
                       </button>
                     ) : <span />}
                     <button
                       onClick={() => setMinimized(true)}
                       className="flex items-center gap-0.5 text-[10px] font-body opacity-50 hover:opacity-90 transition-opacity"
                     >
-                      <span>─</span> Minimizar
+                      <span>─</span> {t('mascot.minimize')}
                     </button>
                   </div>
                 </div>

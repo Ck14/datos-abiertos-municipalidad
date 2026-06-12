@@ -1,0 +1,337 @@
+{
+  "header": {
+    "subtitle": "Presupuesto Municipal {year}",
+    "sourceOnline": "En línea",
+    "sourceLocal": "Datos locales",
+    "updated": "Actualizado:",
+    "darkMode": "Modo oscuro",
+    "lightMode": "Modo claro",
+    "refresh": "Actualizar",
+    "loading": "Cargando…",
+    "langSwitch": "Kaqchikel"
+  },
+  "nav": {
+    "dashboard": "Inicio",
+    "dashboardMobile": "Inicio",
+    "explore": "¿En qué se gasta?",
+    "exploreMobile": "El gasto",
+    "table": "Ver todo",
+    "tableMobile": "Ver todo",
+    "glossary": "¿Qué significa?",
+    "glossaryMobile": "Términos",
+    "collapse": "Colapsar menú",
+    "expand": "Expandir menú"
+  },
+  "glossary": {
+    "title": "¿Qué significa?",
+    "subtitle": "Guía de los términos del presupuesto municipal en lenguaje sencillo.",
+    "search": "Buscar término…",
+    "noResults": "No se encontraron términos.",
+    "terms": [
+      {
+        "term": "Presupuesto Aprobado",
+        "icon": "📋",
+        "color": "#1d4ed8",
+        "definition": "Es el monto total que el Concejo Municipal aprobó gastar durante el año. Se fija al inicio de cada año y es el punto de partida oficial del presupuesto.",
+        "example": "Si el Concejo aprobó Q50 millones, ese es el presupuesto aprobado."
+      },
+      {
+        "term": "Presupuesto Vigente",
+        "icon": "📅",
+        "color": "#4f46e5",
+        "definition": "Es el presupuesto actualizado después de modificaciones o ampliaciones durante el año. Puede ser mayor o menor al aprobado.",
+        "example": "Si se recibió dinero extra del gobierno, el vigente sube respecto al aprobado."
+      },
+      {
+        "term": "Devengado",
+        "icon": "🔒",
+        "color": "#0891b2",
+        "definition": "Dinero que ya fue comprometido para pagos, contratos u obligaciones. El municipio ya tiene la deuda, pero el dinero aún no salió de las cuentas.",
+        "example": "Cuando se firma un contrato de construcción, ese monto se devengado."
+      },
+      {
+        "term": "Pagado",
+        "icon": "✅",
+        "color": "#059669",
+        "definition": "Dinero que ya salió efectivamente de las cuentas del municipio. Es el gasto real ejecutado hasta la fecha.",
+        "example": "Cuando el municipio transfiere el dinero al proveedor, se registra como pagado."
+      },
+      {
+        "term": "Ejecución Presupuestaria",
+        "icon": "📊",
+        "color": "#7c3aed",
+        "definition": "Es el porcentaje del presupuesto vigente que ya se ha comprometido o gastado. Indica qué tan avanzado está el gasto del año.",
+        "example": "Una ejecución del 70% significa que ya se comprometió el 70% del dinero disponible."
+      },
+      {
+        "term": "Programa",
+        "icon": "🗂️",
+        "color": "#1d4ed8",
+        "definition": "Es la agrupación más grande del presupuesto. Cada programa representa un área de trabajo del municipio como educación, salud, infraestructura, etc.",
+        "example": "El programa de Agua y Saneamiento agrupa todos los gastos relacionados con agua potable."
+      },
+      {
+        "term": "Subprograma",
+        "icon": "📁",
+        "color": "#0891b2",
+        "definition": "Es una división dentro de un programa. Permite organizar mejor las actividades de un área de trabajo grande.",
+        "example": "Dentro del programa de Educación puede haber un subprograma de Educación Primaria."
+      },
+      {
+        "term": "Proyecto",
+        "icon": "🏗️",
+        "color": "#7c3aed",
+        "definition": "Es una iniciativa concreta con inicio y fin definidos. Los proyectos producen un resultado específico como una escuela, una carretera o un sistema de agua.",
+        "example": "Construcción del mercado municipal es un proyecto."
+      },
+      {
+        "term": "Actividad",
+        "icon": "⚙️",
+        "color": "#b45309",
+        "definition": "Son las tareas recurrentes o permanentes del municipio. A diferencia de los proyectos, las actividades no tienen fecha de finalización.",
+        "example": "El mantenimiento de calles es una actividad permanente."
+      },
+      {
+        "term": "Obra",
+        "icon": "🔨",
+        "color": "#dc2626",
+        "definition": "Es el nivel más detallado del gasto. Representa una acción específica dentro de una actividad o proyecto.",
+        "example": "Dentro del mantenimiento de calles, pavimentar la calle 5 es una obra."
+      },
+      {
+        "term": "Renglón",
+        "icon": "🏷️",
+        "color": "#64748b",
+        "definition": "Identifica el tipo de gasto: salarios, materiales, servicios profesionales, maquinaria, etc. El sistema MINFIN tiene cientos de renglones distintos.",
+        "example": "El renglón 011 es para sueldos, el 022 para combustibles."
+      },
+      {
+        "term": "Fuente de Financiamiento",
+        "icon": "💰",
+        "color": "#059669",
+        "definition": "Indica de dónde viene el dinero para cada gasto. Las principales fuentes son los ingresos propios del municipio, el IVA Paz y el Aporte Constitucional.",
+        "example": "Una obra de agua potable puede financiarse con el Aporte Constitucional."
+      },
+      {
+        "term": "IVA Paz",
+        "icon": "🧾",
+        "color": "#4f46e5",
+        "definition": "Es el 1.5% del IVA que recauda el gobierno central y redistribuye a los municipios. Es una fuente importante de ingresos para obras e inversión local.",
+        "example": "Cada vez que alguien paga IVA en Guatemala, una parte llega al municipio como IVA Paz."
+      },
+      {
+        "term": "Aporte Constitucional",
+        "icon": "🏛️",
+        "color": "#0369a1",
+        "definition": "Es el 10% del presupuesto general del Estado que la Constitución de Guatemala manda transferir a los municipios para su desarrollo.",
+        "example": "Si el presupuesto nacional es Q100 mil millones, los municipios reciben Q10 mil millones."
+      },
+      {
+        "term": "MINFIN",
+        "icon": "🏦",
+        "color": "#166534",
+        "definition": "Ministerio de Finanzas Públicas de Guatemala. Es la institución que administra el presupuesto nacional y publica los datos abiertos que usa esta plataforma.",
+        "example": "Todos los datos que ves aquí provienen directamente del portal de datos abiertos del MINFIN."
+      }
+    ]
+  },
+  "dashboard": {
+    "title": "¿En qué se usa el dinero del municipio?",
+    "subtitle": "Año {year} · {count} partidas de gasto"
+  },
+  "explore": {
+    "title": "¿En qué se gasta?",
+    "subtitle": "Haz clic en cada tarjeta para ver el detalle del gasto."
+  },
+  "table": {
+    "title": "Ver todo el gasto",
+    "subtitle": "Todas las partidas de gasto del año {year} con filtros y búsqueda."
+  },
+  "kpi": {
+    "approved": "Dinero Aprobado",
+    "approvedHelp": "Es el monto que el Concejo Municipal aprobó gastar al inicio del año. Es el punto de partida del presupuesto.",
+    "available": "Dinero Disponible",
+    "availableHelp": "Es el presupuesto actual luego de modificaciones. Puede ser mayor o menor al aprobado según las necesidades del municipio.",
+    "committed": "Ya Comprometido",
+    "committedHelp": "Dinero que ya fue asignado a pagos, contratos u obligaciones. Aún no ha salido de las cuentas, pero ya tiene destino.",
+    "paid": "Ya Pagado",
+    "paidHelp": "Dinero que ya salió efectivamente de las cuentas del municipio. Es lo que realmente se ha gastado hasta hoy."
+  },
+  "mascot": {
+    "dashboard": {
+      "label": "Inicio",
+      "message": "¡Aquí ves en qué se gasta el dinero del municipio! Revisa los totales y gráficas."
+    },
+    "explorar": {
+      "label": "¿En qué se gasta?",
+      "message": "Haz clic en cada tarjeta para ver el detalle de cada área de gasto."
+    },
+    "tabla": {
+      "label": "Ver todo el gasto",
+      "message": "Busca y filtra todas las partidas de gasto del año."
+    },
+    "minimize": "Minimizar",
+    "closeHelp": "✕ cerrar ayuda",
+    "showGuide": "Mostrar guía"
+  },
+  "fuente": {
+    "title": "¿De dónde viene el dinero?",
+    "helpLabel": "¿De dónde viene el dinero?",
+    "helpMessage": "El municipio recibe dinero de varias fuentes: sus propios cobros (tasas, servicios), el IVA Paz que reparte el gobierno central, el Aporte Constitucional (10% del presupuesto nacional) y otros fondos especiales.",
+    "total": "Total disponible:",
+    "ofTotal": "del total",
+    "propios": "Ingresos Propios",
+    "ivaPaz": "IVA Paz",
+    "aporte": "Aporte Constitucional",
+    "otros": "Otros Recursos"
+  },
+  "programas": {
+    "title": "Gasto por Área de Trabajo",
+    "helpLabel": "Áreas de trabajo",
+    "helpMessage": "Cada área agrupa actividades relacionadas que hace el municipio: agua potable, educación, seguridad, administración, etc. Haz clic en cualquier área para ver en qué tareas específicas se gasta el dinero.",
+    "count": "{count} programas",
+    "mainArea": "Área principal",
+    "available": "Dinero disponible",
+    "committed": "Devengado",
+    "ofTotal": "Del total",
+    "execution": "ejecución",
+    "executionLegend": "Ejecución:",
+    "low": "Bajo",
+    "medium": "Medio",
+    "high": "Alto",
+    "admin": "Administración",
+    "agua": "Agua y Saneamiento",
+    "seguridad": "Seguridad",
+    "movilidad": "Movilidad Urbana",
+    "ambiente": "Ambiente",
+    "turismo": "Turismo",
+    "mortalidad": "Prevención Mortalidad",
+    "educacion": "Educación",
+    "salud": "Salud",
+    "otras": "Otras Partidas",
+    "vulnerable": "Población Vulnerable",
+    "desarrollo": "Desarrollo Económico",
+    "fallback": "Programa"
+  },
+  "chart": {
+    "helpLabel": "Disponible vs Comprometido",
+    "helpMessageSingle": "La barra azul muestra el dinero disponible. La barra de color muestra cuánto ya se comprometió a gastar. Si están parejas, se está ejecutando bien el presupuesto.",
+    "helpMessageMulti": "Compara cuánto dinero hay disponible (azul) vs cuánto ya se comprometió a gastar (color). El semáforo indica el avance: rojo=bajo, amarillo=medio, verde=bueno.",
+    "available": "Disponible",
+    "committed": "Comprometido",
+    "paid": "Pagado",
+    "pctSpent": "% gastado",
+    "treemapTitle": "Distribución por Programa",
+    "vigente": "Vigente:",
+    "devengado": "Devengado:",
+    "ejecucion": "Ejecución:"
+  },
+  "levelCard": {
+    "mainSuffix": "principal",
+    "available": "Dinero disponible",
+    "committed": "Comprometido",
+    "paid": "Pagado",
+    "pctSpent": "% gastado",
+    "committedLabel": "Comprometido:"
+  },
+  "breadcrumb": {
+    "home": "Inicio"
+  },
+  "views": {
+    "programatica": "Programática",
+    "funcional": "Funcional",
+    "gasto": "Por Tipo de Gasto"
+  },
+  "levelLabels": {
+    "programa": "Programa",
+    "subPrograma": "SubPrograma",
+    "proyecto": "Proyecto",
+    "actividad": "Actividad",
+    "obra": "Obra",
+    "finalidad": "Finalidad",
+    "funcion": "Función",
+    "division": "División",
+    "grupoGasto": "Grupo de Gasto",
+    "subGrupoGasto": "SubGrupo de Gasto",
+    "renglon": "Renglón"
+  },
+  "drilldown": {
+    "found_one": "{count} {level} encontrado",
+    "found_other": "{count} {level}s encontrados",
+    "clickToExplore": "· Haz clic para explorar",
+    "empty": "No hay datos para este nivel.",
+    "chartTitle": "Disponible vs Comprometido — por {level}",
+    "progress": "Avance:",
+    "low": "Bajo (<30%)",
+    "medium": "Medio (30–70%)",
+    "high": "Alto (>70%)"
+  },
+  "budgetTable": {
+    "colArea": "Área",
+    "colTask": "Tarea",
+    "colWork": "Obra",
+    "colLine": "Partida",
+    "colFunding": "Financiamiento",
+    "colType": "Tipo",
+    "colApproved": "Aprobado",
+    "colAvailable": "Disponible",
+    "colCommitted": "Comprometido",
+    "colPaid": "Pagado",
+    "colPct": "% Gastado",
+    "helpLineLabel": "¿Qué es una partida?",
+    "helpLineMessage": "Una partida identifica el tipo de gasto: salarios, materiales, servicios, infraestructura, etc. Cada municipio tiene muchas partidas por cada área de trabajo.",
+    "helpFundingLabel": "¿Qué es el financiamiento?",
+    "helpFundingMessage": "Indica de dónde viene el dinero para este gasto específico: fondos propios del municipio, aporte del gobierno central, IVA Paz u otros fondos.",
+    "helpApprovedLabel": "Dinero Aprobado",
+    "helpApprovedMessage": "Monto que se aprobó gastar para esta partida al inicio del año.",
+    "helpAvailableLabel": "Dinero Disponible",
+    "helpAvailableMessage": "Presupuesto actual disponible para esta partida, ya con modificaciones.",
+    "helpCommittedLabel": "Ya Comprometido",
+    "helpCommittedMessage": "Dinero ya asignado a contratos u obligaciones. Aún no se ha pagado pero ya tiene destino.",
+    "helpPaidLabel": "Ya Pagado",
+    "helpPaidMessage": "Dinero que ya salió efectivamente de las cuentas del municipio para esta partida.",
+    "helpPctLabel": "% Gastado",
+    "helpPctMessage": "Porcentaje del dinero disponible que ya se comprometió a gastar. Verde=bueno (>70%), amarillo=medio, rojo=bajo (<30%).",
+    "records": "registros",
+    "page": "Página {page} de {total}",
+    "noResults": "No se encontraron registros con estos filtros.",
+    "prev": "Anterior",
+    "next": "Siguiente"
+  },
+  "tableFilters": {
+    "all": "Todos",
+    "search": "Buscar",
+    "searchPlaceholder": "Área, tarea, obra, partida…",
+    "area": "Área",
+    "subarea": "Subárea",
+    "project": "Proyecto",
+    "task": "Tarea",
+    "work": "Obra",
+    "funding": "Financiamiento",
+    "type": "Tipo",
+    "clear": "Limpiar"
+  },
+  "welcome": {
+    "title": "¡Bienvenido!",
+    "brand": "Chimaltenango Transparente",
+    "body1": "Aquí puedes ver",
+    "bodyStrong": "en qué se gasta el dinero",
+    "body2": "de tu municipio en {year}.",
+    "source": "Información pública del Ministerio de Finanzas.",
+    "cta": "Ver el presupuesto →",
+    "noRepeat": "Este mensaje no volverá a aparecer"
+  },
+  "footer": {
+    "description": "Plataforma de visualización del presupuesto municipal de {entity}. Promoviendo la transparencia y rendición de cuentas ciudadana.",
+    "dataSource": "Fuente de datos",
+    "minfinLabel": "MINFIN — Datos Abiertos Guatemala",
+    "minfinYear": "Información presupuestaria municipal {year} — Región V Central",
+    "credits": "Créditos",
+    "builtBy": "Desarrollado por",
+    "builtWith": "Construido con React, Vite, Tailwind CSS y Recharts.",
+    "copyright": "© {year} Chimaltenango Transparente. Datos públicos bajo licencia abierta.",
+    "official": "Los datos provienen oficialmente del Ministerio de Finanzas Públicas de Guatemala."
+  },
+  "loading": "Cargando presupuesto…",
+  "error": "Error al cargar los datos:"
+}
