@@ -1,10 +1,8 @@
 import appConfig from '../data/config.json'
 
 // En dev: Vite proxea /api/minfin → datos.minfin.gob.gt/api/action
-// En prod: llamada directa al browser para evitar bloqueos server-side de Vercel
-const CKAN_BASE = import.meta.env.DEV
-  ? '/api/minfin'
-  : 'https://datos.minfin.gob.gt/api/action'
+// En prod: siempre usa fallback local (MINFIN bloquea requests externos)
+const CKAN_BASE = '/api/minfin'
 const CACHE_KEY   = 'minfin_resource_id_cache'
 
 /**
@@ -125,9 +123,12 @@ export async function fetchLocal() {
  * Retorna { records, source, year }
  */
 export async function loadBudgetData() {
-  const api = await fetchFromAPI()
-  if (api && api.records.length > 0) {
-    return { records: api.records, source: 'api', year: api.year }
+  // En dev intentamos la API (proxy Vite); en prod el JSON local es siempre la fuente
+  if (import.meta.env.DEV) {
+    const api = await fetchFromAPI()
+    if (api && api.records.length > 0) {
+      return { records: api.records, source: 'api', year: api.year }
+    }
   }
   const local = await fetchLocal()
   return { records: local.records, source: 'local', year: local.year }
